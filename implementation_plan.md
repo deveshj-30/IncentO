@@ -192,8 +192,8 @@ Data rules:
 - Stable string IDs: `policy_id`, `customer_id`, `deal_id`, `ticket_id`, `incident_id`, `run_id`. Tickets and cancellations reference a deal and customer; deals reference the applicable policy version.
 - Record event timestamps and policy effective dates in UTC. Give each replay an `as_of` timestamp; exclude future events from calculations and memory retrieval.
 - Store money as integer minor units plus currency, discounts as fractions from 0 to 1, and missing values explicitly. Do not join customers by display name.
-- Define `Policy`, `Deal`, `Ticket`, `Cancellation`, `Incident`, and `ManagementOutcome` schemas. Deals include segment, acquisition channel, close time, and revenue; outcomes distinguish decisions from later measured results.
-- Define `Evidence` with source ID, source type, timestamp, excerpt where applicable, and an exact record reference.
+- Define `Policy`, `Deal`, `Ticket`, `Cancellation`, `Incident`, and `ManagementOutcome` schemas. Deals include segment, acquisition channel, close time, and revenue; outcomes distinguish decisions from later measured results. Tickets and cancellations carry a `theme` from a fixed set (`missing_feature`, `onboarding_difficulty`, `pricing_dispute`, `outage`, `other`) assigned in the fixtures; code uses themes for counts and corroboration.
+- Define `Evidence` with source ID, source type, timestamp, `theme`, excerpt where applicable (for display only; never sent to a model), and an exact record reference.
 - Define `AnalysisResult` with cohort definitions/counts, metric denominators, deltas, the pre-policy baseline gap, uncertainty intervals, a per-metric `status` (`flagged`, `watch`, `no_signal`, or `insufficient_data`), evidence IDs, alternative explanations, and reasons for `insufficient_data`.
 - Define `Investigation` with run/policy IDs, analysis, hypothesis, supporting and conflicting evidence, recommendations, recalled incident IDs, memory status (`live`, `unavailable`, or `fixture`), `explanation_source` (`reflect` or `template`), and non-secret validation error codes when an explanation failed validation.
 - Every recommendation includes an `action_type` (a small fixed set), an action, a rationale linked to evidence, a proposed success metric, a guardrail, and `history_influence` (IDs of recalled memories that shaped it; empty when memory is off). Never invent citations or a numerical confidence score.
@@ -313,6 +313,7 @@ Exit checkpoints — **G5**:
 - [ ] **P3:** Risk scenario is flagged with supporting evidence; outage scenario presents the alternative explanation without an incentive accusation; sparse data returns insufficient evidence. Duplicate, missing-link, zero-denominator, and immature-cohort tests pass.
 - [ ] **P4:** Missing credentials, timeout, malformed model output, invalid references, and stray numbers produce honest failure/partial-result states (a failed explanation falls back to the labeled template). Previously generated text is never silently presented as a fresh live result.
 - [ ] **P1:** Loading, empty, error, and retry flows are usable; a user can inspect evidence and save an outcome without a broken screen.
+- [ ] **P3/P4/P1:** The injection canary (`TICKET-INJECT-001`) leaves metrics, `analysis_digest`, and recommendation validity unchanged; a unit test shows no ticket text field reaches the prompt builder's output, and a UI test shows the string rendered as inert text.
 - [ ] **P2 + a second contributor:** A clean checkout installs and runs using the README, with only documented external configuration. `scripts/check.sh` (frontend build/lint/tests, backend lint/tests, and contract drift checks) and the full-flow smoke check pass.
 - [ ] **All:** No unresolved issue blocks launching, evidence inspection, correct metrics, or the live memory loop. Record deferred cosmetic issues, update handoffs, and freeze features.
 
@@ -399,7 +400,16 @@ Demo reliability rules (the Cloud model behind Reflect is not configurable, so r
 - **Labeled fallback.** At G6, P4 saves a known-good run snapshot for use if live Hindsight fails during the demonstration. It is always labeled and never counted as live integration.
 - **Learning curve.** The walkthrough shows three steps: no memory, seeded history, and after a recorded decision and measured outcome.
 
-Demonstrate identical current evidence with an empty memory and with relevant history, then save a new outcome and show that it influences a later run. Keep calculations unchanged between comparisons. Verify returned references against stored evidence. Untrusted ticket text is data, never an instruction to the application. A stub or recording must be labeled; it cannot count as successful live Hindsight integration.
+Untrusted text rules (customer-written text is the untrusted channel; policies, seeded incidents, and manager input are trusted but still bounded):
+
+- **Allowlist for prompts.** P4's prompt builder serializes evidence with an allowlist, not a blocklist: only `id`, `source_type`, `timestamp`, and `theme`, plus metrics through tokens. `excerpt` and any other free text never reach a model. The explanation cites evidence IDs, and the UI resolves them to quotes.
+- **Themes from fixtures.** P3 assigns each ticket and cancellation a `theme` from the fixed set. This is a demo simplification; production would use a constrained classifier.
+- **Nothing raw in memory.** Retained content is built from templates containing IDs, themes, dates, and token references, never ticket or cancellation text. The manager's outcome note is capped at 280 characters, stripped of control characters and markup, and labeled as a manager note.
+- **Output checks.** In addition to the explanation number rules, free-text fields are rejected if they contain URLs, markdown links, HTML, or code fences. `action_type` is a fixed set, and the application takes no autonomous actions.
+- **Safe rendering.** The UI renders customer text and model text as plain text, with no `dangerouslySetInnerHTML`, shows quotes in blocks labeled "customer text (untrusted)", and uses only the structured explanation fields, never Reflect's free markdown.
+- **Canary.** The risk fixture includes ticket `TICKET-INJECT-001` containing an injection string. Tests show that no ticket text field appears in the prompt builder's output, that metrics and `analysis_digest` are unchanged, and that the UI renders the string inert.
+
+Demonstrate identical current evidence with an empty memory and with relevant history, then save a new outcome and show that it influences a later run. Keep calculations unchanged between comparisons. Verify returned references against stored evidence. Untrusted ticket text is data, never an instruction to the application (see the untrusted text rules). A stub or recording must be labeled; it cannot count as successful live Hindsight integration.
 
 ## Git Workflow and Conflict Prevention
 
