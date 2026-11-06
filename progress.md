@@ -18,7 +18,7 @@ This file holds the shared status and the phase gate tracker, and P2 maintains i
 - Current phase: Phase 1 pending; implementation NOT STARTED. No phase gate has passed.
 - Repository baseline: `AGENTS.md`, `.gitignore`, and four planning/handoff documents; `reference/` ignored. No initial commit existed when this baseline was inspected.
 - Available application commands: None yet. Commands in the implementation plan are targets.
-- Contract version: Proposed v1 in two slices (Slice A due at G1, Slice B by G2); not published or frozen.
+- Contract version: Proposed v1 in two slices (Slice A due at G1, Slice B by G2); both are on `main` but NOT frozen. Reviewers P1, P3, P4 must record their result; see the Contract Review Checkpoint below.
 - Latest integrated commit / PR: None.
 - Verified features: None; no application code exists.
 - Verification: Documentation reviewed; application build, tests, and live Hindsight checks NOT RUN.
@@ -54,6 +54,29 @@ Next permitted phase / action:
 ```
 
 Do not put secrets in evidence. A draft demo, mocked memory test, or unmerged feature branch cannot satisfy a checkpoint that requires live integration or a merged release.
+
+### Contract Review Checkpoint — ACTION REQUIRED from P1, P3, P4 (P2 Maintains)
+
+Slice A (and Slice B) are on `main` but **not frozen**. If you are P1, P3, or P4 (or their assistant), do this before building against the contracts, and before G1:
+
+1. Read `contracts/v1.md`, `backend/app/core/schemas.py`, and `contracts/examples/*.json` (current `main`).
+2. Check the items for your role below.
+3. Record the result in **your own** `progress/pN.md` (you cannot edit other files), using one line: `Contract review: Slice A CONFIRMED` or `Contract review: Slice A CHANGES REQUESTED: <exact field, why, proposed change>`; add the commit you reviewed (`git rev-parse --short HEAD`) and UTC time. Tell P2 so the table below is updated.
+4. "Confirmed" means you can build against the shapes as they are. It does not mean you found no flaws forever: after the freeze, changes are additive-only and go through P2. Do not edit `schemas.py` yourself.
+
+| Role | Check before confirming |
+| --- | --- |
+| P1 | `npm run gen:types` runs on `contracts/openapi.json` and the generated types are usable; the `Investigation`, `AnalysisResult`, `Outcome`, and `Incident` fields cover the three screens and the Compare memory tab (including `analysis_digest`, `history_influence`, `recalled`, `explanation_source`, `memory_status`, `synthetic`). |
+| P3 | You can produce every `AnalysisResult` and `MetricResult` field from your analysis (counts, intervals, `pre_policy_gap`, `status`, evidence IDs, alternatives, insufficient reasons); `Dataset` and its records can hold your fixtures (`data/scenarios/<scenario>.json`); metric names and thresholds match your design. |
+| P4 | `Explanation`, `Recommendation`, `RecalledMemory`, and `ExplainContext` can carry what Reflect returns; the metric token names in `contracts/v1.md` are right; the four signatures (`explain`, `retain_outcome`, `seed_history`, `reset_demo_bank`) and `HistoricalIncident` fit your adapter; confirm or replace the proposed `HINDSIGHT_API_KEY` and `HINDSIGHT_BASE_URL` names in `.env.example`. |
+
+| Reviewer | Slice A | Slice B | Reviewed commit | Recorded in / notes |
+| --- | --- | --- | --- | --- |
+| P1 | PENDING | PENDING | None | `progress/p1.md` |
+| P3 | PENDING | PENDING | None | `progress/p3.md` |
+| P4 | PENDING | PENDING | None | `progress/p4.md` |
+
+Slice A is due before the G1 check-in; Slice B before G2. A slice is recorded as frozen only when every reviewer has a CONFIRMED line. If someone has not replied by the check-in, ask them directly; do not treat silence as confirmation, and record the slice as `UNCONFIRMED` rather than frozen.
 
 ## Per-Person Handoffs
 
