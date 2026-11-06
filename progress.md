@@ -80,9 +80,9 @@ Do not put secrets in evidence. A draft demo, mocked memory test, or unmerged fe
 - Branch / worktree or clone path: Pending; intended branch `feat/p2-api`.
 - Owned paths: API/core/main/package bootstrap, integration tests, contracts, scripts, CI, shared configuration/documents; see ownership table for exact paths.
 - Current task: Establish baseline, publish contracts, and coordinate integration.
-- Completed: Planning documents created in the workspace; no code implemented or committed.
-- Files changed / uncommitted work: Documentation baseline is uncommitted; inspect `git status --short` before staging. Local `.codex/` exists; inspect ignore rules without committing private workspace state.
-- Last pushed commit / PR / integration status: None; remote not verified.
+- Completed: Planning documents committed and pushed to `origin/main`; no application code implemented.
+- Files changed / uncommitted work: Documentation baseline is committed and pushed; inspect `git status --short` before staging. Assistant workspace directories (`.codex/`, `.claude/`) and the local `CLAUDE.md` are ignored via `.gitignore`; never commit private workspace state.
+- Last pushed commit / PR / integration status: `6606516` pushed to `origin/main` (docs and ignore rules only); no PRs or integrated code.
 - Decisions and assumptions: SQLite owns structured facts; Hindsight owns qualitative memory; only P2 changes backend dependency files.
 - Verification (exact command, directory, result): Repository inspection confirms no application scaffold. Application checks NOT RUN.
 - Blockers / dependency requests: Human assignments, remote, runtime choices, Hindsight setup, official content guide.
