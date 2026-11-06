@@ -193,7 +193,7 @@ Elapsed times start at kickoff. The seven rows below are Phases 1-7, in order. H
 
 | Time | P1: frontend | P2: API/integration | P3: analysis/data | P4: memory/demo | Exit gate |
 | --- | --- | --- | --- | --- | --- |
-| 0:00-0:45 | Sketch three screens; review examples | Bootstrap repo; freeze contracts and ownership | Define cohorts and fixture fields | Verify credentials; prove a real retain/recall call; check submission requirements | Shared contracts and runnable skeleton |
+| 0:00-0:45 | Sketch three screens; review examples | Bootstrap repo; freeze contracts and ownership | Define cohorts and fixture fields | Verify credentials; prove a real retain/recall call | Shared contracts and runnable skeleton |
 | 0:45-2:00 | Build against local contract fixtures | Routes, SQLite, fixture loading, stub module wiring | Generate scenarios and pure analysis functions | Adapter, reflection output, historical incident seed | Each module runs independently |
 | 2:00-3:30 | Connect overview and evidence detail | Merge modules; wire complete investigation | Finish metrics and failure-case tests | Connect recalled evidence and recommendations | First real end-to-end investigation |
 | 3:30-5:00 | Outcome form, memory panel, error states | Persistence, replay/idempotency, timeout handling | Outage control, sparse-data case, maturity checks | Save outcome; prove later recall after restart | Complete memory learning loop |
@@ -201,7 +201,7 @@ Elapsed times start at kickoff. The seven rows below are Phases 1-7, in order. H
 | 6:00-7:00 | Fix presentation blockers; capture screens | Rehearse launch; finish README/config instructions | Verify demo evidence; explain analytical limits | Record end-to-end demo and memory comparison | Reproducible release candidate |
 | 7:00-8:00 | Personal submission materials and rehearsal | Final sequential merges, release checklist, submission | Personal submission materials and Q&A | Personal submission materials; final live rehearsal | Submission ready with buffer |
 
-Every person prepares required personal content throughout the final two hours. P2 checks the official content guide at kickoff: if its requirements need more time, cut optional UI polish early.
+Every person prepares required personal content in Phases 6-7, after the skeleton works; none of it blocks earlier phases. The official content guide is already in `reference/`; its requirements are summarized in the Event Requirements and Release Checklist below. If content work needs more time, cut optional UI polish early.
 
 ### Gate Rules
 
@@ -222,7 +222,7 @@ Exit checkpoints — **G1**:
 - [ ] **P2:** Merge the skeleton and v1 schemas/examples. All four contributors confirm field names, module signatures, error shape, and time/money conventions. Example payloads pass schema validation.
 - [ ] **P1/P2:** Frontend starts and renders its shell; backend starts and responds to `/api/health`; setup commands are recorded.
 - [ ] **P4:** Retain a uniquely identified synthetic fact in real Hindsight and recall it in a separate request. Record the bank/namespace identifier and result without secrets.
-- [ ] **P2 + all:** Check Band AI desktop setup/use requirements, obtain the official content guide, and assign submission deliverables. Add local configuration and runtime exclusions to Git before scaffolding grows.
+- [ ] **P2 + all:** Add local configuration and runtime exclusions to Git before scaffolding grows. (Band AI desktop and content deliverables are deferred; see the Event Requirements and Release Checklist.)
 
 **Advance when:** Shared interfaces are frozen and external memory access is proven. A simulated Hindsight response does not pass G1.
 
@@ -292,7 +292,7 @@ Exit checkpoints — **G6**:
 - [ ] **P2/P4:** Validate the demo's initial dataset and isolated memory state so a previous rehearsal cannot contaminate the comparison. Reset only designated demo state; preserve saved evidence needed for the presentation.
 - [ ] **P4:** Record a playable demo video from the release candidate and verify that the memory operations and outcome loop are visible. Label any fallback recording accurately.
 - [ ] **P2:** Record the release-candidate commit, launch instructions, test evidence, known limits, and recording location. Inspect commit attribution and tracked files for unintended local data or credentials.
-- [ ] **All:** Draft the individual article, social post, and video deliverables required by the content guide; list remaining submission tasks with owners.
+- [ ] **All:** Draft the individual article and social post, plus the team video, required by the content guide; list remaining submission tasks with owners.
 
 **Advance when:** The release candidate and presentation are reproducible, and the recording can be opened by another team member.
 
@@ -356,8 +356,16 @@ Done means a fresh checkout can run from documented commands, the UI shows trace
 
 If behind: cut extra charts, styling, hosting, and extra scenarios beyond the required risk/control pair. Preserve source evidence, honest uncertainty, a working outcome loop, and real Hindsight integration. External service failure remains an explicit blocker, even if a labeled recording supports the presentation.
 
-## Hackathon and Release Checklist
+## Event Requirements and Release Checklist
 
-The supplied reference PDF requires Hindsight, Band AI desktop use, a documented GitHub repository, a demo video, a live demonstration, an explanation of memory use, and individual article/social/video deliverables under an official content guide. P2 assigns compliance checks at kickoff; the team must obtain the full content guide because its detailed requirements are not included in the PDF. The PDF weights innovation at 30%, Hindsight memory at 25%, implementation at 20%, experience at 15%, and impact at 10%.
+The reference PDFs in `reference/` (the problem statement and the content guide; ignored by Git, so teammates need copies) require Hindsight, Band AI desktop use, a documented GitHub repository, a demo video, a live demonstration, an explanation of memory use, and content deliverables. Judging weights: innovation 30%, Hindsight memory 25%, implementation 20%, user experience 15%, real-world impact 10%.
 
-Before release: verify human-only commit attribution, scan staged files for secrets, label synthetic data, check the README launch instructions, save demo links, and update all four handoffs. The reference PDF is ignored by Git, so teammates need it separately; these documents capture the requirements needed for planning.
+Content deliverables are done in Phases 6-7, after the skeleton works, not at kickoff:
+
+- **Each member:** one public article (1,200-1,500 words; the guide's contest table says 800-1,500 and its sample prompt says 1,200-2,000) on Medium, Dev.to/Hashnode, Substack, or as a LinkedIn article; one LinkedIn post that links the repository, with the article URL as the first comment and the Hindsight repository (<https://github.com/vectorize-io/hindsight>) as a second comment; and the article shared as a Reddit link post in r/llmdevs, r/sideproject, r/aiagents, or r/aimemory.
+- **Team:** one video, 2-5 minutes, 1080p minimum, screen recording with voiceover, hosted on a public site rather than shared as a drive link. **Open question:** the problem statement says every member completes a video, while the content guide lists one per team; confirm with the organizers.
+- **Banned word:** articles and social posts that contain the word "hackathon" in the title or body, hashtags included, are disqualified. As a precaution, keep it out of the README and the repository description as well. P4's `docs/demo/submission-checklist.md` includes a scrub check for every article and post.
+- **Band AI desktop:** a required tool, but not set up at kickoff. After G3 passes and the skeleton works, use it for final polish and keep a screenshot or clip showing its use for the video.
+- **Honesty:** articles describe only implemented behavior and label synthetic data. Ignore the guide's sample-prompt instruction to describe a future, fully implemented system.
+
+Before release: verify human-only commit attribution, scan staged files for secrets, label synthetic data, check the README launch instructions, scan articles and posts for the banned word, save demo links, and update all four handoffs.
