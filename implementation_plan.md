@@ -103,12 +103,17 @@ IncentO/
 |       |-- api/client.ts             # Typed backend requests and errors
 |       |-- types/contracts.ts        # Generated from contracts/openapi.json; do not edit
 |       |-- pages/
-|       |   |-- Overview.tsx          # Policies and investigation list
-|       |   `-- Investigation.tsx     # Evidence, memories, and outcome form
+|       |   |-- Overview.tsx          # Policy card, demo controls, and investigation list
+|       |   |-- Investigation.tsx     # Finding, metrics, evidence, recommendation, Compare memory tab
+|       |   `-- Incident.tsx          # Timeline across runs and the outcome form
 |       |-- components/
+|       |   |-- StatusBanner.tsx      # Synthetic data, memory status, explanation source
 |       |   |-- MetricCard.tsx
+|       |   |-- IntervalBar.tsx       # SVG interval bar; no chart library
 |       |   |-- EvidenceList.tsx
 |       |   |-- MemoryPanel.tsx
+|       |   |-- MemoryCompare.tsx     # Without-memory versus with-memory view
+|       |   |-- Timeline.tsx
 |       |   `-- OutcomeForm.tsx
 |       |-- styles/global.css
 |       `-- tests/                    # Component and API-state tests
@@ -170,6 +175,20 @@ Add Python `__init__.py` files where package imports require them, under the sam
 Keep contract examples small and stable for independent development. P3 owns synthetic historical records and coordinates their content with P4; P4 owns the logic that retains and recalls them. Frontend contract types are maintained by P1 against P2's frozen schemas.
 
 Only synthetic fixtures and placeholder configuration belong in Git. Before scaffolding, P2 adds exclusions for `.env`, `.local/`, `.venv/`, Python caches, `node_modules/`, `dist/`, and local assistant workspace files, while retaining `.env.example`. The frontend gets only a non-secret API base URL; backend credentials remain server-side.
+
+## Screens and UX Rules
+
+P1 builds three screens against the contract examples. Value must be clear within the first minute, and memory is the centerpiece.
+
+- **Overview.** Policy card, a "Run investigation" button, the list of past runs, and a compact demo-controls strip (load scenario, pick `as_of`, reset).
+- **Investigation.** A headline finding with per-metric status chips; three metric cards (discount, early complaints, 30-day cancellations), each showing month-end versus other rates, sample sizes, the pre-policy gap, and an SVG interval bar (no chart library); a grouped evidence list with quotes in blocks labeled "customer text (untrusted)"; a recommendation card with the `action_type` chip, action, and rationale, whose metric tokens render as chips that highlight the matching metric card; success metric and guardrail labeled "proposed target (not calculated)"; an alternative-explanations panel; and a **Compare memory** tab.
+- **Compare memory.** "Without memory" and "With memory" side by side, built from two runs of the same inputs with `memory_mode` `off` and `live` (no new endpoint). A "Same calculated numbers" badge appears when both `analysis_digest` values match; the changed `action_type` is highlighted; a "Because of" list shows the recalled memories behind the change (`history_influence`), labeled by type and date, with rejected hypotheses marked as rejected.
+- **Incident.** A vertical timeline (run without memory, run with seeded history, decision saved, measured outcome, run again with the changed recommendation) showing each run's `action_type` and the memories it used, plus the outcome form with a retention chip (`pending`, `retained`, `failed`) and a Retry button.
+- **Always visible.** "Synthetic data", memory status (`live`, `unavailable`, `fixture`), and explanation source; a `template` source reads "Template summary: the generated explanation failed validation".
+- **Error and state mapping.** `as_of_before_memory` reads "Memory only moves forward. Run without memory, or reset the demo."; `retention_pending` disables re-run with "Saving outcome to memory…"; the common error shape (`code`, `message`, `request_id`) always shows a readable message and a retry where one applies.
+- **Loading.** Investigations are one synchronous request, so show an indeterminate spinner with elapsed time and a timeout message. Do not show staged progress unless the backend streams real stages.
+- **Rendering.** Plain text only (see the untrusted text rules); status never relies on color alone; type large enough to read in a 1080p recording.
+- **Optional, cut first if behind.** A demo stepper on the Overview that mirrors the three-step walkthrough, and the metric-chip highlighting.
 
 ## Contracts to Freeze
 
@@ -268,7 +287,7 @@ Exit checkpoints — **G1**:
 
 Exit checkpoints — **G2**:
 
-- [ ] **P1:** Overview and investigation screens render frozen contract fixtures; loading, empty, and error states work; frontend build/type checks pass.
+- [ ] **P1:** The three screens (Overview, Investigation, Incident) render frozen contract fixtures, including a fixture pair for the Compare memory tab; loading, empty, and error states work; frontend build/type checks pass.
 - [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice is a no-op (same checksum); API tests pass with clearly labeled module stubs where needed. Slice B contracts (dataset schema, incident and outcome shapes) are frozen before this gate closes, and their example payloads parse into the Pydantic models.
 - [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. The risk fixture meets the sizing minimums in Analysis and Memory Rules. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
 - [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited and numbers appearing only through metric tokens. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks. The bank mission and directives are committed under `backend/app/memory/`.
@@ -298,7 +317,7 @@ Exit checkpoints — **G4**:
 
 - [ ] **P1/P2/P4:** Submit a management decision and then a measured outcome through the UI/API. Both are stored distinctly, with confirmed memory retention status.
 - [ ] **P2/P4:** Restart the application; verify the saved investigation and outcome remain accessible and a later investigation recalls the outcome from Hindsight.
-- [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history (`memory_mode` `off` versus `live`): numerical results stay identical, shown by equal `analysis_digest` values, while the explanation cites history and makes an identifiable, justified change to its recommendation: `action_type` differs and `history_influence` cites the retained record, in at least 4 of 5 repeated pairs (`scripts/demo_check.py --repeat 5`).
+- [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history (`memory_mode` `off` versus `live`): numerical results stay identical, shown by equal `analysis_digest` values, while the explanation cites history and makes an identifiable, justified change to its recommendation: `action_type` differs and `history_influence` cites the retained record, in at least 4 of 5 repeated pairs (`scripts/demo_check.py --repeat 5`). The UI compare view shows both runs side by side with the "Same calculated numbers" badge and the changed action.
 - [ ] **P2/P4:** Repeat outcome submission with the same idempotency key; no duplicate application event or duplicate logical memory record is created (retain uses `document_id` = `outcome_id`). A failed retention attempt is visible and succeeds on retry through `POST /api/outcomes/{outcome_id}/retention`.
 - [ ] **P3/P4:** A run at an `as_of` earlier than a saved outcome excludes it from analysis; a `live` memory run at that `as_of` is rejected with `409 as_of_before_memory`. The canary test shows no future-dated record reaches recall or Reflect output; rejected past hypotheses remain labeled as rejected.
 
@@ -436,7 +455,7 @@ Exclusive path ownership prevents most code conflicts; the serialized merge queu
 
 P1 adds frontend `npm run dev`, `npm run build`, `npm run lint`, `npm test`, and `npm run gen:types` (openapi-typescript on `contracts/openapi.json`) scripts. P2 documents backend setup plus `python -m uvicorn app.main:app --reload`, `python -m pytest`, and `python -m ruff check .` from `backend/`. These are target commands, not currently runnable commands. P2 also provides `scripts/check.sh`, which runs all frontend and backend checks in one command (this replaces CI). Pin backend dependencies and keep secrets server-side; a browser-prefixed environment variable must never contain an API key.
 
-- P1: build/type checks; evidence rendering, API error, and outcome-submission UI checks.
+- P1: build/type checks; evidence rendering, API error mapping, outcome-submission, and Compare memory UI checks.
 - P3: exact fixture metrics; missing links; zero denominators; duplicate records; immature cohorts; future-data exclusion; outage and insufficient-data scenarios.
 - P4: adapter tests for missing credentials, timeout, malformed output, invalid evidence references, and future-memory exclusion (including the live canary test); one real persistence/recall smoke test, separately labeled from mocked tests.
 - P2: full load-investigate-outcome-reinvestigate flow; replay idempotency; persistence after restart; readable failure states; clean-checkout launch.
