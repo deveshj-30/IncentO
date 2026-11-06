@@ -181,19 +181,30 @@ Data rules:
 - Define `Investigation` with run/policy IDs, analysis, hypothesis, supporting and conflicting evidence, recommendations, recalled incident IDs, and memory status: `live`, `unavailable`, or `fixture`.
 - Every recommendation includes an action, a rationale linked to evidence, a proposed success metric, and a guardrail. Never invent citations or a numerical confidence score.
 
+Entities and relationships:
+
+- **Investigation.** One stored run of analysis plus explanation. Its ID is the `run_id`; there is no separate investigation ID. Each run records `memory_mode` and an `analysis_digest` (a hash of the calculated results, so two runs can be checked for identical numbers).
+- **Incident.** The tracked case that persists across runs, with a deterministic ID, `inc-<policy_id>-<comparison_id>`, so a later investigation of the same policy finds the same incident and its saved outcomes. An investigation with insufficient data has `incident_id: null`. Seeded history incidents keep their own IDs from `data/history/incidents.json`.
+- **Outcome.** Has an `outcome_id`, a `type` (`decision` or `measured_result`), the `incident_id`, the `run_id` it responds to, an `event_time` (so replays can exclude future outcomes), a client `idempotency_key`, and a `retention_status` (`pending`, `retained`, or `failed`, with a non-secret error reason).
+- `memory_mode` is `live` (default) or `off`. `off` explains with no recalled history; P4 chooses the mechanism. Calculated results must be identical in both modes.
+
 | API | Purpose |
 | --- | --- |
 | `GET /api/health` | App and memory configuration/status, without exposing secrets |
-| `POST /api/demo/load` | Load a named scenario/batch idempotently into an isolated demo dataset |
+| `POST /api/demo/load` | Load a named scenario/batch idempotently into an isolated demo dataset, and seed its historical incidents into memory (idempotent by incident ID); report a seed status |
+| `POST /api/demo/reset` | Body `{scenario, confirm: true}`. Clear that scenario's SQLite demo data and delete and re-seed its demo memory bank. Refuses any bank without the `incento-demo-` prefix; works only when `DEMO_RESET_ENABLED=true` |
 | `GET /api/policies` | List available policies and versions |
-| `POST /api/investigations` | Accept policy, scenario, `as_of`, and idempotency key; create an investigation |
+| `POST /api/investigations` | Accept policy, scenario, `as_of`, `memory_mode` (`live` or `off`), and idempotency key; create an investigation. The response includes `memory_mode`, `incident_id`, and `analysis_digest` |
 | `GET /api/investigations` | List stored investigations |
-| `GET /api/investigations/{id}` | Return complete investigation and evidence |
-| `POST /api/incidents/{id}/outcomes` | Save a decision or measured outcome and retain it in memory |
+| `GET /api/investigations/{id}` | Return complete investigation and evidence (`id` is the `run_id`) |
+| `GET /api/incidents` | List tracked incidents |
+| `GET /api/incidents/{id}` | Return the incident, its linked `run_id`s, and its outcomes with retention status |
+| `POST /api/incidents/{id}/outcomes` | Save a decision or measured outcome and retain it in memory. The same `idempotency_key` returns the existing outcome with no duplicate; the same key with a different body returns `409 idempotency_conflict` |
+| `POST /api/outcomes/{outcome_id}/retention` | Retry retaining a `failed` or `pending` outcome in Hindsight; no-op if already `retained` |
 
 Agree on validation errors, empty responses, and a common error shape (`code`, `message`, `request_id`). Return partial analytical results if memory fails, clearly marked. Persist retention status; support retry without duplicating the management outcome.
 
-Internal boundaries: P3 exports `analyze(dataset, policy_id, as_of) -> AnalysisResult`; P4 exports `explain(analysis, context) -> Explanation` and `retain_outcome(outcome) -> RetentionResult`. P2 handles loading, persistence, and serialization. P4 verifies actual Hindsight methods against the official documentation before implementation: <https://hindsight.vectorize.io/>.
+Internal boundaries: P3 exports `analyze(dataset, policy_id, as_of) -> AnalysisResult`; P4 exports `explain(analysis, context) -> Explanation`, `retain_outcome(outcome) -> RetentionResult` (idempotent by `outcome_id`, so the retry endpoint simply calls it again), `seed_history(incidents) -> SeedResult`, and `reset_demo_bank(scenario) -> ResetResult`. P4 verifies in the official documentation that a Hindsight bank can be deleted before building reset. P2 handles loading, persistence, and serialization. P4 verifies actual Hindsight methods against the official documentation before implementation: <https://hindsight.vectorize.io/>.
 
 ## Phases and Eight-Hour Schedule
 
@@ -270,8 +281,8 @@ Exit checkpoints — **G4**:
 
 - [ ] **P1/P2/P4:** Submit a management decision and then a measured outcome through the UI/API. Both are stored distinctly, with confirmed memory retention status.
 - [ ] **P2/P4:** Restart the application; verify the saved investigation and outcome remain accessible and a later investigation recalls the outcome from Hindsight.
-- [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history: numerical results stay identical, while the explanation cites history and makes an identifiable, justified change to its recommendation.
-- [ ] **P2/P4:** Repeat outcome submission with the same idempotency key; no duplicate application event or duplicate logical memory record is created. A failed retention attempt is visible and retryable.
+- [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history (`memory_mode` `off` versus `live`): numerical results stay identical, shown by equal `analysis_digest` values, while the explanation cites history and makes an identifiable, justified change to its recommendation.
+- [ ] **P2/P4:** Repeat outcome submission with the same idempotency key; no duplicate application event or duplicate logical memory record is created. A failed retention attempt is visible and succeeds on retry through `POST /api/outcomes/{outcome_id}/retention`.
 - [ ] **P3/P4:** Historical replay excludes future outcomes from both analysis and recall; rejected past hypotheses remain labeled as rejected.
 
 **Advance when:** Save, restart, recall, and changed advice are demonstrated on the merged commit. Merely storing text or promising future learning does not pass G4.
@@ -297,7 +308,7 @@ Exit checkpoints — **G5**:
 Exit checkpoints — **G6**:
 
 - [ ] **P4 + all:** Rehearse the complete story: policy, warning, source evidence, prior memory, recorded outcome, and improved later recommendation. Show the business value within the first minute.
-- [ ] **P2/P4:** Validate the demo's initial dataset and isolated memory state so a previous rehearsal cannot contaminate the comparison. Reset only designated demo state; preserve saved evidence needed for the presentation.
+- [ ] **P2/P4:** Validate the demo's initial dataset and isolated memory state so a previous rehearsal cannot contaminate the comparison. Reset only designated demo state with `POST /api/demo/reset`; preserve saved evidence needed for the presentation.
 - [ ] **P4:** Record a playable demo video from the release candidate and verify that the memory operations and outcome loop are visible. Label any fallback recording accurately.
 - [ ] **P2:** Record the release-candidate commit, launch instructions, test evidence, known limits, and recording location. Inspect commit attribution and tracked files for unintended local data or credentials.
 - [ ] **All:** Draft the individual article and social post, plus the team video, required by the content guide; list remaining submission tasks with owners.
