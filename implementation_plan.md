@@ -177,7 +177,7 @@ Data rules:
 - Store money as integer minor units plus currency, discounts as fractions from 0 to 1, and missing values explicitly. Do not join customers by display name.
 - Define `Policy`, `Deal`, `Ticket`, `Cancellation`, `Incident`, and `ManagementOutcome` schemas. Deals include segment, acquisition channel, close time, and revenue; outcomes distinguish decisions from later measured results.
 - Define `Evidence` with source ID, source type, timestamp, excerpt where applicable, and an exact record reference.
-- Define `AnalysisResult` with cohort definitions/counts, metric denominators, deltas, uncertainty, evidence IDs, alternative explanations, and `insufficient_data` reasons.
+- Define `AnalysisResult` with cohort definitions/counts, metric denominators, deltas, the pre-policy baseline gap, uncertainty intervals, a per-metric `status` (`flagged`, `watch`, `no_signal`, or `insufficient_data`), evidence IDs, alternative explanations, and reasons for `insufficient_data`.
 - Define `Investigation` with run/policy IDs, analysis, hypothesis, supporting and conflicting evidence, recommendations, recalled incident IDs, and memory status: `live`, `unavailable`, or `fixture`.
 - Every recommendation includes an action, a rationale linked to evidence, a proposed success metric, and a guardrail. Never invent citations or a numerical confidence score.
 
@@ -253,7 +253,7 @@ Exit checkpoints — **G2**:
 
 - [ ] **P1:** Overview and investigation screens render frozen contract fixtures; loading, empty, and error states work; frontend build/type checks pass.
 - [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice does not duplicate records; API tests pass with clearly labeled module stubs where needed.
-- [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
+- [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. The risk fixture meets the sizing minimums in Analysis and Memory Rules. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
 - [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks.
 - [ ] **P2 + owners:** Module PRs are reviewed and merged sequentially; contract compatibility checks pass on `main`; all four handoffs identify their commits and next tasks.
 
@@ -331,9 +331,26 @@ Exit checkpoints — **G7**:
 
 ## Analysis and Memory Rules
 
-P3 compares matched segment/channel cohorts using the same observation window. Show discount changes, complaint rates, and 30-day cancellation rates only for customers with at least 30 days of observable history. Define month-end consistently (last five calendar days). Report excluded records and denominators.
+P3 uses one predefined comparison design so the analysis cannot search for arbitrary coincidences:
 
-Predefine a small set of comparisons to avoid searching for arbitrary coincidences. Initial demo screening rules: at least 20 eligible deals per cohort, a 10-percentage-point cancellation-rate increase or discount increase, plus corroboration from at least two distinct customers. These are transparent demo heuristics, not validated business thresholds or proof of statistical significance. Show rate uncertainty, such as Wilson intervals, where implemented; do not claim causality. Sparse data returns an insufficient-evidence result.
+- **Scope.** Only deals the policy applies to (the segment and channel in the policy record). Other segments appear as context only and are never searched for signals.
+- **Groups.** Month-end deals (closed in the last five calendar days of a month, UTC) against all other deals, both on or after the policy effective date. The same split before the effective date gives a baseline gap.
+- **Metrics (fixed at three).** Mean discount (fraction); early onboarding complaint rate within 30 days of close, counted by distinct customers; 30-day cancellation rate.
+- **Maturity.** Complaint and cancellation rates use only deals with at least 30 days of observable history before `as_of`. Report excluded records and denominators.
+- **Outage control.** A complaint spike across all deals in a time window does not widen the month-end gap, so it is not flagged as an incentive effect; the analysis reports the matching outage incident as the alternative explanation.
+
+Decision rule per metric. These are transparent demo heuristics, not validated business thresholds or proof of statistical significance; make no causal claims.
+
+| Status | Condition |
+| --- | --- |
+| `insufficient_data` | Fewer than 30 eligible deals in either group |
+| `flagged` | The interval for the month-end gap has a lower bound above 0, the gap is at least 10 percentage points, and it exceeds the pre-policy gap by at least 10 percentage points |
+| `watch` | The gap is at least 10 percentage points but one of the other two conditions fails; display as "cannot be distinguished from noise or a pre-existing pattern" |
+| `no_signal` | Otherwise |
+
+The investigation is flagged only if at least one metric is `flagged` and at least two distinct customers corroborate it with source records. Intervals: Wilson for each rate, Newcombe's hybrid-score interval for the difference between two rates, and a normal-approximation interval on the difference in means for discounts. Every result states that three metrics were checked. Sparse data returns an insufficient-evidence result.
+
+Fixture sizing for P3: about 1,500 synthetic deals over nine months (three before the policy effective date, six after). The risk scenario has at least 60 month-end and 300 other eligible post-policy deals; at those sizes a 30% versus 15% gap has an interval above zero, while equal rates do not. The sparse-data scenario deliberately has fewer than 30 eligible month-end deals.
 
 Include early onboarding complaints as leading signals; later cancellations are follow-up evidence. Deduplicate tickets by source ID and avoid counting several tickets from one customer as independent corroboration. The outage scenario should produce a business-risk observation with an alternative explanation, not an incentive-specific accusation.
 
