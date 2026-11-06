@@ -22,7 +22,7 @@ The eight-hour MVP uses synthetic data and explicit batch replay. It does not es
 
 ## Ownership and Coordination
 
-Follow the exact ownership table in `implementation_plan.md`. P1 owns `frontend/`; P3 owns the analysis module, its tests, and `data/`; P4 owns the memory module, its tests, and `docs/demo/`. P2 owns API/core, integration, contracts, backend dependencies, and shared configuration.
+Follow the exact ownership table in `implementation_plan.md`. P1 owns `frontend/`; P3 owns the analysis module, its tests, and `data/`; P4 owns the memory module, its tests, and `docs/demo/`. P2 owns API/core, integration, contracts, backend dependencies, shared configuration, and `scripts/` (except `scripts/demo_check.py`, which P4 owns). Each owner writes the README inside their own folder; the top-level `README.md` is a thin index owned by P2.
 
 Do not edit another owner's folder to unblock yourself. Send P2 a precise request: affected path or schema, current failure, proposed change, and urgency. Meanwhile, use the agreed contract fixture within your own module. Do not independently invent a second API schema.
 
@@ -55,7 +55,7 @@ Use small focused commits with imperative subjects, such as `feat: add investiga
 
 **No commit subject, body, or trailer may mention a coding assistant, agent name, model name, or assistant-generated attribution.** Disable automatic attribution where supported and inspect every proposed message. Do not add bot `Co-authored-by` or `Generated-by` trailers. This applies to merge and squash messages too. PRs should describe changes and validation without inserting assistant branding.
 
-P2 merges PRs sequentially. Sync with current `origin/main` before merge; do not force-push shared branches. Ask the affected owner to help resolve conflicts. After a squash merge, start a new task branch from updated `main`.
+Owners may merge their own PRs that touch only their owned paths after `scripts/check.sh` passes and one other contributor approves; P2 merges anything touching contracts or shared files. Merge one PR at a time. Sync with current `origin/main` before merge; do not force-push shared branches. Ask the affected owner to help resolve conflicts. After a squash merge, start a new task branch from updated `main`.
 
 ## Before Context or Tokens Run Out
 

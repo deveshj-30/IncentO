@@ -22,13 +22,13 @@ Defer live CRM integrations, authentication, multi-company access, streaming inf
 
 ## Architecture
 
-Proposed stack: React + TypeScript + Vite frontend; Python + FastAPI backend; SQLite for application records; Hindsight for persistent qualitative memory. Use one backend process and simple synchronous investigation requests with bounded external-call timeouts. Choose and pin compatible runtime and dependency versions during bootstrap.
+Proposed stack: React + TypeScript + Vite frontend; Python + FastAPI backend; SQLite for run state (investigations, incidents, outcomes, and loaded batches); Hindsight for persistent qualitative memory. Use one backend process and simple synchronous investigation requests with bounded external-call timeouts. Choose and pin compatible runtime and dependency versions during bootstrap.
 
 ```mermaid
 flowchart LR
     UI[React dashboard] --> API[FastAPI routes and orchestration]
     Fixtures[Synthetic replay batches] --> API
-    API --> DB[(SQLite: records, runs, decisions)]
+    API --> DB[(SQLite: runs, incidents, outcomes)]
     API --> Analysis[Deterministic cohort analysis]
     Analysis --> Evidence[Metrics and source IDs]
     Evidence --> Memory[Memory adapter and explanation workflow]
@@ -37,7 +37,7 @@ flowchart LR
     API --> UI
 ```
 
-SQLite is the source of truth for structured records and run state. Hindsight stores policy context, incident narratives, hypotheses, decisions, and observed outcomes. Numerical results come from analysis code; generated explanations cannot replace calculated values.
+Validated fixture files hold the structured business records (policies, deals, tickets, cancellations), assembled from the loaded batches on each request. SQLite is the source of truth for run state: investigations, incidents, outcomes, retention status, and which batches are loaded (with a checksum). Hindsight stores policy context, incident narratives, hypotheses, decisions, and observed outcomes. Numerical results come from analysis code; generated explanations cannot replace calculated values.
 
 ### External services
 
@@ -52,11 +52,11 @@ Planned layout and exclusive ownership:
 | Owner | Paths | Responsibilities |
 | --- | --- | --- |
 | P1: frontend | `frontend/**` | Screens, API client, UI types, component tests, frontend manifest and lockfile |
-| P2: backend and integration lead | `backend/app/api/**`, `backend/app/core/**`, `backend/app/main.py`, `backend/app/__init__.py`, `backend/tests/integration/**`, `contracts/**`, `scripts/**`, `.github/**` | API, SQLite, orchestration, contracts, integration, release |
+| P2: backend and integration lead | `backend/app/api/**`, `backend/app/core/**`, `backend/app/main.py`, `backend/app/__init__.py`, `backend/tests/integration/**`, `contracts/**`, `scripts/**` (except `scripts/demo_check.py`) | API, SQLite, orchestration, contracts, integration, release |
 | P3: data and analysis | `backend/app/analysis/**`, `backend/tests/analysis/**`, `data/**` | Synthetic fixtures, cohort calculations, evidence extraction, analytical tests |
-| P4: memory and explanations | `backend/app/memory/**`, `backend/tests/memory/**`, `docs/demo/**` | Hindsight adapter, prompts, memory tests, demo script and recording checklist |
+| P4: memory and explanations | `backend/app/memory/**`, `backend/tests/memory/**`, `docs/demo/**`, `scripts/demo_check.py` | Hindsight adapter, prompts, memory tests, demo script and recording checklist |
 
-P2 alone owns remaining shared files: backend dependency/lock files, root configuration, `.gitignore`, `.env.example`, `README.md`, and these planning documents. `AGENTS.md` stays unchanged unless the user requests an update. Each person owns their own handoff file, `progress/p1.md` to `progress/p4.md`; P2 owns `progress.md` (shared status and the gate tracker).
+P2 alone owns remaining shared files: backend dependency/lock files, root configuration, `.gitignore`, `.env.example`, the top-level `README.md` (a thin index with the quick start and backend setup, linking to each owner's folder README), and these planning documents. `AGENTS.md` stays unchanged unless the user requests an update. Each person owns their own handoff file, `progress/p1.md` to `progress/p4.md`; P2 owns `progress.md` (shared status and the gate tracker).
 
 P2 may create package boundary files during bootstrap; ownership transfers when the bootstrap commit is merged. After that, no cross-folder fixes without explicit coordination. Each person owns tests beside their own module; avoid a shared test utility file during this sprint.
 
@@ -72,11 +72,9 @@ IncentO/
 |-- progress/                         # One handoff file per person: p1.md-p4.md
 |-- agent_help.md                     # Coding assistant workflow (P2)
 |-- matka.md                          # Plain-language project explanation (P2)
-|-- README.md                         # Setup, commands, and demo instructions (P2)
+|-- README.md                         # Quick start and backend setup; links to folder READMEs (P2)
 |-- .gitignore                        # Local files and build exclusions (P2)
 |-- .env.example                      # Backend configuration placeholders (P2)
-|-- .github/                          # P2
-|   `-- workflows/checks.yml          # Frontend and backend verification
 |-- contracts/                        # P2; reviewed by all before freezing
 |   |-- v1.md                         # API and internal module contracts
 |   |-- schemas/
@@ -90,6 +88,7 @@ IncentO/
 |       |-- outcome-request.json
 |       `-- error-response.json
 |-- frontend/                         # P1 owns this entire subtree
+|   |-- README.md                     # Frontend setup and commands (P1)
 |   |-- package.json
 |   |-- package-lock.json
 |   |-- index.html
@@ -127,9 +126,9 @@ IncentO/
 |   |   |-- core/                      # P2
 |   |   |   |-- config.py              # Environment loading and validation
 |   |   |   |-- schemas.py             # Shared typed models matching contracts
-|   |   |   |-- database.py            # SQLite connection and schema setup
-|   |   |   |-- repository.py          # Record persistence and idempotency
-|   |   |   |-- fixtures.py            # Validate and load demo batches
+|   |   |   |-- database.py            # SQLite connection and run-state schema
+|   |   |   |-- repository.py          # Run, incident, and outcome persistence; idempotency
+|   |   |   |-- fixtures.py            # Validate fixture batches; assemble datasets from loaded batches
 |   |   |   `-- orchestration.py       # Analyze, explain, and persist a run
 |   |   |-- analysis/                  # P3
 |   |   |   |-- service.py             # analyze() public module entry point
@@ -137,6 +136,7 @@ IncentO/
 |   |   |   |-- metrics.py             # Rates, deltas, and uncertainty
 |   |   |   `-- evidence.py            # Source linkage and corroboration
 |   |   `-- memory/                    # P4
+|   |       |-- README.md              # Hindsight setup, bank configuration, and tests (P4)
 |   |       |-- service.py             # explain() and retain_outcome()
 |   |       |-- hindsight_adapter.py   # Actual Hindsight SDK/API calls
 |   |       |-- validation.py          # Output, citation, and chronology checks
@@ -155,8 +155,10 @@ IncentO/
 |-- docs/demo/                        # P4
 |   |-- walkthrough.md                # Live demo and memory comparison
 |   `-- submission-checklist.md       # Recording and individual deliverables
-|-- scripts/                          # P2
-|   `-- smoke_test.py                 # Repeatable full-flow verification
+|-- scripts/                          # P2, except demo_check.py
+|   |-- check.sh                      # Runs all frontend and backend checks (P2)
+|   |-- smoke_test.py                 # Repeatable full-flow verification (P2)
+|   `-- demo_check.py                 # Off/live repeat check and canary run (P4)
 |-- reference/                        # Existing local PDF; ignored by Git
 `-- .local/                           # Generated SQLite/runtime files; ignore
 ```
@@ -195,8 +197,8 @@ Entities and relationships:
 | API | Purpose |
 | --- | --- |
 | `GET /api/health` | App and memory configuration/status, without exposing secrets |
-| `POST /api/demo/load` | Load a named scenario/batch idempotently into an isolated demo dataset, and seed its historical incidents into memory (idempotent by incident ID); report a seed status |
-| `POST /api/demo/reset` | Body `{scenario, confirm: true}`. Clear that scenario's SQLite demo data and delete and re-seed its demo memory bank. Refuses any bank without the `incento-demo-` prefix; works only when `DEMO_RESET_ENABLED=true` |
+| `POST /api/demo/load` | Validate and register a named scenario/batch from the fixture files, idempotent by checksum (loading it twice is a no-op), and seed its historical incidents into memory (idempotent by incident ID); report a seed status |
+| `POST /api/demo/reset` | Body `{scenario, confirm: true}`. Clear that scenario's runs, incidents, outcomes, and loaded-batch records from SQLite and delete and re-seed its demo memory bank. Refuses any bank without the `incento-demo-` prefix; works only when `DEMO_RESET_ENABLED=true` |
 | `GET /api/policies` | List available policies and versions |
 | `POST /api/investigations` | Accept policy, scenario, `as_of`, `memory_mode` (`live` or `off`), and idempotency key; create an investigation. The response includes `memory_mode`, `incident_id`, and `analysis_digest`. A `live` run with `as_of` earlier than the latest retained memory event returns `409 as_of_before_memory`; a `live` run on an incident with a `pending` outcome returns `409 retention_pending` |
 | `GET /api/investigations` | List stored investigations |
@@ -229,7 +231,7 @@ Every person prepares required personal content in Phases 6-7, after the skeleto
 ### Gate Rules
 
 - A phase is complete only when **every exit checkpoint below passes**. All implementation gates start as `NOT STARTED`; writing this plan does not complete them.
-- The named owner supplies evidence. P2 and the relevant owner review it; another contributor reviews P2's own deliverables. P2 records the gate result, UTC time, reviewed commit, evidence, and reviewers in `progress.md`.
+- The named owner supplies evidence. P2 and the relevant owner review it; another contributor reviews P2's own deliverables. Owners record their evidence (commands, results, run IDs, links) in their own `progress/pN.md`; P2 records the result, UTC time, reviewed commit, reviewers, and an evidence link in the `progress.md` tracker.
 - Run integration checks against the merged `main` commit, not an unmerged personal branch. Include exact commands and outcomes, plus run IDs or screenshots for interactive checks. Screenshots alone do not prove calculations or persistent memory work.
 - Start Phase N+1 only after Gate GN passes. While a gate is blocked, people may prepare independent fixtures, tests, or presentation material, but must not treat blocked functionality as accepted or build dependent integration on an unapproved contract.
 - A failed checkpoint gets an owner, a concrete fix, and a retest time. Reduce optional scope to recover time; do not waive evidence integrity, live memory, or the outcome loop. Record scope changes before reassessment.
@@ -256,7 +258,7 @@ Exit checkpoints — **G1**:
 Exit checkpoints — **G2**:
 
 - [ ] **P1:** Overview and investigation screens render frozen contract fixtures; loading, empty, and error states work; frontend build/type checks pass.
-- [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice does not duplicate records; API tests pass with clearly labeled module stubs where needed. Slice B contracts (dataset schema, incident and outcome shapes) are frozen before this gate closes, and their example payloads pass schema validation.
+- [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice is a no-op (same checksum); API tests pass with clearly labeled module stubs where needed. Slice B contracts (dataset schema, incident and outcome shapes) are frozen before this gate closes, and their example payloads pass schema validation.
 - [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. The risk fixture meets the sizing minimums in Analysis and Memory Rules. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
 - [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited and numbers appearing only through metric tokens. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks. The bank mission and directives are committed under `backend/app/memory/`.
 - [ ] **P2 + owners:** Module PRs are reviewed and merged sequentially; contract compatibility checks pass on `main`; all four handoffs identify their commits and next tasks.
@@ -285,7 +287,7 @@ Exit checkpoints — **G4**:
 
 - [ ] **P1/P2/P4:** Submit a management decision and then a measured outcome through the UI/API. Both are stored distinctly, with confirmed memory retention status.
 - [ ] **P2/P4:** Restart the application; verify the saved investigation and outcome remain accessible and a later investigation recalls the outcome from Hindsight.
-- [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history (`memory_mode` `off` versus `live`): numerical results stay identical, shown by equal `analysis_digest` values, while the explanation cites history and makes an identifiable, justified change to its recommendation: `action_type` differs and `history_influence` cites the retained record, in at least 4 of 5 repeated pairs (`scripts/smoke_test.py --repeat 5`).
+- [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history (`memory_mode` `off` versus `live`): numerical results stay identical, shown by equal `analysis_digest` values, while the explanation cites history and makes an identifiable, justified change to its recommendation: `action_type` differs and `history_influence` cites the retained record, in at least 4 of 5 repeated pairs (`scripts/demo_check.py --repeat 5`).
 - [ ] **P2/P4:** Repeat outcome submission with the same idempotency key; no duplicate application event or duplicate logical memory record is created (retain uses `document_id` = `outcome_id`). A failed retention attempt is visible and succeeds on retry through `POST /api/outcomes/{outcome_id}/retention`.
 - [ ] **P3/P4:** A run at an `as_of` earlier than a saved outcome excludes it from analysis; a `live` memory run at that `as_of` is rejected with `409 as_of_before_memory`. The canary test shows no future-dated record reaches recall or Reflect output; rejected past hypotheses remain labeled as rejected.
 
@@ -300,7 +302,7 @@ Exit checkpoints — **G5**:
 - [ ] **P3:** Risk scenario is flagged with supporting evidence; outage scenario presents the alternative explanation without an incentive accusation; sparse data returns insufficient evidence. Duplicate, missing-link, zero-denominator, and immature-cohort tests pass.
 - [ ] **P4:** Missing credentials, timeout, malformed model output, invalid references, and stray numbers produce honest failure/partial-result states (a failed explanation falls back to the labeled template). Previously generated text is never silently presented as a fresh live result.
 - [ ] **P1:** Loading, empty, error, and retry flows are usable; a user can inspect evidence and save an outcome without a broken screen.
-- [ ] **P2 + a second contributor:** A clean checkout installs and runs using the README, with only documented external configuration. Frontend build/lint/tests, backend lint/tests, and the full-flow smoke check pass.
+- [ ] **P2 + a second contributor:** A clean checkout installs and runs using the README, with only documented external configuration. `scripts/check.sh` (frontend build/lint/tests and backend lint/tests) and the full-flow smoke check pass.
 - [ ] **All:** No unresolved issue blocks launching, evidence inspection, correct metrics, or the live memory loop. Record deferred cosmetic issues, update handoffs, and freeze features.
 
 **Advance when:** Required correctness checks pass and another person can reproduce the demo setup.
@@ -313,7 +315,7 @@ Exit checkpoints — **G6**:
 
 - [ ] **P4 + all:** Rehearse the complete story: policy, warning, source evidence, prior memory, recorded outcome, and improved later recommendation, as a three-step progression (no memory, seeded history, after a recorded outcome). Show the business value within the first minute.
 - [ ] **P2/P4:** Validate the demo's initial dataset and isolated memory state so a previous rehearsal cannot contaminate the comparison. Reset only designated demo state with `POST /api/demo/reset`; preserve saved evidence needed for the presentation.
-- [ ] **P4:** Record a playable demo video from the release candidate and verify that the memory operations and outcome loop are visible. Label any fallback recording accurately. Save a known-good run snapshot (response JSON, run ID, screenshots) for the labeled fallback, and run the repeat smoke test on the release candidate and again shortly before the live demonstration.
+- [ ] **P4:** Record a playable demo video from the release candidate and verify that the memory operations and outcome loop are visible. Label any fallback recording accurately. Save a known-good run snapshot (response JSON, run ID, screenshots) for the labeled fallback, and run the repeat check (`scripts/demo_check.py`) on the release candidate and again shortly before the live demonstration.
 - [ ] **P2:** Record the release-candidate commit, launch instructions, test evidence, known limits, and recording location. Inspect commit attribution and tracked files for unintended local data or credentials.
 - [ ] **All:** Draft the individual article and social post, plus the team video, required by the content guide; list remaining submission tasks with owners.
 
@@ -381,7 +383,7 @@ Demo reliability rules (the Cloud model behind Reflect is not configurable, so r
 - **Bounded choice.** Each recommendation has an `action_type` from a small fixed set (`adjust_policy`, `pilot_guardrail`, `revert_change`, `collect_more_data`, `no_action`) and `history_influence`. Wording may vary; the action type may not.
 - **Bank directives.** P4 writes and versions the bank mission and directives, for example: never repeat a recalled decision whose measured outcome was worse or showed no improvement, and cite it; label rejected hypotheses as rejected; use metric tokens, never digits.
 - **Designed seeds.** P3 and P4 design the seeded history so that, for the risk scenario, `memory_mode` `off` yields one `action_type` and `live` yields a different one that cites the seeded record.
-- **Repeat check.** `scripts/smoke_test.py --repeat 5` runs the off/live pair five times and asserts that `action_type` differs, `history_influence` cites the retained record, citations are valid, and no run fell back to the template. At least 4 of 5 pairs must pass. If it fails, adjust the directives or seed wording, not the demo script. Check the credit balance first.
+- **Repeat check.** `scripts/demo_check.py --repeat 5` (owned by P4) runs the off/live pair five times and asserts that `action_type` differs, `history_influence` cites the retained record, citations are valid, and no run fell back to the template. At least 4 of 5 pairs must pass. If it fails, adjust the directives or seed wording, not the demo script. Check the credit balance first.
 - **No retention race.** `retention_status` stays `pending` until the retain operation completes (P4 confirms in the documentation how to await it). A `live` run on an incident with a pending outcome returns `409 retention_pending`, and the UI disables re-run until the outcome is `retained`.
 - **Labeled fallback.** At G6, P4 saves a known-good run snapshot for use if live Hindsight fails during the demonstration. It is always labeled and never counted as live integration.
 - **Learning curve.** The walkthrough shows three steps: no memory, seeded history, and after a recorded decision and measured outcome.
@@ -402,7 +404,7 @@ Demonstrate identical current evidence with an empty memory and with relevant hi
    Use `feat/p2-api`, `feat/p3-analysis`, and `feat/p4-memory` for the other roles. Make small task branches from current `main` after each squash merge; do not continue an already squash-merged branch.
 3. Stage explicit owned paths, inspect `git diff --cached`, then commit. Example subjects: `feat: add cohort evidence view`, `fix: handle missing policy dates`, `docs: update analysis handoff`. Commit subjects, bodies, and trailers must not mention coding assistants, agent names, model names, or generated-by/co-author bot attribution. Use the human contributor's identity. Inspect and remove automatically inserted attribution before committing.
 4. P1 owns the frontend dependency manifest/lockfile; P2 owns backend dependencies. P3/P4 request dependency additions through P2. No whole-repository formatting, lockfile regeneration outside ownership, or unrelated cleanup.
-5. Push feature branches and open focused PRs with changed behavior, validation commands/results, contract impact, and screenshots for visible UI changes. P2 merges one PR at a time after checks; target merge gates at hours 2, 3.5, 5, and 6.
+5. Push feature branches and open focused PRs with changed behavior, validation commands/results, contract impact, and screenshots for visible UI changes. Owners may merge their own PRs that touch only their owned paths after `scripts/check.sh` passes and one other contributor approves; P2 merges anything touching contracts or shared files, and the gate integration commits. Merge one PR at a time; target merge gates at hours 2, 3.5, 5, and 6.
 6. Before merging, fetch and merge current `origin/main` into the feature branch, rerun affected checks, and push. This avoids rewriting shared history. Resolve any conflict with its file owner; never blindly choose all of one side. Do not force-push `main`.
 7. Each person keeps their handoff in their own file, `progress/pN.md`, and commits it with their feature branch. No merge slot is needed because nobody else edits it. P2 owns `progress.md` (shared status and the gate tracker). Do not rewrite or reformat another person's file.
 8. Shared contract changes go through P2, who records the change and alerts all consumers. Slice A changes after hour 0:45 should be additive; Slice B may change until G2; no breaking changes to either after hour 3:30 without a team decision. Shared documentation edits also go through P2.
@@ -411,7 +413,7 @@ Exclusive path ownership prevents most code conflicts; the serialized merge queu
 
 ## Validation and Completion
 
-P1 adds frontend `npm run dev`, `npm run build`, `npm run lint`, and `npm test` scripts. P2 documents backend setup plus `python -m uvicorn app.main:app --reload`, `python -m pytest`, and `python -m ruff check .` from `backend/`. These are target commands, not currently runnable commands. Pin backend dependencies and keep secrets server-side; a browser-prefixed environment variable must never contain an API key.
+P1 adds frontend `npm run dev`, `npm run build`, `npm run lint`, and `npm test` scripts. P2 documents backend setup plus `python -m uvicorn app.main:app --reload`, `python -m pytest`, and `python -m ruff check .` from `backend/`. These are target commands, not currently runnable commands. P2 also provides `scripts/check.sh`, which runs all frontend and backend checks in one command (this replaces CI). Pin backend dependencies and keep secrets server-side; a browser-prefixed environment variable must never contain an API key.
 
 - P1: build/type checks; evidence rendering, API error, and outcome-submission UI checks.
 - P3: exact fixture metrics; missing links; zero denominators; duplicate records; immature cohorts; future-data exclusion; outage and insufficient-data scenarios.
