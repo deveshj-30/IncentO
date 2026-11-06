@@ -153,6 +153,8 @@ IncentO/
 |       `-- memory/                    # P4: adapter, output, and recall checks
 |-- data/                             # P3; synthetic data only
 |   |-- README.md                     # Field meanings and expected metrics
+|   |-- generate/build_scenarios.py   # Seeded, deterministic fixture structure
+|   |-- text/                         # Frozen surface text keyed by record ID (written once)
 |   |-- scenarios/
 |   |   |-- incentive-risk.json
 |   |   |-- product-outage.json
@@ -213,6 +215,7 @@ Data rules:
 - Store money as integer minor units plus currency, discounts as fractions from 0 to 1, and missing values explicitly. Do not join customers by display name.
 - Define `Policy`, `Deal`, `Ticket`, `Cancellation`, `Incident`, and `ManagementOutcome` schemas. Deals include segment, acquisition channel, close time, and revenue; outcomes distinguish decisions from later measured results. Tickets and cancellations carry a `theme` from a fixed set (`missing_feature`, `onboarding_difficulty`, `pricing_dispute`, `outage`, `other`) assigned in the fixtures; code uses themes for counts and corroboration.
 - Define `Evidence` with source ID, source type, timestamp, `theme`, excerpt where applicable (for display only; never sent to a model), and an exact record reference.
+- Customers carry a stable ID, a fictional display name, industry, and region. Datasets carry `meta` with `synthetic: true`, a generator version, and a text version; the UI's "Synthetic data" badge is driven by it.
 - Define `AnalysisResult` with cohort definitions/counts, metric denominators, deltas, the pre-policy baseline gap, uncertainty intervals, a per-metric `status` (`flagged`, `watch`, `no_signal`, or `insufficient_data`), evidence IDs, alternative explanations, and reasons for `insufficient_data`.
 - Define `Investigation` with run/policy IDs, analysis, hypothesis, supporting and conflicting evidence, recommendations, recalled incident IDs, memory status (`live`, `unavailable`, or `fixture`), `explanation_source` (`reflect` or `template`), and non-secret validation error codes when an explanation failed validation.
 - Every recommendation includes an `action_type` (a small fixed set), an action, a rationale linked to evidence, a proposed success metric, a guardrail, and `history_influence` (IDs of recalled memories that shaped it; empty when memory is off). Never invent citations or a numerical confidence score.
@@ -289,7 +292,7 @@ Exit checkpoints — **G2**:
 
 - [ ] **P1:** The three screens (Overview, Investigation, Incident) render frozen contract fixtures, including a fixture pair for the Compare memory tab; loading, empty, and error states work; frontend build/type checks pass.
 - [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice is a no-op (same checksum); API tests pass with clearly labeled module stubs where needed. Slice B contracts (dataset schema, incident and outcome shapes) are frozen before this gate closes, and their example payloads parse into the Pydantic models.
-- [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. The risk fixture meets the sizing minimums in Analysis and Memory Rules. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
+- [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links (structure first; placeholder text is acceptable at this gate). The risk fixture meets the sizing minimums in Analysis and Memory Rules. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
 - [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited and numbers appearing only through metric tokens. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks. The bank mission and directives are committed under `backend/app/memory/`.
 - [ ] **P2 + owners:** Module PRs are reviewed and merged sequentially; contract compatibility checks pass on `main`; all four handoffs identify their commits and next tasks.
 
@@ -302,7 +305,7 @@ Exit checkpoints — **G2**:
 Exit checkpoints — **G3**:
 
 - [ ] **P1/P2:** From the UI, load the risk scenario, select a policy, run an investigation, and reopen its saved detail through the API without editing code or database rows.
-- [ ] **P3:** Displayed values match fixture expectations, including cohort membership, denominators, observation dates, and source IDs; no future evidence appears.
+- [ ] **P3:** Displayed values match fixture expectations, including cohort membership, denominators, observation dates, and source IDs; no future evidence appears. The hand-polished hero records for the walkthrough are in place.
 - [ ] **P4:** The integrated request uses live Hindsight, recalls the seeded relevant incident, and returns an evidence-backed explanation with alternatives and a specific next action.
 - [ ] **P1/P4:** Every displayed evidence reference resolves to a supplied record or retained incident; synthetic data and memory status are visible. No causal-certainty claim or invented citation appears.
 - [ ] **P2:** Save a reproducible smoke-test result and run ID for the merged commit; freeze breaking contract changes.
@@ -329,7 +332,7 @@ Exit checkpoints — **G4**:
 
 Exit checkpoints — **G5**:
 
-- [ ] **P3:** Risk scenario is flagged with supporting evidence; outage scenario presents the alternative explanation without an incentive accusation; sparse data returns insufficient evidence. Duplicate, missing-link, zero-denominator, and immature-cohort tests pass.
+- [ ] **P3:** Risk scenario is flagged with supporting evidence; outage scenario presents the alternative explanation without an incentive accusation; sparse data returns insufficient evidence. Duplicate, missing-link, zero-denominator, and immature-cohort tests pass. Generated text covers every record, or the remaining records use the labeled template text.
 - [ ] **P4:** Missing credentials, timeout, malformed model output, invalid references, and stray numbers produce honest failure/partial-result states (a failed explanation falls back to the labeled template). Previously generated text is never silently presented as a fresh live result.
 - [ ] **P1:** Loading, empty, error, and retry flows are usable; a user can inspect evidence and save an outcome without a broken screen.
 - [ ] **P3/P4/P1:** The injection canary (`TICKET-INJECT-001`) leaves metrics, `analysis_digest`, and recommendation validity unchanged; a unit test shows no ticket text field reaches the prompt builder's output, and a UI test shows the string rendered as inert text.
@@ -388,6 +391,15 @@ Decision rule per metric. These are transparent demo heuristics, not validated b
 The investigation is flagged only if at least one metric is `flagged` and at least two distinct customers corroborate it with source records. Intervals: Wilson for each rate, Newcombe's hybrid-score interval for the difference between two rates, and a normal-approximation interval on the difference in means for discounts. Every result states that three metrics were checked. Sparse data returns an insufficient-evidence result.
 
 Fixture sizing for P3: about 1,500 synthetic deals over nine months (three before the policy effective date, six after). The risk scenario has at least 60 month-end and 300 other eligible post-policy deals; at those sizes a 30% versus 15% gap has an interval above zero, while equal rates do not. The sparse-data scenario deliberately has fewer than 30 eligible month-end deals.
+
+Realistic fixtures (the data must look real without ever affecting the calculations):
+
+- **Stage 1: deterministic structure.** P3's seeded `data/generate/build_scenarios.py` produces the policy, customers, deals, tickets, cancellations, and incident records. All counts, rates, and timing come from scenario parameters (month-end clustering, planted cancellation rates, discount ranges, onboarding complaint timing), so the hand-calculated expected metrics in `data/README.md` are exact and testable. It also assigns each ticket a `theme` and a style (short and angry, polite, formal) so the text varies.
+- **Stage 2: surface text, written once and frozen.** P3 uses their own coding assistant, not the application, to write fictional customer display names, ticket excerpts, cancellation reasons, incident narratives, and outage error logs, guided by a fixed fictional company profile and feature list so tickets are consistent. The output is committed as `data/text/*.json` keyed by record ID. Regenerating the structure never changes the text; regenerating text needs an explicit review of the diff.
+- **Realism details.** Revenue in plausible SaaS ranges per segment (integer minor units); baseline discounts of about 5-15% with a month-end rush of about 20-35%; closes mostly on business days; tickets arriving 3-25 days after close; a mix of Indian and international fictional company names with industry and region; an outage scenario with a status-page style timeline and error log lines across all cohorts; past incidents written like short post-mortems.
+- **Hero records.** About five to eight hand-polished deals and tickets for the walkthrough, reviewed by P3 and P4. `TICKET-INJECT-001` is hand-written.
+- **Checks (P3 tests).** Every text ID maps to a structure record; length bounds; a cap on near-duplicate excerpts; no emails, phone numbers, or URLs; a manual scan that no real company or product names appear.
+- **Timing.** Structure with placeholder text at G2, hero records by G3, full generated text by G5. If behind, keep the hero records and use plainly labeled template text for the rest.
 
 Include early onboarding complaints as leading signals; later cancellations are follow-up evidence. Deduplicate tickets by source ID and avoid counting several tickets from one customer as independent corroboration. The outage scenario should produce a business-risk observation with an alternative explanation, not an incentive-specific accusation.
 
@@ -456,7 +468,7 @@ Exclusive path ownership prevents most code conflicts; the serialized merge queu
 P1 adds frontend `npm run dev`, `npm run build`, `npm run lint`, `npm test`, and `npm run gen:types` (openapi-typescript on `contracts/openapi.json`) scripts. P2 documents backend setup plus `python -m uvicorn app.main:app --reload`, `python -m pytest`, and `python -m ruff check .` from `backend/`. These are target commands, not currently runnable commands. P2 also provides `scripts/check.sh`, which runs all frontend and backend checks in one command (this replaces CI). Pin backend dependencies and keep secrets server-side; a browser-prefixed environment variable must never contain an API key.
 
 - P1: build/type checks; evidence rendering, API error mapping, outcome-submission, and Compare memory UI checks.
-- P3: exact fixture metrics; missing links; zero denominators; duplicate records; immature cohorts; future-data exclusion; outage and insufficient-data scenarios.
+- P3: exact fixture metrics; missing links; zero denominators; duplicate records; immature cohorts; future-data exclusion; outage and insufficient-data scenarios; generated-text checks (record ID mapping, length bounds, no emails, phone numbers, or URLs, and duplicate limits).
 - P4: adapter tests for missing credentials, timeout, malformed output, invalid evidence references, and future-memory exclusion (including the live canary test); one real persistence/recall smoke test, separately labeled from mocked tests.
 - P2: full load-investigate-outcome-reinvestigate flow; replay idempotency; persistence after restart; readable failure states; clean-checkout launch.
 
