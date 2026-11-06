@@ -1,0 +1,101 @@
+{
+  "run_id": "run-20260630-0001",
+  "policy_id": "pol-acq-bonus",
+  "scenario": "incentive-risk",
+  "as_of": "2026-06-30T23:59:59Z",
+  "created_at": "2026-11-07T09:00:00Z",
+  "memory_mode": "live",
+  "incident_id": "inc-pol-acq-bonus-month-end-v1",
+  "analysis_digest": "9f2c1a7e5b4d8c3a6e0f1b2d7c9a4e8f3b5d6a1c0e2f4b7d9a8c3e5f1b0d2a46",
+  "synthetic": true,
+  "analysis": {
+    "policy_id": "pol-acq-bonus",
+    "policy_version": "v1",
+    "scenario": "incentive-risk",
+    "as_of": "2026-06-30T23:59:59Z",
+    "comparison_id": "month-end-v1",
+    "flagged": true,
+    "metrics_checked": 3,
+    "thresholds": {"gap_threshold": 0.1, "baseline_margin": 0.1, "min_group_size": 30, "month_end_days": 5},
+    "month_end": {"label": "Month-end deals", "eligible": 84, "excluded_immature": 6, "total": 90},
+    "other": {"label": "Other deals", "eligible": 402, "excluded_immature": 18, "total": 420},
+    "metrics": [
+      {
+        "name": "discount",
+        "status": "flagged",
+        "month_end_value": 0.28,
+        "other_value": 0.09,
+        "gap": 0.19,
+        "gap_interval": {"lower": 0.16, "upper": 0.22, "method": "normal-difference-of-means", "level": 0.95},
+        "pre_policy_gap": 0.01,
+        "month_end_n": 84,
+        "other_n": 402,
+        "window_days": null,
+        "reasons": [],
+        "evidence_ids": ["DEAL-0188", "DEAL-0191"]
+      },
+      {
+        "name": "complaint_30d",
+        "status": "flagged",
+        "month_end_value": 0.31,
+        "other_value": 0.14,
+        "gap": 0.17,
+        "gap_interval": {"lower": 0.06, "upper": 0.28, "method": "newcombe-hybrid-score", "level": 0.95},
+        "pre_policy_gap": 0.02,
+        "month_end_n": 84,
+        "other_n": 402,
+        "window_days": 30,
+        "reasons": [],
+        "evidence_ids": ["TICKET-0412", "TICKET-0437"]
+      },
+      {
+        "name": "cancel_30d",
+        "status": "watch",
+        "month_end_value": 0.12,
+        "other_value": 0.05,
+        "gap": 0.07,
+        "gap_interval": {"lower": -0.01, "upper": 0.15, "method": "newcombe-hybrid-score", "level": 0.95},
+        "pre_policy_gap": 0.01,
+        "month_end_n": 84,
+        "other_n": 402,
+        "window_days": 30,
+        "reasons": ["gap_below_threshold"],
+        "evidence_ids": ["CANCEL-0071"]
+      }
+    ],
+    "corroborating_customers": 4,
+    "alternatives": [
+      {"id": "alt-seasonal-demand", "label": "Quarter-end buying patterns could explain month-end clustering", "evidence_ids": []}
+    ],
+    "evidence": [
+      {"id": "TICKET-0412", "source_type": "ticket", "timestamp": "2026-06-12T08:30:00Z", "theme": "onboarding_difficulty", "customer_id": "cust-0231", "deal_id": "DEAL-0188", "excerpt": "We could not complete setup; the sales call promised this was included."},
+      {"id": "TICKET-0437", "source_type": "ticket", "timestamp": "2026-06-18T10:05:00Z", "theme": "pricing_dispute", "customer_id": "cust-0244", "deal_id": "DEAL-0191", "excerpt": "The discount we were given does not match our invoice."}
+    ],
+    "insufficient_reasons": []
+  },
+  "explanation": {
+    "summary": "Month-end deals show a discount gap of {{m:discount.gap}} and a 30-day complaint gap of {{m:complaint_30d.gap}}, above the {{t:gap_threshold}} threshold.",
+    "hypothesis": "The acquisition bonus may be associated with heavier discounting and poorer-fit deals at month end; this does not show cause.",
+    "supporting_points": ["Discount gap {{m:discount.gap}} with interval {{m:discount.gap_lower}} to {{m:discount.gap_upper}}."],
+    "conflicting_points": ["Cancellations are only a watch item: gap {{m:cancel_30d.gap}}."],
+    "alternatives": ["Seasonal buying patterns could produce month-end clustering."],
+    "recommendations": [
+      {
+        "action_type": "pilot_guardrail",
+        "action": "Pilot a discount approval step on month-end deals for one quarter.",
+        "rationale": "Discount and early complaint gaps are flagged; cancellations are not yet clear.",
+        "evidence_ids": ["TICKET-0412", "TICKET-0437"],
+        "success_metric": "Month-end complaint gap under 10 points within two quarters",
+        "guardrail": "Do not slow deals below the approval service level of two business days",
+        "history_influence": ["mem-inc-2025-q3-decision"]
+      }
+    ],
+    "recalled": [
+      {"id": "mem-inc-2025-q3-decision", "memory_type": "decision", "event_time": "2025-10-15T00:00:00Z", "incident_id": "inc-hist-2025-q3", "summary": "A similar bonus was reverted outright and cancellations rose afterwards."}
+    ],
+    "explanation_source": "reflect",
+    "memory_status": "live",
+    "validation_error_codes": [],
+    "template_text": {"summary": "Month-end deals show a discount gap of {{m:discount.gap}} ..."}
+  }
+}

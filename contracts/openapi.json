@@ -1,0 +1,1202 @@
+{
+  "components": {
+    "schemas": {
+      "ActionType": {
+        "enum": [
+          "adjust_policy",
+          "pilot_guardrail",
+          "revert_change",
+          "collect_more_data",
+          "no_action"
+        ],
+        "title": "ActionType",
+        "type": "string"
+      },
+      "AlternativeExplanation": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_ids": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids",
+            "type": "array"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ],
+        "title": "AlternativeExplanation",
+        "type": "object"
+      },
+      "AnalysisResult": {
+        "additionalProperties": false,
+        "description": "Output of P3's ``analyze(dataset, policy_id, as_of)``; deterministic.",
+        "properties": {
+          "alternatives": {
+            "items": {
+              "$ref": "#/components/schemas/AlternativeExplanation"
+            },
+            "title": "Alternatives",
+            "type": "array"
+          },
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "comparison_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Comparison Id",
+            "type": "string"
+          },
+          "corroborating_customers": {
+            "default": 0,
+            "minimum": 0.0,
+            "title": "Corroborating Customers",
+            "type": "integer"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "flagged": {
+            "title": "Flagged",
+            "type": "boolean"
+          },
+          "insufficient_reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Insufficient Reasons",
+            "type": "array"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/MetricResult"
+            },
+            "title": "Metrics",
+            "type": "array"
+          },
+          "metrics_checked": {
+            "default": 3,
+            "minimum": 0.0,
+            "title": "Metrics Checked",
+            "type": "integer"
+          },
+          "month_end": {
+            "$ref": "#/components/schemas/CohortCounts"
+          },
+          "other": {
+            "$ref": "#/components/schemas/CohortCounts"
+          },
+          "policy_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Id",
+            "type": "string"
+          },
+          "policy_version": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Version",
+            "type": "string"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          },
+          "thresholds": {
+            "$ref": "#/components/schemas/Thresholds"
+          }
+        },
+        "required": [
+          "policy_id",
+          "policy_version",
+          "scenario",
+          "as_of",
+          "comparison_id",
+          "flagged",
+          "month_end",
+          "other",
+          "metrics"
+        ],
+        "title": "AnalysisResult",
+        "type": "object"
+      },
+      "CohortCounts": {
+        "additionalProperties": false,
+        "properties": {
+          "eligible": {
+            "minimum": 0.0,
+            "title": "Eligible",
+            "type": "integer"
+          },
+          "excluded_immature": {
+            "default": 0,
+            "minimum": 0.0,
+            "title": "Excluded Immature",
+            "type": "integer"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "total": {
+            "minimum": 0.0,
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "label",
+          "eligible",
+          "total"
+        ],
+        "title": "CohortCounts",
+        "type": "object"
+      },
+      "ErrorCode": {
+        "enum": [
+          "validation_error",
+          "not_found",
+          "as_of_before_memory",
+          "retention_pending",
+          "idempotency_conflict",
+          "not_implemented",
+          "internal_error"
+        ],
+        "title": "ErrorCode",
+        "type": "string"
+      },
+      "ErrorResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorCode"
+          },
+          "details": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Details",
+            "type": "array"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "request_id"
+        ],
+        "title": "ErrorResponse",
+        "type": "object"
+      },
+      "Evidence": {
+        "additionalProperties": false,
+        "description": "A source record behind a finding. ``excerpt`` is for display only and is\nnever sent to a model; the model sees ``id``, ``source_type``, ``timestamp``\nand ``theme`` only.",
+        "properties": {
+          "customer_id": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Customer Id"
+          },
+          "deal_id": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deal Id"
+          },
+          "excerpt": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Excerpt"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Id",
+            "type": "string"
+          },
+          "source_type": {
+            "$ref": "#/components/schemas/SourceType"
+          },
+          "theme": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Theme"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "timestamp": {
+            "format": "date-time",
+            "title": "Timestamp",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "source_type",
+          "timestamp"
+        ],
+        "title": "Evidence",
+        "type": "object"
+      },
+      "Explanation": {
+        "additionalProperties": false,
+        "description": "Output of P4's ``explain(analysis, context)``. Text fields are resolved\nfor display; ``template_text`` keeps the tokenized originals for audit.",
+        "properties": {
+          "alternatives": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Alternatives",
+            "type": "array"
+          },
+          "conflicting_points": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Conflicting Points",
+            "type": "array"
+          },
+          "explanation_source": {
+            "$ref": "#/components/schemas/ExplanationSource"
+          },
+          "hypothesis": {
+            "title": "Hypothesis",
+            "type": "string"
+          },
+          "memory_status": {
+            "$ref": "#/components/schemas/MemoryStatus"
+          },
+          "recalled": {
+            "items": {
+              "$ref": "#/components/schemas/RecalledMemory"
+            },
+            "title": "Recalled",
+            "type": "array"
+          },
+          "recommendations": {
+            "items": {
+              "$ref": "#/components/schemas/Recommendation"
+            },
+            "title": "Recommendations",
+            "type": "array"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "supporting_points": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Supporting Points",
+            "type": "array"
+          },
+          "template_text": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Template Text",
+            "type": "object"
+          },
+          "validation_error_codes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Validation Error Codes",
+            "type": "array"
+          }
+        },
+        "required": [
+          "summary",
+          "hypothesis",
+          "recommendations",
+          "explanation_source",
+          "memory_status"
+        ],
+        "title": "Explanation",
+        "type": "object"
+      },
+      "ExplanationSource": {
+        "enum": [
+          "reflect",
+          "template"
+        ],
+        "title": "ExplanationSource",
+        "type": "string"
+      },
+      "HealthResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "demo_reset_enabled": {
+            "title": "Demo Reset Enabled",
+            "type": "boolean"
+          },
+          "memory_configured": {
+            "title": "Memory Configured",
+            "type": "boolean"
+          },
+          "memory_status": {
+            "$ref": "#/components/schemas/MemoryStatus"
+          },
+          "status": {
+            "pattern": "^(ok|degraded)$",
+            "title": "Status",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "version",
+          "memory_configured",
+          "memory_status",
+          "demo_reset_enabled"
+        ],
+        "title": "HealthResponse",
+        "type": "object"
+      },
+      "Interval": {
+        "additionalProperties": false,
+        "description": "Uncertainty interval (fractions); ``level`` is the confidence level used.",
+        "properties": {
+          "level": {
+            "default": 0.95,
+            "exclusiveMaximum": 1.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Level",
+            "type": "number"
+          },
+          "lower": {
+            "maximum": 1.0,
+            "minimum": -1.0,
+            "title": "Lower",
+            "type": "number"
+          },
+          "method": {
+            "title": "Method",
+            "type": "string"
+          },
+          "upper": {
+            "maximum": 1.0,
+            "minimum": -1.0,
+            "title": "Upper",
+            "type": "number"
+          }
+        },
+        "required": [
+          "lower",
+          "upper",
+          "method"
+        ],
+        "title": "Interval",
+        "type": "object"
+      },
+      "Investigation": {
+        "additionalProperties": false,
+        "description": "One stored run; ``run_id`` is the investigation ID.",
+        "properties": {
+          "analysis": {
+            "$ref": "#/components/schemas/AnalysisResult"
+          },
+          "analysis_digest": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Analysis Digest",
+            "type": "string"
+          },
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "explanation": {
+            "$ref": "#/components/schemas/Explanation"
+          },
+          "incident_id": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Incident Id"
+          },
+          "memory_mode": {
+            "$ref": "#/components/schemas/MemoryMode"
+          },
+          "policy_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Id",
+            "type": "string"
+          },
+          "run_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Run Id",
+            "type": "string"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          },
+          "synthetic": {
+            "default": true,
+            "title": "Synthetic",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "run_id",
+          "policy_id",
+          "scenario",
+          "as_of",
+          "created_at",
+          "memory_mode",
+          "incident_id",
+          "analysis_digest",
+          "analysis",
+          "explanation"
+        ],
+        "title": "Investigation",
+        "type": "object"
+      },
+      "InvestigationRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "idempotency_key": {
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Idempotency Key",
+            "type": "string"
+          },
+          "memory_mode": {
+            "$ref": "#/components/schemas/MemoryMode",
+            "default": "live"
+          },
+          "policy_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Id",
+            "type": "string"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          }
+        },
+        "required": [
+          "policy_id",
+          "scenario",
+          "as_of",
+          "idempotency_key"
+        ],
+        "title": "InvestigationRequest",
+        "type": "object"
+      },
+      "InvestigationSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "flagged": {
+            "title": "Flagged",
+            "type": "boolean"
+          },
+          "incident_id": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Incident Id"
+          },
+          "memory_mode": {
+            "$ref": "#/components/schemas/MemoryMode"
+          },
+          "memory_status": {
+            "$ref": "#/components/schemas/MemoryStatus"
+          },
+          "policy_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Id",
+            "type": "string"
+          },
+          "run_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Run Id",
+            "type": "string"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          }
+        },
+        "required": [
+          "run_id",
+          "policy_id",
+          "scenario",
+          "as_of",
+          "created_at",
+          "memory_mode",
+          "incident_id",
+          "flagged",
+          "memory_status"
+        ],
+        "title": "InvestigationSummary",
+        "type": "object"
+      },
+      "MemoryMode": {
+        "enum": [
+          "live",
+          "off"
+        ],
+        "title": "MemoryMode",
+        "type": "string"
+      },
+      "MemoryStatus": {
+        "enum": [
+          "live",
+          "unavailable",
+          "fixture"
+        ],
+        "title": "MemoryStatus",
+        "type": "string"
+      },
+      "MetricName": {
+        "description": "The three fixed metrics; also the ``{{m:<name>.<field>}}`` token prefixes.",
+        "enum": [
+          "discount",
+          "complaint_30d",
+          "cancel_30d"
+        ],
+        "title": "MetricName",
+        "type": "string"
+      },
+      "MetricResult": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_ids": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids",
+            "type": "array"
+          },
+          "gap": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": -1.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gap"
+          },
+          "gap_interval": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Interval"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "month_end_n": {
+            "minimum": 0.0,
+            "title": "Month End N",
+            "type": "integer"
+          },
+          "month_end_value": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Month End Value"
+          },
+          "name": {
+            "$ref": "#/components/schemas/MetricName"
+          },
+          "other_n": {
+            "minimum": 0.0,
+            "title": "Other N",
+            "type": "integer"
+          },
+          "other_value": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Other Value"
+          },
+          "pre_policy_gap": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": -1.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pre Policy Gap"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/MetricStatus"
+          },
+          "window_days": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Window Days"
+          }
+        },
+        "required": [
+          "name",
+          "status",
+          "month_end_value",
+          "other_value",
+          "gap",
+          "gap_interval",
+          "pre_policy_gap",
+          "month_end_n",
+          "other_n"
+        ],
+        "title": "MetricResult",
+        "type": "object"
+      },
+      "MetricStatus": {
+        "enum": [
+          "flagged",
+          "watch",
+          "no_signal",
+          "insufficient_data"
+        ],
+        "title": "MetricStatus",
+        "type": "string"
+      },
+      "RecalledMemory": {
+        "additionalProperties": false,
+        "description": "A memory that shaped a recommendation (``history_influence`` target).",
+        "properties": {
+          "event_time": {
+            "format": "date-time",
+            "title": "Event Time",
+            "type": "string"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Id",
+            "type": "string"
+          },
+          "incident_id": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Incident Id"
+          },
+          "memory_type": {
+            "$ref": "#/components/schemas/RecalledMemoryType"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "memory_type",
+          "event_time",
+          "summary"
+        ],
+        "title": "RecalledMemory",
+        "type": "object"
+      },
+      "RecalledMemoryType": {
+        "enum": [
+          "fact",
+          "hypothesis",
+          "rejected_hypothesis",
+          "decision",
+          "measured_result"
+        ],
+        "title": "RecalledMemoryType",
+        "type": "string"
+      },
+      "Recommendation": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "action_type": {
+            "$ref": "#/components/schemas/ActionType"
+          },
+          "evidence_ids": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids",
+            "type": "array"
+          },
+          "guardrail": {
+            "description": "Proposed target (not calculated).",
+            "title": "Guardrail",
+            "type": "string"
+          },
+          "history_influence": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "History Influence",
+            "type": "array"
+          },
+          "rationale": {
+            "title": "Rationale",
+            "type": "string"
+          },
+          "success_metric": {
+            "description": "Proposed target (not calculated).",
+            "title": "Success Metric",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action_type",
+          "action",
+          "rationale",
+          "success_metric",
+          "guardrail"
+        ],
+        "title": "Recommendation",
+        "type": "object"
+      },
+      "SourceType": {
+        "enum": [
+          "deal",
+          "ticket",
+          "cancellation",
+          "incident"
+        ],
+        "title": "SourceType",
+        "type": "string"
+      },
+      "Theme": {
+        "enum": [
+          "missing_feature",
+          "onboarding_difficulty",
+          "pricing_dispute",
+          "outage",
+          "other"
+        ],
+        "title": "Theme",
+        "type": "string"
+      },
+      "Thresholds": {
+        "additionalProperties": false,
+        "description": "Plan thresholds, exposed through ``{{t:<name>}}`` tokens.",
+        "properties": {
+          "baseline_margin": {
+            "default": 0.1,
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Baseline Margin",
+            "type": "number"
+          },
+          "gap_threshold": {
+            "default": 0.1,
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Gap Threshold",
+            "type": "number"
+          },
+          "min_group_size": {
+            "default": 30,
+            "minimum": 1.0,
+            "title": "Min Group Size",
+            "type": "integer"
+          },
+          "month_end_days": {
+            "default": 5,
+            "minimum": 1.0,
+            "title": "Month End Days",
+            "type": "integer"
+          }
+        },
+        "title": "Thresholds",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "IncentiveTrap API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/health": {
+      "get": {
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/investigations": {
+      "get": {
+        "operationId": "list_investigations_api_investigations_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/InvestigationSummary"
+                  },
+                  "title": "Response List Investigations Api Investigations Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "List Investigations",
+        "tags": [
+          "investigations"
+        ]
+      },
+      "post": {
+        "operationId": "create_investigation_api_investigations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvestigationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Investigation"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Create Investigation",
+        "tags": [
+          "investigations"
+        ]
+      }
+    },
+    "/api/investigations/{run_id}": {
+      "get": {
+        "operationId": "get_investigation_api_investigations__run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Investigation"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        },
+        "summary": "Get Investigation",
+        "tags": [
+          "investigations"
+        ]
+      }
+    }
+  }
+}

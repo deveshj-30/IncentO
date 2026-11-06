@@ -1,0 +1,45 @@
+{
+  "$defs": {
+    "ErrorCode": {
+      "enum": [
+        "validation_error",
+        "not_found",
+        "as_of_before_memory",
+        "retention_pending",
+        "idempotency_conflict",
+        "not_implemented",
+        "internal_error"
+      ],
+      "title": "ErrorCode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "$ref": "#/$defs/ErrorCode"
+    },
+    "details": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Details",
+      "type": "array"
+    },
+    "message": {
+      "title": "Message",
+      "type": "string"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message",
+    "request_id"
+  ],
+  "title": "ErrorResponse",
+  "type": "object"
+}

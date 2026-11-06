@@ -1,0 +1,6 @@
+{
+  "code": "as_of_before_memory",
+  "message": "as_of is earlier than the latest retained memory event for this scenario; use memory_mode off or reset the demo",
+  "request_id": "req-3f9a1c2b7d40",
+  "details": ["latest_memory_event: 2026-06-30T00:00:00Z"]
+}

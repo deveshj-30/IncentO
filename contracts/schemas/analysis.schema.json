@@ -1,0 +1,480 @@
+{
+  "$defs": {
+    "AlternativeExplanation": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ],
+      "title": "AlternativeExplanation",
+      "type": "object"
+    },
+    "CohortCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "eligible": {
+          "minimum": 0,
+          "title": "Eligible",
+          "type": "integer"
+        },
+        "excluded_immature": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Excluded Immature",
+          "type": "integer"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "total": {
+          "minimum": 0,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "label",
+        "eligible",
+        "total"
+      ],
+      "title": "CohortCounts",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "description": "A source record behind a finding. ``excerpt`` is for display only and is\nnever sent to a model; the model sees ``id``, ``source_type``, ``timestamp``\nand ``theme`` only.",
+      "properties": {
+        "customer_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Customer Id"
+        },
+        "deal_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Deal Id"
+        },
+        "excerpt": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excerpt"
+        },
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SourceType"
+        },
+        "theme": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Theme"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source_type",
+        "timestamp"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "Interval": {
+      "additionalProperties": false,
+      "description": "Uncertainty interval (fractions); ``level`` is the confidence level used.",
+      "properties": {
+        "level": {
+          "default": 0.95,
+          "exclusiveMaximum": 1.0,
+          "exclusiveMinimum": 0.0,
+          "title": "Level",
+          "type": "number"
+        },
+        "lower": {
+          "maximum": 1.0,
+          "minimum": -1.0,
+          "title": "Lower",
+          "type": "number"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "upper": {
+          "maximum": 1.0,
+          "minimum": -1.0,
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "upper",
+        "method"
+      ],
+      "title": "Interval",
+      "type": "object"
+    },
+    "MetricName": {
+      "description": "The three fixed metrics; also the ``{{m:<name>.<field>}}`` token prefixes.",
+      "enum": [
+        "discount",
+        "complaint_30d",
+        "cancel_30d"
+      ],
+      "title": "MetricName",
+      "type": "string"
+    },
+    "MetricResult": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "gap": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": -1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Gap"
+        },
+        "gap_interval": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Interval"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "month_end_n": {
+          "minimum": 0,
+          "title": "Month End N",
+          "type": "integer"
+        },
+        "month_end_value": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Month End Value"
+        },
+        "name": {
+          "$ref": "#/$defs/MetricName"
+        },
+        "other_n": {
+          "minimum": 0,
+          "title": "Other N",
+          "type": "integer"
+        },
+        "other_value": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Other Value"
+        },
+        "pre_policy_gap": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": -1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pre Policy Gap"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/MetricStatus"
+        },
+        "window_days": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Window Days"
+        }
+      },
+      "required": [
+        "name",
+        "status",
+        "month_end_value",
+        "other_value",
+        "gap",
+        "gap_interval",
+        "pre_policy_gap",
+        "month_end_n",
+        "other_n"
+      ],
+      "title": "MetricResult",
+      "type": "object"
+    },
+    "MetricStatus": {
+      "enum": [
+        "flagged",
+        "watch",
+        "no_signal",
+        "insufficient_data"
+      ],
+      "title": "MetricStatus",
+      "type": "string"
+    },
+    "SourceType": {
+      "enum": [
+        "deal",
+        "ticket",
+        "cancellation",
+        "incident"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    },
+    "Theme": {
+      "enum": [
+        "missing_feature",
+        "onboarding_difficulty",
+        "pricing_dispute",
+        "outage",
+        "other"
+      ],
+      "title": "Theme",
+      "type": "string"
+    },
+    "Thresholds": {
+      "additionalProperties": false,
+      "description": "Plan thresholds, exposed through ``{{t:<name>}}`` tokens.",
+      "properties": {
+        "baseline_margin": {
+          "default": 0.1,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Baseline Margin",
+          "type": "number"
+        },
+        "gap_threshold": {
+          "default": 0.1,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Gap Threshold",
+          "type": "number"
+        },
+        "min_group_size": {
+          "default": 30,
+          "minimum": 1,
+          "title": "Min Group Size",
+          "type": "integer"
+        },
+        "month_end_days": {
+          "default": 5,
+          "minimum": 1,
+          "title": "Month End Days",
+          "type": "integer"
+        }
+      },
+      "title": "Thresholds",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Output of P3's ``analyze(dataset, policy_id, as_of)``; deterministic.",
+  "properties": {
+    "alternatives": {
+      "items": {
+        "$ref": "#/$defs/AlternativeExplanation"
+      },
+      "title": "Alternatives",
+      "type": "array"
+    },
+    "as_of": {
+      "format": "date-time",
+      "title": "As Of",
+      "type": "string"
+    },
+    "comparison_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Comparison Id",
+      "type": "string"
+    },
+    "corroborating_customers": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Corroborating Customers",
+      "type": "integer"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "flagged": {
+      "title": "Flagged",
+      "type": "boolean"
+    },
+    "insufficient_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Insufficient Reasons",
+      "type": "array"
+    },
+    "metrics": {
+      "items": {
+        "$ref": "#/$defs/MetricResult"
+      },
+      "title": "Metrics",
+      "type": "array"
+    },
+    "metrics_checked": {
+      "default": 3,
+      "minimum": 0,
+      "title": "Metrics Checked",
+      "type": "integer"
+    },
+    "month_end": {
+      "$ref": "#/$defs/CohortCounts"
+    },
+    "other": {
+      "$ref": "#/$defs/CohortCounts"
+    },
+    "policy_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "policy_version": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "scenario": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Scenario",
+      "type": "string"
+    },
+    "thresholds": {
+      "$ref": "#/$defs/Thresholds"
+    }
+  },
+  "required": [
+    "policy_id",
+    "policy_version",
+    "scenario",
+    "as_of",
+    "comparison_id",
+    "flagged",
+    "month_end",
+    "other",
+    "metrics"
+  ],
+  "title": "AnalysisResult",
+  "type": "object"
+}

@@ -1,0 +1,50 @@
+{
+  "$defs": {
+    "MemoryMode": {
+      "enum": [
+        "live",
+        "off"
+      ],
+      "title": "MemoryMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date-time",
+      "title": "As Of",
+      "type": "string"
+    },
+    "idempotency_key": {
+      "maxLength": 128,
+      "minLength": 8,
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "memory_mode": {
+      "$ref": "#/$defs/MemoryMode",
+      "default": "live"
+    },
+    "policy_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "scenario": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Scenario",
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy_id",
+    "scenario",
+    "as_of",
+    "idempotency_key"
+  ],
+  "title": "InvestigationRequest",
+  "type": "object"
+}

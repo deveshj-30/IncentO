@@ -1,0 +1,7 @@
+{
+  "policy_id": "pol-acq-bonus",
+  "scenario": "incentive-risk",
+  "as_of": "2026-06-30T23:59:59Z",
+  "memory_mode": "live",
+  "idempotency_key": "run-demo-0001"
+}
