@@ -77,7 +77,8 @@ IncentO/
 |-- .env.example                      # Backend configuration placeholders (P2)
 |-- contracts/                        # P2; reviewed by all before freezing
 |   |-- v1.md                         # API and internal module contracts
-|   |-- schemas/
+|   |-- openapi.json                  # Generated from the FastAPI app (P2)
+|   |-- schemas/                      # Generated from core/schemas.py; do not edit
 |   |   |-- dataset.schema.json       # Policies, deals, tickets, cancellations
 |   |   |-- analysis.schema.json      # Cohorts, calculated metrics, evidence
 |   |   |-- investigation.schema.json # API response and explanation fields
@@ -100,7 +101,7 @@ IncentO/
 |       |-- main.tsx                  # Browser entry point
 |       |-- App.tsx                   # Screen navigation and app shell
 |       |-- api/client.ts             # Typed backend requests and errors
-|       |-- types/contracts.ts        # Types aligned with contracts/v1.md
+|       |-- types/contracts.ts        # Generated from contracts/openapi.json; do not edit
 |       |-- pages/
 |       |   |-- Overview.tsx          # Policies and investigation list
 |       |   `-- Investigation.tsx     # Evidence, memories, and outcome form
@@ -125,7 +126,7 @@ IncentO/
 |   |   |   `-- outcomes.py
 |   |   |-- core/                      # P2
 |   |   |   |-- config.py              # Environment loading and validation
-|   |   |   |-- schemas.py             # Shared typed models matching contracts
+|   |   |   |-- schemas.py             # Source of truth for contracts (shared typed models)
 |   |   |   |-- database.py            # SQLite connection and run-state schema
 |   |   |   |-- repository.py          # Run, incident, and outcome persistence; idempotency
 |   |   |   |-- fixtures.py            # Validate fixture batches; assemble datasets from loaded batches
@@ -156,14 +157,15 @@ IncentO/
 |   |-- walkthrough.md                # Live demo and memory comparison
 |   `-- submission-checklist.md       # Recording and individual deliverables
 |-- scripts/                          # P2, except demo_check.py
-|   |-- check.sh                      # Runs all frontend and backend checks (P2)
+|   |-- check.sh                      # Runs all frontend and backend checks and contract drift checks (P2)
+|   |-- export_contracts.py           # Writes contracts/openapi.json and contracts/schemas/ (P2)
 |   |-- smoke_test.py                 # Repeatable full-flow verification (P2)
 |   `-- demo_check.py                 # Off/live repeat check and canary run (P4)
 |-- reference/                        # Existing local PDF; ignored by Git
 `-- .local/                           # Generated SQLite/runtime files; ignore
 ```
 
-Add Python `__init__.py` files where package imports require them, under the same directory ownership. P2 owns shared models in `backend/app/core/schemas.py`; P3 and P4 consume those models without editing them. Their modules must not import API routes, database access, or each other; P2 connects them through orchestration.
+Add Python `__init__.py` files where package imports require them, under the same directory ownership. P2 owns shared models in `backend/app/core/schemas.py`, the single source of truth for contracts; P3 and P4 consume those models without editing them. Their modules must not import API routes, database access, or each other; P2 connects them through orchestration.
 
 Keep contract examples small and stable for independent development. P3 owns synthetic historical records and coordinates their content with P4; P4 owns the logic that retains and recalls them. Frontend contract types are maintained by P1 against P2's frozen schemas.
 
@@ -175,6 +177,15 @@ P2 publishes `contracts/v1.md`, machine-readable schemas, and example requests/r
 
 - **Slice A (frozen at G1, 0:45).** The cross-module shapes P3 and P4 need to start: `AnalysisResult`, the `Explanation`/`Investigation` response, the error shape, and the ID, time, and money conventions, with one example each.
 - **Slice B (frozen by G2, 2:00).** The dataset schema (finalized from P3's fixtures), the incident and outcome shapes, and the remaining examples.
+
+Single source of truth (contracts are generated, not hand-copied):
+
+- **Models.** P2's Pydantic models in `backend/app/core/schemas.py` are the only hand-written definition of the contract shapes. P3 and P4 import them without editing.
+- **Generated artifacts.** `scripts/export_contracts.py` (P2) writes `contracts/openapi.json` from the FastAPI app and `contracts/schemas/*.json` from the models; both are committed so nobody needs a running server. P1's `npm run gen:types` runs openapi-typescript on `contracts/openapi.json` and writes `frontend/src/types/contracts.ts`. Generated files are never edited by hand.
+- **Hand-written.** `contracts/v1.md` (semantics and conventions) and `contracts/examples/*.json`.
+- **Drift guards in `scripts/check.sh`.** The export in check mode fails if the committed contract files differ from regenerated ones; every example must parse into its Pydantic model; the frontend regenerates its types and fails on any difference; `fixtures.py` validates fixture batches against the dataset model.
+- **Freezing.** A slice is frozen at the commit that contains its regenerated artifacts; reviewers check the `contracts/openapi.json` diff to enforce additive-only changes.
+- **Bootstrap risk.** Slice A needs stub routes with response models so the OpenAPI output contains the shapes. P1 verifies at bootstrap that openapi-typescript produces usable types from the Pydantic output.
 
 Data rules:
 
@@ -244,7 +255,7 @@ Every person prepares required personal content in Phases 6-7, after the skeleto
 Exit checkpoints — **G1**:
 
 - [ ] **P2 + all:** Assign human owners, deadline, separate clones/worktrees, and file boundaries; verify each contributor's human Git identity and remote access.
-- [ ] **P2:** Merge the skeleton and the Slice A contracts and examples (`AnalysisResult`, the `Explanation`/`Investigation` response, error shape, ID, time, and money conventions). All four contributors confirm field names and module signatures. Example payloads pass schema validation.
+- [ ] **P2:** Merge the skeleton and the Slice A contracts and examples (`AnalysisResult`, the `Explanation`/`Investigation` response, error shape, ID, time, and money conventions). All four contributors confirm field names and module signatures. Example payloads parse into the Pydantic models, and `scripts/check.sh` fails if the exported contracts or generated frontend types are stale.
 - [ ] **P1/P2:** Frontend starts and renders its shell; backend starts and responds to `/api/health`; setup commands are recorded.
 - [ ] **P4:** Create the team Hindsight Cloud account, apply the promo credit, and share the API key privately (never in Git). Retain a uniquely identified synthetic fact in a development bank and recall it in a separate request. Record the bank identifier and result without secrets. Also record which text-generation model Hindsight Cloud reports using (check the console and the Cloud docs at docs.hindsight.vectorize.io), or note that it is not visible.
 - [ ] **P2 + all:** Add local configuration and runtime exclusions to Git before scaffolding grows. (Band AI desktop and content deliverables are deferred; see the Event Requirements and Release Checklist.)
@@ -258,7 +269,7 @@ Exit checkpoints — **G1**:
 Exit checkpoints — **G2**:
 
 - [ ] **P1:** Overview and investigation screens render frozen contract fixtures; loading, empty, and error states work; frontend build/type checks pass.
-- [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice is a no-op (same checksum); API tests pass with clearly labeled module stubs where needed. Slice B contracts (dataset schema, incident and outcome shapes) are frozen before this gate closes, and their example payloads pass schema validation.
+- [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice is a no-op (same checksum); API tests pass with clearly labeled module stubs where needed. Slice B contracts (dataset schema, incident and outcome shapes) are frozen before this gate closes, and their example payloads parse into the Pydantic models.
 - [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. The risk fixture meets the sizing minimums in Analysis and Memory Rules. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
 - [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited and numbers appearing only through metric tokens. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks. The bank mission and directives are committed under `backend/app/memory/`.
 - [ ] **P2 + owners:** Module PRs are reviewed and merged sequentially; contract compatibility checks pass on `main`; all four handoffs identify their commits and next tasks.
@@ -302,7 +313,7 @@ Exit checkpoints — **G5**:
 - [ ] **P3:** Risk scenario is flagged with supporting evidence; outage scenario presents the alternative explanation without an incentive accusation; sparse data returns insufficient evidence. Duplicate, missing-link, zero-denominator, and immature-cohort tests pass.
 - [ ] **P4:** Missing credentials, timeout, malformed model output, invalid references, and stray numbers produce honest failure/partial-result states (a failed explanation falls back to the labeled template). Previously generated text is never silently presented as a fresh live result.
 - [ ] **P1:** Loading, empty, error, and retry flows are usable; a user can inspect evidence and save an outcome without a broken screen.
-- [ ] **P2 + a second contributor:** A clean checkout installs and runs using the README, with only documented external configuration. `scripts/check.sh` (frontend build/lint/tests and backend lint/tests) and the full-flow smoke check pass.
+- [ ] **P2 + a second contributor:** A clean checkout installs and runs using the README, with only documented external configuration. `scripts/check.sh` (frontend build/lint/tests, backend lint/tests, and contract drift checks) and the full-flow smoke check pass.
 - [ ] **All:** No unresolved issue blocks launching, evidence inspection, correct metrics, or the live memory loop. Record deferred cosmetic issues, update handoffs, and freeze features.
 
 **Advance when:** Required correctness checks pass and another person can reproduce the demo setup.
@@ -407,13 +418,13 @@ Demonstrate identical current evidence with an empty memory and with relevant hi
 5. Push feature branches and open focused PRs with changed behavior, validation commands/results, contract impact, and screenshots for visible UI changes. Owners may merge their own PRs that touch only their owned paths after `scripts/check.sh` passes and one other contributor approves; P2 merges anything touching contracts or shared files, and the gate integration commits. Merge one PR at a time; target merge gates at hours 2, 3.5, 5, and 6.
 6. Before merging, fetch and merge current `origin/main` into the feature branch, rerun affected checks, and push. This avoids rewriting shared history. Resolve any conflict with its file owner; never blindly choose all of one side. Do not force-push `main`.
 7. Each person keeps their handoff in their own file, `progress/pN.md`, and commits it with their feature branch. No merge slot is needed because nobody else edits it. P2 owns `progress.md` (shared status and the gate tracker). Do not rewrite or reformat another person's file.
-8. Shared contract changes go through P2, who records the change and alerts all consumers. Slice A changes after hour 0:45 should be additive; Slice B may change until G2; no breaking changes to either after hour 3:30 without a team decision. Shared documentation edits also go through P2.
+8. Shared contract changes go through P2, who records the change and alerts all consumers. Contracts are generated: P2 edits `core/schemas.py`, runs `scripts/export_contracts.py`, and commits the regenerated files in the same PR; P1 then runs `npm run gen:types`. Slice A changes after hour 0:45 should be additive; Slice B may change until G2; no breaking changes to either after hour 3:30 without a team decision. Shared documentation edits also go through P2.
 
 Exclusive path ownership prevents most code conflicts; the serialized merge queue handles shared files. Git cannot guarantee zero conflicts if these boundaries are ignored.
 
 ## Validation and Completion
 
-P1 adds frontend `npm run dev`, `npm run build`, `npm run lint`, and `npm test` scripts. P2 documents backend setup plus `python -m uvicorn app.main:app --reload`, `python -m pytest`, and `python -m ruff check .` from `backend/`. These are target commands, not currently runnable commands. P2 also provides `scripts/check.sh`, which runs all frontend and backend checks in one command (this replaces CI). Pin backend dependencies and keep secrets server-side; a browser-prefixed environment variable must never contain an API key.
+P1 adds frontend `npm run dev`, `npm run build`, `npm run lint`, `npm test`, and `npm run gen:types` (openapi-typescript on `contracts/openapi.json`) scripts. P2 documents backend setup plus `python -m uvicorn app.main:app --reload`, `python -m pytest`, and `python -m ruff check .` from `backend/`. These are target commands, not currently runnable commands. P2 also provides `scripts/check.sh`, which runs all frontend and backend checks in one command (this replaces CI). Pin backend dependencies and keep secrets server-side; a browser-prefixed environment variable must never contain an API key.
 
 - P1: build/type checks; evidence rendering, API error, and outcome-submission UI checks.
 - P3: exact fixture metrics; missing links; zero denominators; duplicate records; immature cohorts; future-data exclusion; outage and insufficient-data scenarios.

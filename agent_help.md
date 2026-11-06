@@ -24,7 +24,7 @@ The eight-hour MVP uses synthetic data and explicit batch replay. It does not es
 
 Follow the exact ownership table in `implementation_plan.md`. P1 owns `frontend/`; P3 owns the analysis module, its tests, and `data/`; P4 owns the memory module, its tests, and `docs/demo/`. P2 owns API/core, integration, contracts, backend dependencies, shared configuration, and `scripts/` (except `scripts/demo_check.py`, which P4 owns). Each owner writes the README inside their own folder; the top-level `README.md` is a thin index owned by P2.
 
-Do not edit another owner's folder to unblock yourself. Send P2 a precise request: affected path or schema, current failure, proposed change, and urgency. Meanwhile, use the agreed contract fixture within your own module. Do not independently invent a second API schema.
+Do not edit another owner's folder to unblock yourself. Send P2 a precise request: affected path or schema, current failure, proposed change, and urgency. Meanwhile, use the agreed contract fixture within your own module. Do not independently invent a second API schema. Contracts are generated from `backend/app/core/schemas.py`; never hand-edit `contracts/openapi.json`, `contracts/schemas/`, or `frontend/src/types/contracts.ts`.
 
 P1 alone updates frontend dependencies; P2 alone updates backend dependencies. Avoid global formatting, renames, framework migrations, new infrastructure, and new dependencies without a specific need. Work in separate clones or worktrees, never simultaneous sessions in one checkout.
 
