@@ -4,7 +4,7 @@
 
 Build an eight-hour hackathon MVP with four people, each using their own coding assistant. Help a Revenue Operations manager investigate whether acquisition-based commissions may be encouraging poor-fit SaaS deals. Connect numerical signals, customer feedback, and remembered incidents without claiming causation.
 
-Current state: documentation and an ignored `reference/` folder only; no application, dependencies, tests, or Git commits. Everything below is a proposed implementation. Person labels P1-P4 are placeholders to assign at kickoff.
+Current state: the documentation baseline is committed and pushed; the local `reference/` folder is ignored. No application, dependencies, or tests exist yet. Everything below is a proposed implementation. Person labels P1-P4 are placeholders to assign at kickoff.
 
 ## Deliverable and Scope
 
@@ -52,6 +52,112 @@ P2 alone owns remaining shared files: backend dependency/lock files, root config
 
 P2 may create package boundary files during bootstrap; ownership transfers when the bootstrap commit is merged. After that, no cross-folder fixes without explicit coordination. Each person owns tests beside their own module; avoid a shared test utility file during this sprint.
 
+## Planned File Structure
+
+This is the target layout, not an inventory of existing code. Create files as their features are implemented; do not generate empty placeholders for the entire tree. Ownership labels apply to each directory's contents unless a child has a different owner.
+
+```text
+IncentO/
+|-- AGENTS.md                         # Existing contributor guide; preserve
+|-- implementation_plan.md            # Architecture, ownership, and schedule (P2)
+|-- progress.md                       # Fixed per-person handoff sections
+|-- agent_help.md                     # Coding assistant workflow (P2)
+|-- matka.md                          # Plain-language project explanation (P2)
+|-- README.md                         # Setup, commands, and demo instructions (P2)
+|-- .gitignore                        # Local files and build exclusions (P2)
+|-- .env.example                      # Backend configuration placeholders (P2)
+|-- .github/                          # P2
+|   `-- workflows/checks.yml          # Frontend and backend verification
+|-- contracts/                        # P2; reviewed by all before freezing
+|   |-- v1.md                         # API and internal module contracts
+|   |-- schemas/
+|   |   |-- dataset.schema.json       # Policies, deals, tickets, cancellations
+|   |   |-- analysis.schema.json      # Cohorts, calculated metrics, evidence
+|   |   |-- investigation.schema.json # API response and explanation fields
+|   |   `-- outcome.schema.json       # Decisions and measured outcomes
+|   `-- examples/
+|       |-- investigation-request.json
+|       |-- investigation-response.json
+|       |-- outcome-request.json
+|       `-- error-response.json
+|-- frontend/                         # P1 owns this entire subtree
+|   |-- package.json
+|   |-- package-lock.json
+|   |-- index.html
+|   |-- vite.config.ts
+|   |-- tsconfig.json
+|   |-- eslint.config.js
+|   |-- public/                       # Static icons and demo assets
+|   `-- src/
+|       |-- main.tsx                  # Browser entry point
+|       |-- App.tsx                   # Screen navigation and app shell
+|       |-- api/client.ts             # Typed backend requests and errors
+|       |-- types/contracts.ts        # Types aligned with contracts/v1.md
+|       |-- pages/
+|       |   |-- Overview.tsx          # Policies and investigation list
+|       |   `-- Investigation.tsx     # Evidence, memories, and outcome form
+|       |-- components/
+|       |   |-- MetricCard.tsx
+|       |   |-- EvidenceList.tsx
+|       |   |-- MemoryPanel.tsx
+|       |   `-- OutcomeForm.tsx
+|       |-- styles/global.css
+|       `-- tests/                    # Component and API-state tests
+|-- backend/
+|   |-- pyproject.toml                # Python/tool configuration (P2)
+|   |-- requirements.txt              # Pinned backend dependencies (P2)
+|   |-- app/
+|   |   |-- __init__.py                # Package bootstrap (P2)
+|   |   |-- main.py                    # FastAPI entry point (P2)
+|   |   |-- api/                       # P2
+|   |   |   |-- health.py
+|   |   |   |-- demo.py
+|   |   |   |-- policies.py
+|   |   |   |-- investigations.py
+|   |   |   `-- outcomes.py
+|   |   |-- core/                      # P2
+|   |   |   |-- config.py              # Environment loading and validation
+|   |   |   |-- schemas.py             # Shared typed models matching contracts
+|   |   |   |-- database.py            # SQLite connection and schema setup
+|   |   |   |-- repository.py          # Record persistence and idempotency
+|   |   |   |-- fixtures.py            # Validate and load demo batches
+|   |   |   `-- orchestration.py       # Analyze, explain, and persist a run
+|   |   |-- analysis/                  # P3
+|   |   |   |-- service.py             # analyze() public module entry point
+|   |   |   |-- cohorts.py             # Matching, maturity, and time filters
+|   |   |   |-- metrics.py             # Rates, deltas, and uncertainty
+|   |   |   `-- evidence.py            # Source linkage and corroboration
+|   |   `-- memory/                    # P4
+|   |       |-- service.py             # explain() and retain_outcome()
+|   |       |-- hindsight_adapter.py   # Actual Hindsight SDK/API calls
+|   |       |-- validation.py          # Output, citation, and chronology checks
+|   |       `-- prompts/              # Explanation/reflection templates
+|   `-- tests/
+|       |-- integration/               # P2: complete API and persistence flow
+|       |-- analysis/                  # P3: exact metrics and edge cases
+|       `-- memory/                    # P4: adapter, output, and recall checks
+|-- data/                             # P3; synthetic data only
+|   |-- README.md                     # Field meanings and expected metrics
+|   |-- scenarios/
+|   |   |-- incentive-risk.json
+|   |   |-- product-outage.json
+|   |   `-- insufficient-data.json
+|   `-- history/incidents.json        # Historical facts, decisions, outcomes
+|-- docs/demo/                        # P4
+|   |-- walkthrough.md                # Live demo and memory comparison
+|   `-- submission-checklist.md       # Recording and individual deliverables
+|-- scripts/                          # P2
+|   `-- smoke_test.py                 # Repeatable full-flow verification
+|-- reference/                        # Existing local PDF; ignored by Git
+`-- .local/                           # Generated SQLite/runtime files; ignore
+```
+
+Add Python `__init__.py` files where package imports require them, under the same directory ownership. P2 owns shared models in `backend/app/core/schemas.py`; P3 and P4 consume those models without editing them. Their modules must not import API routes, database access, or each other; P2 connects them through orchestration.
+
+Keep contract examples small and stable for independent development. P3 owns synthetic historical records and coordinates their content with P4; P4 owns the logic that retains and recalls them. Frontend contract types are maintained by P1 against P2's frozen schemas.
+
+Only synthetic fixtures and placeholder configuration belong in Git. Before scaffolding, P2 adds exclusions for `.env`, `.local/`, `.venv/`, Python caches, `node_modules/`, `dist/`, and local assistant workspace files, while retaining `.env.example`. The frontend gets only a non-secret API base URL; backend credentials remain server-side.
+
 ## Contracts to Freeze in the First 45 Minutes
 
 P2 publishes `contracts/v1.md`, machine-readable schemas, and example requests/responses. P1/P3/P4 review once, then build independently against these examples. These are internal application contracts, not assumed Hindsight SDK signatures.
@@ -81,9 +187,9 @@ Agree on validation errors, empty responses, and a common error shape (`code`, `
 
 Internal boundaries: P3 exports `analyze(dataset, policy_id, as_of) -> AnalysisResult`; P4 exports `explain(analysis, context) -> Explanation` and `retain_outcome(outcome) -> RetentionResult`. P2 handles loading, persistence, and serialization. P4 verifies actual Hindsight methods against the official documentation before implementation: <https://hindsight.vectorize.io/>.
 
-## Eight-Hour Schedule
+## Phases and Eight-Hour Schedule
 
-Elapsed times start at kickoff. Hold a five-minute check-in at each integration gate; report contract changes and blockers immediately.
+Elapsed times start at kickoff. The seven rows below are Phases 1-7, in order. Hold a five-minute check-in at each phase gate; report contract changes and blockers immediately. Time windows are targets, not permission to advance without passing a checkpoint.
 
 | Time | P1: frontend | P2: API/integration | P3: analysis/data | P4: memory/demo | Exit gate |
 | --- | --- | --- | --- | --- | --- |
@@ -96,6 +202,113 @@ Elapsed times start at kickoff. Hold a five-minute check-in at each integration 
 | 7:00-8:00 | Personal submission materials and rehearsal | Final sequential merges, release checklist, submission | Personal submission materials and Q&A | Personal submission materials; final live rehearsal | Submission ready with buffer |
 
 Every person prepares required personal content throughout the final two hours. P2 checks the official content guide at kickoff: if its requirements need more time, cut optional UI polish early.
+
+### Gate Rules
+
+- A phase is complete only when **every exit checkpoint below passes**. All implementation gates start as `NOT STARTED`; writing this plan does not complete them.
+- The named owner supplies evidence. P2 and the relevant owner review it; another contributor reviews P2's own deliverables. P2 records the gate result, UTC time, reviewed commit, evidence, and reviewers in `progress.md`.
+- Run integration checks against the merged `main` commit, not an unmerged personal branch. Include exact commands and outcomes, plus run IDs or screenshots for interactive checks. Screenshots alone do not prove calculations or persistent memory work.
+- Start Phase N+1 only after Gate GN passes. While a gate is blocked, people may prepare independent fixtures, tests, or presentation material, but must not treat blocked functionality as accepted or build dependent integration on an unapproved contract.
+- A failed checkpoint gets an owner, a concrete fix, and a retest time. Reduce optional scope to recover time; do not waive evidence integrity, live memory, or the outcome loop. Record scope changes before reassessment.
+- Reopen a passed gate if a later change breaks its acceptance criteria. Recheck affected downstream gates before release. Feature freeze remains at elapsed hour 6 even if earlier gates run late; spend remaining time fixing the minimum demo.
+
+### Phase 1 — Foundation and Contract Freeze (0:00-0:45)
+
+**Objective:** Give all four people a stable starting point. **Coordinator:** P2. **Entry:** Planning documents available; kickoff begins.
+
+Exit checkpoints — **G1**:
+
+- [ ] **P2 + all:** Assign human owners, deadline, separate clones/worktrees, and file boundaries; verify each contributor's human Git identity and remote access.
+- [ ] **P2:** Merge the skeleton and v1 schemas/examples. All four contributors confirm field names, module signatures, error shape, and time/money conventions. Example payloads pass schema validation.
+- [ ] **P1/P2:** Frontend starts and renders its shell; backend starts and responds to `/api/health`; setup commands are recorded.
+- [ ] **P4:** Retain a uniquely identified synthetic fact in real Hindsight and recall it in a separate request. Record the bank/namespace identifier and result without secrets.
+- [ ] **P2 + all:** Check Band AI desktop setup/use requirements, obtain the official content guide, and assign submission deliverables. Add local configuration and runtime exclusions to Git before scaffolding grows.
+
+**Advance when:** Shared interfaces are frozen and external memory access is proven. A simulated Hindsight response does not pass G1.
+
+### Phase 2 — Independently Working Modules (0:45-2:00)
+
+**Objective:** Complete each owned module against the same contracts. **Coordinator:** P2; each person owns their module evidence. **Entry:** G1 passed.
+
+Exit checkpoints — **G2**:
+
+- [ ] **P1:** Overview and investigation screens render frozen contract fixtures; loading, empty, and error states work; frontend build/type checks pass.
+- [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice does not duplicate records; API tests pass with clearly labeled module stubs where needed.
+- [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
+- [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; output is validated against the agreed explanation contract. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks.
+- [ ] **P2 + owners:** Module PRs are reviewed and merged sequentially; contract compatibility checks pass on `main`; all four handoffs identify their commits and next tasks.
+
+**Advance when:** Each module works independently and its interface is verified. Internal stubs allowed here must be removed from the live demo path at G3.
+
+### Phase 3 — First Integrated Investigation (2:00-3:30)
+
+**Objective:** Prove the core product works from the browser. **Coordinator:** P2; P1/P3/P4 verify their outputs. **Entry:** G2 passed.
+
+Exit checkpoints — **G3**:
+
+- [ ] **P1/P2:** From the UI, load the risk scenario, select a policy, run an investigation, and reopen its saved detail through the API without editing code or database rows.
+- [ ] **P3:** Displayed values match fixture expectations, including cohort membership, denominators, observation dates, and source IDs; no future evidence appears.
+- [ ] **P4:** The integrated request uses live Hindsight, recalls the seeded relevant incident, and returns an evidence-backed explanation with alternatives and a specific next action.
+- [ ] **P1/P4:** Every displayed evidence reference resolves to a supplied record or retained incident; synthetic data and memory status are visible. No causal-certainty claim or invented citation appears.
+- [ ] **P2:** Save a reproducible smoke-test result and run ID for the merged commit; freeze breaking contract changes.
+
+**Advance when:** A real browser-to-analysis-to-memory investigation succeeds. A screenshot of fixture-only UI does not pass G3.
+
+### Phase 4 — Persistent Learning Loop (3:30-5:00)
+
+**Objective:** Demonstrate that remembered outcomes change later advice. **Coordinator:** P4, with P2 responsible for persistence. **Entry:** G3 passed.
+
+Exit checkpoints — **G4**:
+
+- [ ] **P1/P2/P4:** Submit a management decision and then a measured outcome through the UI/API. Both are stored distinctly, with confirmed memory retention status.
+- [ ] **P2/P4:** Restart the application; verify the saved investigation and outcome remain accessible and a later investigation recalls the outcome from Hindsight.
+- [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history: numerical results stay identical, while the explanation cites history and makes an identifiable, justified change to its recommendation.
+- [ ] **P2/P4:** Repeat outcome submission with the same idempotency key; no duplicate application event or duplicate logical memory record is created. A failed retention attempt is visible and retryable.
+- [ ] **P3/P4:** Historical replay excludes future outcomes from both analysis and recall; rejected past hypotheses remain labeled as rejected.
+
+**Advance when:** Save, restart, recall, and changed advice are demonstrated on the merged commit. Merely storing text or promising future learning does not pass G4.
+
+### Phase 5 — Correctness and Resilience (5:00-6:00)
+
+**Objective:** Make the accepted demo reliable. **Coordinator:** P2; each owner fixes their module. **Entry:** G4 passed.
+
+Exit checkpoints — **G5**:
+
+- [ ] **P3:** Risk scenario is flagged with supporting evidence; outage scenario presents the alternative explanation without an incentive accusation; sparse data returns insufficient evidence. Duplicate, missing-link, zero-denominator, and immature-cohort tests pass.
+- [ ] **P4:** Missing credentials, timeout, malformed model output, and invalid references produce honest failure/partial-result states. Previously generated text is never silently presented as a fresh live result.
+- [ ] **P1:** Loading, empty, error, and retry flows are usable; a user can inspect evidence and save an outcome without a broken screen.
+- [ ] **P2 + a second contributor:** A clean checkout installs and runs using the README, with only documented external configuration. Frontend build/lint/tests, backend lint/tests, and the full-flow smoke check pass.
+- [ ] **All:** No unresolved issue blocks launching, evidence inspection, correct metrics, or the live memory loop. Record deferred cosmetic issues, update handoffs, and freeze features.
+
+**Advance when:** Required correctness checks pass and another person can reproduce the demo setup.
+
+### Phase 6 — Release Candidate and Demo Rehearsal (6:00-7:00)
+
+**Objective:** Turn the verified application into a clear presentation. **Coordinator:** P4; P2 owns the release candidate. **Entry:** G5 passed.
+
+Exit checkpoints — **G6**:
+
+- [ ] **P4 + all:** Rehearse the complete story: policy, warning, source evidence, prior memory, recorded outcome, and improved later recommendation. Show the business value within the first minute.
+- [ ] **P2/P4:** Validate the demo's initial dataset and isolated memory state so a previous rehearsal cannot contaminate the comparison. Reset only designated demo state; preserve saved evidence needed for the presentation.
+- [ ] **P4:** Record a playable demo video from the release candidate and verify that the memory operations and outcome loop are visible. Label any fallback recording accurately.
+- [ ] **P2:** Record the release-candidate commit, launch instructions, test evidence, known limits, and recording location. Inspect commit attribution and tracked files for unintended local data or credentials.
+- [ ] **All:** Draft the individual article, social post, and video deliverables required by the content guide; list remaining submission tasks with owners.
+
+**Advance when:** The release candidate and presentation are reproducible, and the recording can be opened by another team member.
+
+### Phase 7 — Final Submission and Handoff (7:00-8:00)
+
+**Objective:** Deliver a complete, accessible submission. **Coordinator:** P2; every person owns their required content. **Entry:** G6 passed.
+
+Exit checkpoints — **G7**:
+
+- [ ] **P2:** Merge only reviewed release fixes. Rerun affected checks and the final full-flow smoke test on the exact submitted commit; record the final commit ID.
+- [ ] **P2/P4:** Verify repository and video links are accessible as required by the event; have the documented launch procedure ready for the live demonstration.
+- [ ] **All:** Complete required individual content and record its links/status against the official content guide.
+- [ ] **P2:** Submit the required materials and save confirmation or receipt details; do not mark a merely prepared submission as delivered.
+- [ ] **All:** Complete a final live rehearsal and update handoffs with outstanding limitations, release links, and recovery instructions.
+
+**Complete when:** G1-G7 are all passed with evidence, the submitted commit is verified, and delivery is confirmed. If the deadline arrives with a failed gate, report the incomplete checkpoint explicitly rather than marking the project complete.
 
 ## Analysis and Memory Rules
 

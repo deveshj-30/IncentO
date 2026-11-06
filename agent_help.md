@@ -17,7 +17,8 @@ The eight-hour MVP uses synthetic data and explicit batch replay. It does not es
 1. Confirm your human assignment (P1 frontend, P2 API/integration, P3 analysis/data, P4 memory/demo), branch, and clone/worktree. If no role is assigned, inspect read-only and ask the team lead before editing implementation files.
 2. Inspect `git status --short`, recent commits if any, and the current contract version. Preserve existing uncommitted work.
 3. Read only the files needed for the next task. Use targeted search, short command output, and focused diffs to conserve context.
-4. State a small deliverable and its acceptance check. Complete it before expanding scope.
+4. Check the phase gate tracker in `progress.md` and the exit checklist in `implementation_plan.md`. Work within the current phase; do not advance dependent implementation until every checkpoint passes and P2 records review evidence.
+5. State a small deliverable and its acceptance check. Complete it before expanding scope. If a change breaks a passed checkpoint, notify P2 so the gate is reopened and affected checks are repeated.
 
 ## Ownership and Coordination
 

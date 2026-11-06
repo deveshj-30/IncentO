@@ -15,7 +15,7 @@ This file is the durable handoff for humans and replacement coding assistants. U
 
 - Last updated: 2026-11-07; documentation baseline (no implementation session started).
 - Sprint start / eight-hour deadline: NOT SET; record UTC times at kickoff.
-- Current phase: Planning complete; implementation NOT STARTED.
+- Current phase: Phase 1 pending; implementation NOT STARTED. No phase gate has passed.
 - Repository baseline: `AGENTS.md`, `.gitignore`, and four planning/handoff documents; `reference/` ignored. No initial commit existed when this baseline was inspected.
 - Available application commands: None yet. Commands in the implementation plan are targets.
 - Contract version: Proposed v1; not published or frozen.
@@ -28,16 +28,32 @@ This file is the durable handoff for humans and replacement coding assistants. U
 - Next integration gate: Bootstrap and contract freeze at elapsed 0:45.
 - Release/demo links: Not available.
 
-### Shared Milestones
+### Phase Gate Tracker — P2 Maintains
 
-- [ ] Assign people, clocks, remote, and human Git identities.
-- [ ] Merge bootstrap and freeze v1 contracts.
-- [ ] Verify real Hindsight retain/recall access.
-- [ ] Integrate first complete investigation.
-- [ ] Demonstrate saved outcome affecting a later run after restart.
-- [ ] Pass risk, outage-control, sparse-data, and service-failure checks.
-- [ ] Freeze features; pass clean-checkout smoke test.
-- [ ] Complete recording, live rehearsal, and all required submission content.
+Exit checklists live in `implementation_plan.md`; this table records their verified results. Advance only when every checkpoint for the current gate passes. Allowed gate states: `NOT STARTED`, `IN PROGRESS`, `BLOCKED`, `PASSED`, `REOPENED`. A previously passed gate must reopen if a later change invalidates its evidence.
+
+| Gate | Phase / target finish | Status | Reviewed commit | Evidence / reviewers / UTC time |
+| --- | --- | --- | --- | --- |
+| G1 | Foundation and contract freeze / 0:45 | NOT STARTED | None | None |
+| G2 | Independently working modules / 2:00 | NOT STARTED | None | None |
+| G3 | First integrated investigation / 3:30 | NOT STARTED | None | None |
+| G4 | Persistent learning loop / 5:00 | NOT STARTED | None | None |
+| G5 | Correctness and resilience / 6:00 | NOT STARTED | None | None |
+| G6 | Release candidate and demo rehearsal / 7:00 | NOT STARTED | None | None |
+| G7 | Final submission and handoff / 8:00 | NOT STARTED | None | None |
+
+For each review, append a short record in this shared section:
+
+```text
+Gate / result / reviewed commit:
+Reviewed at (UTC) / reviewers:
+Checkpoint evidence: exact commands, working directories, results, run IDs, links
+Failed or reopened checkpoints: owner, required fix, retest time
+Scope changes or deferred optional work:
+Next permitted phase / action:
+```
+
+Do not put secrets in evidence. A draft demo, mocked memory test, or unmerged feature branch cannot satisfy a checkpoint that requires live integration or a merged release.
 
 ## P1 — Frontend
 
