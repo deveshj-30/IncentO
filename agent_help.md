@@ -2,7 +2,7 @@
 
 ## Read First
 
-Read `AGENTS.md`, then this file, `implementation_plan.md`, and your assigned section of `progress.md`. Read `matka.md` for the plain-language product story. These files support any coding assistant; they do not assume a particular vendor or tool.
+Read `AGENTS.md`, then this file, `implementation_plan.md`, and your own handoff file, `progress/pN.md`. Read `matka.md` for the plain-language product story. These files support any coding assistant; they do not assume a particular vendor or tool.
 
 The repository currently has planning documents, not an implemented application. Check the filesystem before assuming planned paths or commands exist. The local problem statement is in ignored `reference/`; its relevant requirements are summarized in the plan for teammates without that file.
 
@@ -28,7 +28,7 @@ Do not edit another owner's folder to unblock yourself. Send P2 a precise reques
 
 P1 alone updates frontend dependencies; P2 alone updates backend dependencies. Avoid global formatting, renames, framework migrations, new infrastructure, and new dependencies without a specific need. Work in separate clones or worktrees, never simultaneous sessions in one checkout.
 
-`progress.md` is shared but has fixed per-person sections. Update only yours and merge through P2's sequential queue. Never replace the whole file. Shared planning-document updates go through P2. Do not change `AGENTS.md` unless the user requests it.
+Your handoff is your own file, `progress/pN.md`; edit only that file and commit it with your branch. `progress.md` (shared status and the gate tracker) belongs to P2. Never rewrite another person's file. Shared planning-document updates go through P2. Do not change `AGENTS.md` unless the user requests it.
 
 ## Implementation Rules
 
@@ -45,7 +45,7 @@ P1 alone updates frontend dependencies; P2 alone updates backend dependencies. A
 
 ## Verification and Honest Reporting
 
-Run checks appropriate to your changes, using the commands actually established in the repository. Record exact command, working directory, result, and unresolved failure in `progress.md`. Separate unit tests using stubs from real service smoke tests. Do not claim checks passed when they were skipped or blocked.
+Run checks appropriate to your changes, using the commands actually established in the repository. Record exact command, working directory, result, and unresolved failure in your `progress/pN.md`. Separate unit tests using stubs from real service smoke tests. Do not claim checks passed when they were skipped or blocked.
 
 Prioritize contract compatibility, exact fixture metrics, evidence integrity, memory persistence, and the complete user flow. After hour 6, fix demo blockers and correctness issues; defer new features.
 
@@ -59,7 +59,7 @@ P2 merges PRs sequentially. Sync with current `origin/main` before merge; do not
 
 ## Before Context or Tokens Run Out
 
-Stop early enough to make the work recoverable. Save changed files, run the smallest useful check, and create a focused checkpoint commit when appropriate. Update your `progress.md` section with:
+Stop early enough to make the work recoverable. Save changed files, run the smallest useful check, and create a focused checkpoint commit when appropriate. Update your `progress/pN.md` file with:
 
 - Branch and workspace path; last pushed commit or PR; integrated versus unmerged status.
 - Completed behavior and exact changed/untracked paths.

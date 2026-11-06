@@ -56,7 +56,7 @@ Planned layout and exclusive ownership:
 | P3: data and analysis | `backend/app/analysis/**`, `backend/tests/analysis/**`, `data/**` | Synthetic fixtures, cohort calculations, evidence extraction, analytical tests |
 | P4: memory and explanations | `backend/app/memory/**`, `backend/tests/memory/**`, `docs/demo/**` | Hindsight adapter, prompts, memory tests, demo script and recording checklist |
 
-P2 alone owns remaining shared files: backend dependency/lock files, root configuration, `.gitignore`, `.env.example`, `README.md`, and these planning documents. `AGENTS.md` stays unchanged unless the user requests an update. Each person may edit only their own section in `progress.md` using the serialized workflow below. P2 owns its shared status section.
+P2 alone owns remaining shared files: backend dependency/lock files, root configuration, `.gitignore`, `.env.example`, `README.md`, and these planning documents. `AGENTS.md` stays unchanged unless the user requests an update. Each person owns their own handoff file, `progress/p1.md` to `progress/p4.md`; P2 owns `progress.md` (shared status and the gate tracker).
 
 P2 may create package boundary files during bootstrap; ownership transfers when the bootstrap commit is merged. After that, no cross-folder fixes without explicit coordination. Each person owns tests beside their own module; avoid a shared test utility file during this sprint.
 
@@ -68,7 +68,8 @@ This is the target layout, not an inventory of existing code. Create files as th
 IncentO/
 |-- AGENTS.md                         # Existing contributor guide; preserve
 |-- implementation_plan.md            # Architecture, ownership, and schedule (P2)
-|-- progress.md                       # Fixed per-person handoff sections
+|-- progress.md                       # Shared status and gate tracker (P2)
+|-- progress/                         # One handoff file per person: p1.md-p4.md
 |-- agent_help.md                     # Coding assistant workflow (P2)
 |-- matka.md                          # Plain-language project explanation (P2)
 |-- README.md                         # Setup, commands, and demo instructions (P2)
@@ -166,9 +167,12 @@ Keep contract examples small and stable for independent development. P3 owns syn
 
 Only synthetic fixtures and placeholder configuration belong in Git. Before scaffolding, P2 adds exclusions for `.env`, `.local/`, `.venv/`, Python caches, `node_modules/`, `dist/`, and local assistant workspace files, while retaining `.env.example`. The frontend gets only a non-secret API base URL; backend credentials remain server-side.
 
-## Contracts to Freeze in the First 45 Minutes
+## Contracts to Freeze
 
-P2 publishes `contracts/v1.md`, machine-readable schemas, and example requests/responses. P1/P3/P4 review once, then build independently against these examples. These are internal application contracts, not assumed Hindsight SDK signatures.
+P2 publishes `contracts/v1.md`, machine-readable schemas, and example requests/responses in two slices. P1/P3/P4 review each slice once, then build independently against its examples. These are internal application contracts, not assumed Hindsight SDK signatures.
+
+- **Slice A (frozen at G1, 0:45).** The cross-module shapes P3 and P4 need to start: `AnalysisResult`, the `Explanation`/`Investigation` response, the error shape, and the ID, time, and money conventions, with one example each.
+- **Slice B (frozen by G2, 2:00).** The dataset schema (finalized from P3's fixtures), the incident and outcome shapes, and the remaining examples.
 
 Data rules:
 
@@ -212,8 +216,8 @@ Elapsed times start at kickoff. The seven rows below are Phases 1-7, in order. H
 
 | Time | P1: frontend | P2: API/integration | P3: analysis/data | P4: memory/demo | Exit gate |
 | --- | --- | --- | --- | --- | --- |
-| 0:00-0:45 | Sketch three screens; review examples | Bootstrap repo; freeze contracts and ownership | Define cohorts and fixture fields | Verify credentials; prove a real retain/recall call | Shared contracts and runnable skeleton |
-| 0:45-2:00 | Build against local contract fixtures | Routes, SQLite, fixture loading, stub module wiring | Generate scenarios and pure analysis functions | Adapter, reflection output, historical incident seed | Each module runs independently |
+| 0:00-0:45 | Sketch three screens; review examples | Bootstrap repo; freeze Slice A contracts and ownership | Define cohorts and fixture fields | Verify credentials; prove a real retain/recall call | Shared contracts and runnable skeleton |
+| 0:45-2:00 | Build against local contract fixtures | Routes, SQLite, fixture loading, stub module wiring; freeze Slice B contracts | Generate scenarios and pure analysis functions | Adapter, reflection output, historical incident seed | Each module runs independently |
 | 2:00-3:30 | Connect overview and evidence detail | Merge modules; wire complete investigation | Finish metrics and failure-case tests | Connect recalled evidence and recommendations | First real end-to-end investigation |
 | 3:30-5:00 | Outcome form, memory panel, error states | Persistence, replay/idempotency, timeout handling | Outage control, sparse-data case, maturity checks | Save outcome; prove later recall after restart | Complete memory learning loop |
 | 5:00-6:00 | UI usability and empty/loading states | Clean-checkout smoke test; resolve integration failures | Verify displayed numbers against fixtures | Validate citations, memory failure behavior, demo script | Feature freeze at hour 6 |
@@ -238,7 +242,7 @@ Every person prepares required personal content in Phases 6-7, after the skeleto
 Exit checkpoints — **G1**:
 
 - [ ] **P2 + all:** Assign human owners, deadline, separate clones/worktrees, and file boundaries; verify each contributor's human Git identity and remote access.
-- [ ] **P2:** Merge the skeleton and v1 schemas/examples. All four contributors confirm field names, module signatures, error shape, and time/money conventions. Example payloads pass schema validation.
+- [ ] **P2:** Merge the skeleton and the Slice A contracts and examples (`AnalysisResult`, the `Explanation`/`Investigation` response, error shape, ID, time, and money conventions). All four contributors confirm field names and module signatures. Example payloads pass schema validation.
 - [ ] **P1/P2:** Frontend starts and renders its shell; backend starts and responds to `/api/health`; setup commands are recorded.
 - [ ] **P4:** Create the team Hindsight Cloud account, apply the promo credit, and share the API key privately (never in Git). Retain a uniquely identified synthetic fact in a development bank and recall it in a separate request. Record the bank identifier and result without secrets. Also record which text-generation model Hindsight Cloud reports using (check the console and the Cloud docs at docs.hindsight.vectorize.io), or note that it is not visible.
 - [ ] **P2 + all:** Add local configuration and runtime exclusions to Git before scaffolding grows. (Band AI desktop and content deliverables are deferred; see the Event Requirements and Release Checklist.)
@@ -252,7 +256,7 @@ Exit checkpoints — **G1**:
 Exit checkpoints — **G2**:
 
 - [ ] **P1:** Overview and investigation screens render frozen contract fixtures; loading, empty, and error states work; frontend build/type checks pass.
-- [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice does not duplicate records; API tests pass with clearly labeled module stubs where needed.
+- [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice does not duplicate records; API tests pass with clearly labeled module stubs where needed. Slice B contracts (dataset schema, incident and outcome shapes) are frozen before this gate closes, and their example payloads pass schema validation.
 - [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. The risk fixture meets the sizing minimums in Analysis and Memory Rules. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
 - [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited and numbers appearing only through metric tokens. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks. The bank mission and directives are committed under `backend/app/memory/`.
 - [ ] **P2 + owners:** Module PRs are reviewed and merged sequentially; contract compatibility checks pass on `main`; all four handoffs identify their commits and next tasks.
@@ -400,8 +404,8 @@ Demonstrate identical current evidence with an empty memory and with relevant hi
 4. P1 owns the frontend dependency manifest/lockfile; P2 owns backend dependencies. P3/P4 request dependency additions through P2. No whole-repository formatting, lockfile regeneration outside ownership, or unrelated cleanup.
 5. Push feature branches and open focused PRs with changed behavior, validation commands/results, contract impact, and screenshots for visible UI changes. P2 merges one PR at a time after checks; target merge gates at hours 2, 3.5, 5, and 6.
 6. Before merging, fetch and merge current `origin/main` into the feature branch, rerun affected checks, and push. This avoids rewriting shared history. Resolve any conflict with its file owner; never blindly choose all of one side. Do not force-push `main`.
-7. Treat `progress.md` as a serialized shared file. Each person edits only their fixed section. Before a progress-only merge, P2 grants a short merge slot; refresh from `origin/main`, apply the update, and merge before the next person proceeds. Keep handoff text available locally while waiting. Do not regenerate or reformat the entire file.
-8. Shared contract changes go through P2, who records the change and alerts all consumers. Prefer additive fields after hour 0:45; no breaking changes after hour 3:30 without a team decision. Shared documentation edits also go through P2.
+7. Each person keeps their handoff in their own file, `progress/pN.md`, and commits it with their feature branch. No merge slot is needed because nobody else edits it. P2 owns `progress.md` (shared status and the gate tracker). Do not rewrite or reformat another person's file.
+8. Shared contract changes go through P2, who records the change and alerts all consumers. Slice A changes after hour 0:45 should be additive; Slice B may change until G2; no breaking changes to either after hour 3:30 without a team decision. Shared documentation edits also go through P2.
 
 Exclusive path ownership prevents most code conflicts; the serialized merge queue handles shared files. Git cannot guarantee zero conflicts if these boundaries are ignored.
 
