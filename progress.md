@@ -1,0 +1,117 @@
+# IncentiveTrap Progress and Handoff
+
+## How to Update This File
+
+This file is the durable handoff for humans and replacement coding assistants. Use `progress.md` (the requested `progress.mf` is treated as a typo).
+
+- Each person owns only their P1/P2/P3/P4 section; P2 owns shared status. Keep headings stable and do not rewrite another person's notes.
+- Update after a meaningful milestone, at least hourly, and before ending a session or approaching a token/context limit. Save unfinished work before the limit is reached.
+- Use the serialized progress merge slots in `implementation_plan.md`. Commit code and its handoff together where practical; otherwise record the exact code commit/branch so the handoff can be matched to it.
+- Record facts and command outcomes. Use `NOT STARTED`, `IN PROGRESS`, `BLOCKED`, or `DONE`; never mark planned work as complete.
+- Include UTC timestamps, paths, reproducible commands, unresolved failures, and an exact next action. Never paste credentials or private customer records.
+- If a code change is still uncommitted, list every changed/untracked path and how to recover it. A replacement on another machine needs a pushed branch or shared patch; local files alone are not a transferable handoff.
+
+## Shared Status — P2 Maintains
+
+- Last updated: 2026-11-07; documentation baseline (no implementation session started).
+- Sprint start / eight-hour deadline: NOT SET; record UTC times at kickoff.
+- Current phase: Planning complete; implementation NOT STARTED.
+- Repository baseline: `AGENTS.md`, `.gitignore`, and four planning/handoff documents; `reference/` ignored. No initial commit existed when this baseline was inspected.
+- Available application commands: None yet. Commands in the implementation plan are targets.
+- Contract version: Proposed v1; not published or frozen.
+- Latest integrated commit / PR: None.
+- Verified features: None; no application code exists.
+- Verification: Documentation reviewed; application build, tests, and live Hindsight checks NOT RUN.
+- Assignments: P1/P2/P3/P4 human names pending.
+- External setup: Hindsight endpoint/credentials/bank isolation, chosen model configuration, Band AI desktop use, Git remote, and full content guide all unverified.
+- Decisions: Focus on acquisition incentives; React/TypeScript frontend, Python/FastAPI backend, SQLite records, Hindsight memory proposed. Separate clones, exclusive ownership, sequential merges, human-only commit attribution.
+- Next integration gate: Bootstrap and contract freeze at elapsed 0:45.
+- Release/demo links: Not available.
+
+### Shared Milestones
+
+- [ ] Assign people, clocks, remote, and human Git identities.
+- [ ] Merge bootstrap and freeze v1 contracts.
+- [ ] Verify real Hindsight retain/recall access.
+- [ ] Integrate first complete investigation.
+- [ ] Demonstrate saved outcome affecting a later run after restart.
+- [ ] Pass risk, outage-control, sparse-data, and service-failure checks.
+- [ ] Freeze features; pass clean-checkout smoke test.
+- [ ] Complete recording, live rehearsal, and all required submission content.
+
+## P1 — Frontend
+
+- Human owner: Unassigned.
+- Status: NOT STARTED.
+- Last update (UTC): Not started.
+- Branch / worktree or clone path: Pending; intended branch `feat/p1-frontend`.
+- Owned paths: `frontend/**`; this section only in shared documents.
+- Current task: Build overview, investigation/evidence detail, and management outcome form.
+- Completed: Nothing implemented.
+- Files changed / uncommitted work: None.
+- Last pushed commit / PR / integration status: None.
+- Decisions and assumptions: Work against frozen v1 response fixtures; display synthetic-data and memory-status labels.
+- Verification (exact command, directory, result): NOT RUN; tooling absent.
+- Blockers / dependency requests: P2 contract examples and API base URL.
+- Next actions: Read contracts; scaffold frontend; establish scripts and lockfile; render one fixture investigation.
+- Resume notes: Do not scaffold backend or change shared API contracts. Own frontend dependency changes.
+
+## P2 — Backend and Integration
+
+- Human owner: Unassigned.
+- Status: NOT STARTED.
+- Last update (UTC): Not started.
+- Branch / worktree or clone path: Pending; intended branch `feat/p2-api`.
+- Owned paths: API/core/main/package bootstrap, integration tests, contracts, scripts, CI, shared configuration/documents; see ownership table for exact paths.
+- Current task: Establish baseline, publish contracts, and coordinate integration.
+- Completed: Planning documents created in the workspace; no code implemented or committed.
+- Files changed / uncommitted work: Documentation baseline is uncommitted; inspect `git status --short` before staging. Local `.codex/` exists; inspect ignore rules without committing private workspace state.
+- Last pushed commit / PR / integration status: None; remote not verified.
+- Decisions and assumptions: SQLite owns structured facts; Hindsight owns qualitative memory; only P2 changes backend dependency files.
+- Verification (exact command, directory, result): Repository inspection confirms no application scaffold. Application checks NOT RUN.
+- Blockers / dependency requests: Human assignments, remote, runtime choices, Hindsight setup, official content guide.
+- Next actions: Agree kickoff time; configure ignore rules; create reviewed baseline; publish v1 contracts and examples; bootstrap API and dependency files.
+- Resume notes: Never stage all files blindly. Queue merges and progress updates sequentially. Leave `AGENTS.md` unchanged unless requested.
+
+## P3 — Data and Analysis
+
+- Human owner: Unassigned.
+- Status: NOT STARTED.
+- Last update (UTC): Not started.
+- Branch / worktree or clone path: Pending; intended branch `feat/p3-analysis`.
+- Owned paths: `backend/app/analysis/**`, `backend/tests/analysis/**`, `data/**`; this progress section.
+- Current task: Generate linked synthetic datasets and deterministic cohort evidence.
+- Completed: Nothing implemented.
+- Files changed / uncommitted work: None.
+- Last pushed commit / PR / integration status: None.
+- Decisions and assumptions: Fixed observation windows; stable source IDs; no future events; no causal claims; thresholds are demo heuristics.
+- Verification (exact command, directory, result): NOT RUN; tooling absent.
+- Blockers / dependency requests: P2 data/result schemas and backend dependencies.
+- Next actions: Specify hand-calculable expected metrics; create risk/control fixtures; implement `analyze`; test sparse and immature cohorts.
+- Resume notes: Keep analysis free of HTTP, SQLite, and external model calls. Request dependencies through P2.
+
+## P4 — Hindsight Memory and Demo
+
+- Human owner: Unassigned.
+- Status: NOT STARTED.
+- Last update (UTC): Not started.
+- Branch / worktree or clone path: Pending; intended branch `feat/p4-memory`.
+- Owned paths: `backend/app/memory/**`, `backend/tests/memory/**`, `docs/demo/**`; this progress section.
+- Current task: Implement real memory integration and a demonstrable learning loop.
+- Completed: Nothing implemented; reference requirements reviewed during planning.
+- Files changed / uncommitted work: None.
+- Last pushed commit / PR / integration status: None.
+- Decisions and assumptions: Keep facts, hypotheses, decisions, and measured outcomes distinct; verify recalled references and chronology.
+- Verification (exact command, directory, result): NOT RUN; no live service tested.
+- Blockers / dependency requests: Hindsight access/configuration, actual supported SDK methods, P2 contracts and dependency additions.
+- Next actions: Verify official API documentation; prove real retain/recall; agree output schema; build adapter; demonstrate outcome persistence after restart.
+- Resume notes: Never report a stub as live memory. Store environment-variable names and setup steps, never secret values. Prepare the demo script while integration proceeds.
+
+## Replacement Session Checklist
+
+1. Read `AGENTS.md`, `agent_help.md`, `implementation_plan.md`, and your section here.
+2. Confirm assigned person, branch, worktree, latest commit, and actual `git status`; this document may lag behind code.
+3. Read changed files and the current contracts. Check whether the last PR merged before continuing the same branch.
+4. Run the last relevant verification command if available; preserve and investigate failures rather than assuming success.
+5. Continue the recorded next action within owned paths. Coordinate missing contracts or cross-owner edits with P2.
+6. Update this handoff before yielding, including a small recovery checkpoint if work is incomplete.
