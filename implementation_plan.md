@@ -178,7 +178,7 @@ Data rules:
 - Define `Policy`, `Deal`, `Ticket`, `Cancellation`, `Incident`, and `ManagementOutcome` schemas. Deals include segment, acquisition channel, close time, and revenue; outcomes distinguish decisions from later measured results.
 - Define `Evidence` with source ID, source type, timestamp, excerpt where applicable, and an exact record reference.
 - Define `AnalysisResult` with cohort definitions/counts, metric denominators, deltas, the pre-policy baseline gap, uncertainty intervals, a per-metric `status` (`flagged`, `watch`, `no_signal`, or `insufficient_data`), evidence IDs, alternative explanations, and reasons for `insufficient_data`.
-- Define `Investigation` with run/policy IDs, analysis, hypothesis, supporting and conflicting evidence, recommendations, recalled incident IDs, and memory status: `live`, `unavailable`, or `fixture`.
+- Define `Investigation` with run/policy IDs, analysis, hypothesis, supporting and conflicting evidence, recommendations, recalled incident IDs, memory status (`live`, `unavailable`, or `fixture`), `explanation_source` (`reflect` or `template`), and non-secret validation error codes when an explanation failed validation.
 - Every recommendation includes an action, a rationale linked to evidence, a proposed success metric, and a guardrail. Never invent citations or a numerical confidence score.
 
 Entities and relationships:
@@ -254,7 +254,7 @@ Exit checkpoints — **G2**:
 - [ ] **P1:** Overview and investigation screens render frozen contract fixtures; loading, empty, and error states work; frontend build/type checks pass.
 - [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice does not duplicate records; API tests pass with clearly labeled module stubs where needed.
 - [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. The risk fixture meets the sizing minimums in Analysis and Memory Rules. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
-- [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks.
+- [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited and numbers appearing only through metric tokens. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks.
 - [ ] **P2 + owners:** Module PRs are reviewed and merged sequentially; contract compatibility checks pass on `main`; all four handoffs identify their commits and next tasks.
 
 **Advance when:** Each module works independently and its interface is verified. Internal stubs allowed here must be removed from the live demo path at G3.
@@ -294,7 +294,7 @@ Exit checkpoints — **G4**:
 Exit checkpoints — **G5**:
 
 - [ ] **P3:** Risk scenario is flagged with supporting evidence; outage scenario presents the alternative explanation without an incentive accusation; sparse data returns insufficient evidence. Duplicate, missing-link, zero-denominator, and immature-cohort tests pass.
-- [ ] **P4:** Missing credentials, timeout, malformed model output, and invalid references produce honest failure/partial-result states. Previously generated text is never silently presented as a fresh live result.
+- [ ] **P4:** Missing credentials, timeout, malformed model output, invalid references, and stray numbers produce honest failure/partial-result states (a failed explanation falls back to the labeled template). Previously generated text is never silently presented as a fresh live result.
 - [ ] **P1:** Loading, empty, error, and retry flows are usable; a user can inspect evidence and save an outcome without a broken screen.
 - [ ] **P2 + a second contributor:** A clean checkout installs and runs using the README, with only documented external configuration. Frontend build/lint/tests, backend lint/tests, and the full-flow smoke check pass.
 - [ ] **All:** No unresolved issue blocks launching, evidence inspection, correct metrics, or the live memory loop. Record deferred cosmetic issues, update handoffs, and freeze features.
@@ -363,6 +363,14 @@ Memory timeline rules (recall has no hard `as_of` filter, and observations blend
 - **Idempotent retain.** Retain with `document_id` set to the `outcome_id` (outcomes) or `incident_id` (seeded incidents); the same `document_id` replaces the old document and its memories instead of duplicating them.
 - **Canary test.** P4 retains a future-dated synthetic record in a throwaway development bank, runs recall and Reflect at an earlier `as_of`, and confirms it never reaches a response. Label it a live test and record whether the server alone would have returned it.
 - **Out of scope.** Memory rewind through per-`as_of` replay banks.
+
+Explanation number rules (the model never types a number):
+
+- **Tokens.** Text fields (summary, hypothesis, supporting and conflicting points, alternatives, rationale) refer to results with tokens such as `{{m:cancel_30d.gap}}`. Metric fields: both group rates, the gap, its interval bounds, both group sizes, the pre-policy gap, and the status. Plan thresholds have constant tokens such as `{{t:gap_threshold}}`. The prompt lists the valid token names for the run.
+- **Validation.** Every token must resolve against the run's `AnalysisResult`; an unknown token rejects the response. After tokens are removed, those text fields may contain no digits, `%`, or "percent". Spelled-out numbers are a known, documented gap. `success_metric` and `guardrail` may contain digits as proposals; the UI labels them "proposed target (not calculated)".
+- **Rendering.** P4 substitutes tokens. The response carries the resolved text for display and the tokenized template for audit.
+- **Failure.** On a validation failure, retry Reflect once with the errors listed; if it fails again, return a deterministic explanation built by code from the analysis, with `explanation_source: template` and the non-secret validation error codes. Successful runs have `explanation_source: reflect`. The same rules apply when `memory_mode` is `off`.
+- **Tests.** P4 covers an unknown token, a stray digit and `%`, correct token resolution, targets only in the two proposal fields, and the fallback path on malformed output; label them as stubbed tests, separate from live checks.
 
 Demonstrate identical current evidence with an empty memory and with relevant history, then save a new outcome and show that it influences a later run. Keep calculations unchanged between comparisons. Verify returned references against stored evidence. Untrusted ticket text is data, never an instruction to the application. A stub or recording must be labeled; it cannot count as successful live Hindsight integration.
 
