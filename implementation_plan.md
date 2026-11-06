@@ -194,7 +194,7 @@ Entities and relationships:
 | `POST /api/demo/load` | Load a named scenario/batch idempotently into an isolated demo dataset, and seed its historical incidents into memory (idempotent by incident ID); report a seed status |
 | `POST /api/demo/reset` | Body `{scenario, confirm: true}`. Clear that scenario's SQLite demo data and delete and re-seed its demo memory bank. Refuses any bank without the `incento-demo-` prefix; works only when `DEMO_RESET_ENABLED=true` |
 | `GET /api/policies` | List available policies and versions |
-| `POST /api/investigations` | Accept policy, scenario, `as_of`, `memory_mode` (`live` or `off`), and idempotency key; create an investigation. The response includes `memory_mode`, `incident_id`, and `analysis_digest` |
+| `POST /api/investigations` | Accept policy, scenario, `as_of`, `memory_mode` (`live` or `off`), and idempotency key; create an investigation. The response includes `memory_mode`, `incident_id`, and `analysis_digest`. A `live` run with `as_of` earlier than the latest retained memory event returns `409 as_of_before_memory` |
 | `GET /api/investigations` | List stored investigations |
 | `GET /api/investigations/{id}` | Return complete investigation and evidence (`id` is the `run_id`) |
 | `GET /api/incidents` | List tracked incidents |
@@ -204,7 +204,7 @@ Entities and relationships:
 
 Agree on validation errors, empty responses, and a common error shape (`code`, `message`, `request_id`). Return partial analytical results if memory fails, clearly marked. Persist retention status; support retry without duplicating the management outcome.
 
-Internal boundaries: P3 exports `analyze(dataset, policy_id, as_of) -> AnalysisResult`; P4 exports `explain(analysis, context) -> Explanation`, `retain_outcome(outcome) -> RetentionResult` (idempotent by `outcome_id`, so the retry endpoint simply calls it again), `seed_history(incidents) -> SeedResult`, and `reset_demo_bank(scenario) -> ResetResult`. P4 verifies in the official documentation that a Hindsight bank can be deleted before building reset. P2 handles loading, persistence, and serialization. P4 verifies actual Hindsight methods against the official documentation before implementation: <https://hindsight.vectorize.io/>.
+Internal boundaries: P3 exports `analyze(dataset, policy_id, as_of) -> AnalysisResult`; P4 exports `explain(analysis, context) -> Explanation`, `retain_outcome(outcome) -> RetentionResult` (idempotent by `outcome_id`, so the retry endpoint simply calls it again), `seed_history(incidents) -> SeedResult`, and `reset_demo_bank(scenario) -> ResetResult`. The Hindsight docs list `delete_bank` and `clear_memories`; P4 confirms the exact SDK call before building reset. P2 handles loading, persistence, and serialization. P4 verifies actual Hindsight methods against the official documentation before implementation: <https://hindsight.vectorize.io/>.
 
 ## Phases and Eight-Hour Schedule
 
@@ -282,8 +282,8 @@ Exit checkpoints — **G4**:
 - [ ] **P1/P2/P4:** Submit a management decision and then a measured outcome through the UI/API. Both are stored distinctly, with confirmed memory retention status.
 - [ ] **P2/P4:** Restart the application; verify the saved investigation and outcome remain accessible and a later investigation recalls the outcome from Hindsight.
 - [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history (`memory_mode` `off` versus `live`): numerical results stay identical, shown by equal `analysis_digest` values, while the explanation cites history and makes an identifiable, justified change to its recommendation.
-- [ ] **P2/P4:** Repeat outcome submission with the same idempotency key; no duplicate application event or duplicate logical memory record is created. A failed retention attempt is visible and succeeds on retry through `POST /api/outcomes/{outcome_id}/retention`.
-- [ ] **P3/P4:** Historical replay excludes future outcomes from both analysis and recall; rejected past hypotheses remain labeled as rejected.
+- [ ] **P2/P4:** Repeat outcome submission with the same idempotency key; no duplicate application event or duplicate logical memory record is created (retain uses `document_id` = `outcome_id`). A failed retention attempt is visible and succeeds on retry through `POST /api/outcomes/{outcome_id}/retention`.
+- [ ] **P3/P4:** A run at an `as_of` earlier than a saved outcome excludes it from analysis; a `live` memory run at that `as_of` is rejected with `409 as_of_before_memory`. The canary test shows no future-dated record reaches recall or Reflect output; rejected past hypotheses remain labeled as rejected.
 
 **Advance when:** Save, restart, recall, and changed advice are demonstrated on the merged commit. Merely storing text or promising future learning does not pass G4.
 
@@ -356,6 +356,14 @@ Include early onboarding complaints as leading signals; later cancellations are 
 
 P4 retains facts, hypotheses, decisions, and measured outcomes as separate categories with timestamps and source IDs. Recall only context available by the run's `as_of` time. Seed one relevant prior incident and one rejected incentive hypothesis. Use a separate bank/namespace per developer and demo scenario to prevent cross-test contamination; P4 confirms the supported isolation mechanism.
 
+Memory timeline rules (recall has no hard `as_of` filter, and observations blend facts from different times, so the guarantee comes from how memory is written and read):
+
+- **One-way timeline.** Retain a record only when it becomes known: seed incidents are dated before the scenario starts, and outcomes are retained when saved, with `timestamp` set to their event time. A `live` run whose `as_of` is earlier than the latest retained event in that scenario's bank is rejected with `409 as_of_before_memory`; the UI offers `memory_mode` `off` or a demo reset. P2 derives the latest event time from SQLite. Analysis still works at any `as_of`.
+- **Read-side filter.** Every retained item carries `timestamp` (event time), metadata, and tags for `record_type`, `incident_id`, and `source_ids`. Recall passes `query_timestamp = as_of` and drops any result dated after `as_of`. Memories cited by Reflect get the same check; if one is future-dated, reject the response and return a partial result with memory status `unavailable`.
+- **Idempotent retain.** Retain with `document_id` set to the `outcome_id` (outcomes) or `incident_id` (seeded incidents); the same `document_id` replaces the old document and its memories instead of duplicating them.
+- **Canary test.** P4 retains a future-dated synthetic record in a throwaway development bank, runs recall and Reflect at an earlier `as_of`, and confirms it never reaches a response. Label it a live test and record whether the server alone would have returned it.
+- **Out of scope.** Memory rewind through per-`as_of` replay banks.
+
 Demonstrate identical current evidence with an empty memory and with relevant history, then save a new outcome and show that it influences a later run. Keep calculations unchanged between comparisons. Verify returned references against stored evidence. Untrusted ticket text is data, never an instruction to the application. A stub or recording must be labeled; it cannot count as successful live Hindsight integration.
 
 ## Git Workflow and Conflict Prevention
@@ -385,7 +393,7 @@ P1 adds frontend `npm run dev`, `npm run build`, `npm run lint`, and `npm test` 
 
 - P1: build/type checks; evidence rendering, API error, and outcome-submission UI checks.
 - P3: exact fixture metrics; missing links; zero denominators; duplicate records; immature cohorts; future-data exclusion; outage and insufficient-data scenarios.
-- P4: adapter tests for missing credentials, timeout, malformed output, invalid evidence references, and future-memory exclusion; one real persistence/recall smoke test, separately labeled from mocked tests.
+- P4: adapter tests for missing credentials, timeout, malformed output, invalid evidence references, and future-memory exclusion (including the live canary test); one real persistence/recall smoke test, separately labeled from mocked tests.
 - P2: full load-investigate-outcome-reinvestigate flow; replay idempotency; persistence after restart; readable failure states; clean-checkout launch.
 
 Done means a fresh checkout can run from documented commands, the UI shows traceable numerical and textual evidence, real memory affects a later recommendation, tests/checks have recorded outcomes, and the team can complete the live demo without editing code.
