@@ -43,7 +43,7 @@ SQLite is the source of truth for structured records and run state. Hindsight st
 
 - **Hindsight Cloud (decided).** One team account owned by P4; its LLM, embedding, and reranking models are included, so the application needs no LLM key. Self-hosting is not planned: it requires bringing your own LLM, and Groq's free tier (8,000 tokens per minute against roughly 64,000 for one retain call, per the Hindsight docs) is too small.
 - **Banks.** Development banks are named `incento-<dev>-<scenario>`; demo banks are `incento-demo-<scenario>`. P4 confirms bank creation and isolation against the official documentation.
-- **Explanations.** `explain()` calls Reflect with a `response_schema` (action, evidence-linked rationale, success metric, guardrail) and reads the `structured_output` field. P4 verifies at G2 that Reflect fills the agreed schema reliably and cites only retrieved memory IDs. If it cannot, record the failure and decide on a fallback with P2; do not add an application-side LLM silently.
+- **Explanations.** `explain()` calls Reflect with a `response_schema` (action, evidence-linked rationale, success metric, guardrail) and reads the `structured_output` field. P4 verifies at G2 that Reflect fills the agreed schema reliably and cites only retrieved memory IDs. If it cannot, record the failure and decide on a fallback with P2; do not add an application-side LLM silently. The Cloud model is not configurable by us (no temperature control), so reliability comes from the fixed `action_type` set and bank directives; see the demo reliability rules.
 - **Secrets.** The only backend secrets are the Hindsight API URL and key (placeholder names `HINDSIGHT_API_URL` and `HINDSIGHT_API_KEY`, plus `HINDSIGHT_BANK_PREFIX`; P4 confirms them against the SDK). They go in `.env.example` as placeholders at bootstrap, are shared privately, never committed, and are revoked after the event.
 - **Credits.** The Hindsight site offers $5 of sign-up credit and the reference PDF gives promo code `MEMHACK99` for $50, applied in the billing section after registering. Check the balance before each rehearsal and before the live demo.
 
@@ -179,7 +179,7 @@ Data rules:
 - Define `Evidence` with source ID, source type, timestamp, excerpt where applicable, and an exact record reference.
 - Define `AnalysisResult` with cohort definitions/counts, metric denominators, deltas, the pre-policy baseline gap, uncertainty intervals, a per-metric `status` (`flagged`, `watch`, `no_signal`, or `insufficient_data`), evidence IDs, alternative explanations, and reasons for `insufficient_data`.
 - Define `Investigation` with run/policy IDs, analysis, hypothesis, supporting and conflicting evidence, recommendations, recalled incident IDs, memory status (`live`, `unavailable`, or `fixture`), `explanation_source` (`reflect` or `template`), and non-secret validation error codes when an explanation failed validation.
-- Every recommendation includes an action, a rationale linked to evidence, a proposed success metric, and a guardrail. Never invent citations or a numerical confidence score.
+- Every recommendation includes an `action_type` (a small fixed set), an action, a rationale linked to evidence, a proposed success metric, a guardrail, and `history_influence` (IDs of recalled memories that shaped it; empty when memory is off). Never invent citations or a numerical confidence score.
 
 Entities and relationships:
 
@@ -194,7 +194,7 @@ Entities and relationships:
 | `POST /api/demo/load` | Load a named scenario/batch idempotently into an isolated demo dataset, and seed its historical incidents into memory (idempotent by incident ID); report a seed status |
 | `POST /api/demo/reset` | Body `{scenario, confirm: true}`. Clear that scenario's SQLite demo data and delete and re-seed its demo memory bank. Refuses any bank without the `incento-demo-` prefix; works only when `DEMO_RESET_ENABLED=true` |
 | `GET /api/policies` | List available policies and versions |
-| `POST /api/investigations` | Accept policy, scenario, `as_of`, `memory_mode` (`live` or `off`), and idempotency key; create an investigation. The response includes `memory_mode`, `incident_id`, and `analysis_digest`. A `live` run with `as_of` earlier than the latest retained memory event returns `409 as_of_before_memory` |
+| `POST /api/investigations` | Accept policy, scenario, `as_of`, `memory_mode` (`live` or `off`), and idempotency key; create an investigation. The response includes `memory_mode`, `incident_id`, and `analysis_digest`. A `live` run with `as_of` earlier than the latest retained memory event returns `409 as_of_before_memory`; a `live` run on an incident with a `pending` outcome returns `409 retention_pending` |
 | `GET /api/investigations` | List stored investigations |
 | `GET /api/investigations/{id}` | Return complete investigation and evidence (`id` is the `run_id`) |
 | `GET /api/incidents` | List tracked incidents |
@@ -254,7 +254,7 @@ Exit checkpoints — **G2**:
 - [ ] **P1:** Overview and investigation screens render frozen contract fixtures; loading, empty, and error states work; frontend build/type checks pass.
 - [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice does not duplicate records; API tests pass with clearly labeled module stubs where needed.
 - [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. The risk fixture meets the sizing minimums in Analysis and Memory Rules. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
-- [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited and numbers appearing only through metric tokens. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks.
+- [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited and numbers appearing only through metric tokens. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks. The bank mission and directives are committed under `backend/app/memory/`.
 - [ ] **P2 + owners:** Module PRs are reviewed and merged sequentially; contract compatibility checks pass on `main`; all four handoffs identify their commits and next tasks.
 
 **Advance when:** Each module works independently and its interface is verified. Internal stubs allowed here must be removed from the live demo path at G3.
@@ -281,7 +281,7 @@ Exit checkpoints — **G4**:
 
 - [ ] **P1/P2/P4:** Submit a management decision and then a measured outcome through the UI/API. Both are stored distinctly, with confirmed memory retention status.
 - [ ] **P2/P4:** Restart the application; verify the saved investigation and outcome remain accessible and a later investigation recalls the outcome from Hindsight.
-- [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history (`memory_mode` `off` versus `live`): numerical results stay identical, shown by equal `analysis_digest` values, while the explanation cites history and makes an identifiable, justified change to its recommendation.
+- [ ] **P3/P4:** Compare the same current evidence with empty versus relevant history (`memory_mode` `off` versus `live`): numerical results stay identical, shown by equal `analysis_digest` values, while the explanation cites history and makes an identifiable, justified change to its recommendation: `action_type` differs and `history_influence` cites the retained record, in at least 4 of 5 repeated pairs (`scripts/smoke_test.py --repeat 5`).
 - [ ] **P2/P4:** Repeat outcome submission with the same idempotency key; no duplicate application event or duplicate logical memory record is created (retain uses `document_id` = `outcome_id`). A failed retention attempt is visible and succeeds on retry through `POST /api/outcomes/{outcome_id}/retention`.
 - [ ] **P3/P4:** A run at an `as_of` earlier than a saved outcome excludes it from analysis; a `live` memory run at that `as_of` is rejected with `409 as_of_before_memory`. The canary test shows no future-dated record reaches recall or Reflect output; rejected past hypotheses remain labeled as rejected.
 
@@ -307,9 +307,9 @@ Exit checkpoints — **G5**:
 
 Exit checkpoints — **G6**:
 
-- [ ] **P4 + all:** Rehearse the complete story: policy, warning, source evidence, prior memory, recorded outcome, and improved later recommendation. Show the business value within the first minute.
+- [ ] **P4 + all:** Rehearse the complete story: policy, warning, source evidence, prior memory, recorded outcome, and improved later recommendation, as a three-step progression (no memory, seeded history, after a recorded outcome). Show the business value within the first minute.
 - [ ] **P2/P4:** Validate the demo's initial dataset and isolated memory state so a previous rehearsal cannot contaminate the comparison. Reset only designated demo state with `POST /api/demo/reset`; preserve saved evidence needed for the presentation.
-- [ ] **P4:** Record a playable demo video from the release candidate and verify that the memory operations and outcome loop are visible. Label any fallback recording accurately.
+- [ ] **P4:** Record a playable demo video from the release candidate and verify that the memory operations and outcome loop are visible. Label any fallback recording accurately. Save a known-good run snapshot (response JSON, run ID, screenshots) for the labeled fallback, and run the repeat smoke test on the release candidate and again shortly before the live demonstration.
 - [ ] **P2:** Record the release-candidate commit, launch instructions, test evidence, known limits, and recording location. Inspect commit attribution and tracked files for unintended local data or credentials.
 - [ ] **All:** Draft the individual article and social post, plus the team video, required by the content guide; list remaining submission tasks with owners.
 
@@ -371,6 +371,16 @@ Explanation number rules (the model never types a number):
 - **Rendering.** P4 substitutes tokens. The response carries the resolved text for display and the tokenized template for audit.
 - **Failure.** On a validation failure, retry Reflect once with the errors listed; if it fails again, return a deterministic explanation built by code from the analysis, with `explanation_source: template` and the non-secret validation error codes. Successful runs have `explanation_source: reflect`. The same rules apply when `memory_mode` is `off`.
 - **Tests.** P4 covers an unknown token, a stray digit and `%`, correct token resolution, targets only in the two proposal fields, and the fallback path on malformed output; label them as stubbed tests, separate from live checks.
+
+Demo reliability rules (the Cloud model behind Reflect is not configurable, so reliability comes from structure):
+
+- **Bounded choice.** Each recommendation has an `action_type` from a small fixed set (`adjust_policy`, `pilot_guardrail`, `revert_change`, `collect_more_data`, `no_action`) and `history_influence`. Wording may vary; the action type may not.
+- **Bank directives.** P4 writes and versions the bank mission and directives, for example: never repeat a recalled decision whose measured outcome was worse or showed no improvement, and cite it; label rejected hypotheses as rejected; use metric tokens, never digits.
+- **Designed seeds.** P3 and P4 design the seeded history so that, for the risk scenario, `memory_mode` `off` yields one `action_type` and `live` yields a different one that cites the seeded record.
+- **Repeat check.** `scripts/smoke_test.py --repeat 5` runs the off/live pair five times and asserts that `action_type` differs, `history_influence` cites the retained record, citations are valid, and no run fell back to the template. At least 4 of 5 pairs must pass. If it fails, adjust the directives or seed wording, not the demo script. Check the credit balance first.
+- **No retention race.** `retention_status` stays `pending` until the retain operation completes (P4 confirms in the documentation how to await it). A `live` run on an incident with a pending outcome returns `409 retention_pending`, and the UI disables re-run until the outcome is `retained`.
+- **Labeled fallback.** At G6, P4 saves a known-good run snapshot for use if live Hindsight fails during the demonstration. It is always labeled and never counted as live integration.
+- **Learning curve.** The walkthrough shows three steps: no memory, seeded history, and after a recorded decision and measured outcome.
 
 Demonstrate identical current evidence with an empty memory and with relevant history, then save a new outcome and show that it influences a later run. Keep calculations unchanged between comparisons. Verify returned references against stored evidence. Untrusted ticket text is data, never an instruction to the application. A stub or recording must be labeled; it cannot count as successful live Hindsight integration.
 
