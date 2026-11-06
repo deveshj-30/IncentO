@@ -23,8 +23,8 @@ This file is the durable handoff for humans and replacement coding assistants. U
 - Verified features: None; no application code exists.
 - Verification: Documentation reviewed; application build, tests, and live Hindsight checks NOT RUN.
 - Assignments: P1/P2/P3/P4 human names pending.
-- External setup: Hindsight endpoint/credentials/bank isolation and chosen model configuration unverified. Git remote works (pushes to `origin/main` succeed). Content guide is in `reference/` and summarized in `implementation_plan.md`. Band AI desktop is deferred to final polish after G3.
-- Decisions: Focus on acquisition incentives; React/TypeScript frontend, Python/FastAPI backend, SQLite records, Hindsight memory proposed. Separate clones, exclusive ownership, sequential merges, human-only commit attribution. Band AI desktop is used only for final polish after the skeleton works (no kickoff setup); articles and social posts are written at the end (Phases 6-7). Open question for organizers: per-member or per-team video.
+- External setup: Hindsight Cloud account, API key, and bank isolation unverified (no live call yet). No LLM key needed because Cloud includes the models; Reflect `response_schema` fit unverified until G2. Git remote works (pushes to `origin/main` succeed). Content guide is in `reference/` and summarized in `implementation_plan.md`. Band AI desktop is deferred to final polish after G3.
+- Decisions: Focus on acquisition incentives; React/TypeScript frontend, Python/FastAPI backend, SQLite records, Hindsight memory proposed. Separate clones, exclusive ownership, sequential merges, human-only commit attribution. Band AI desktop is used only for final polish after the skeleton works (no kickoff setup); articles and social posts are written at the end (Phases 6-7). Hindsight Cloud with one team account owned by P4 (banks `incento-<dev>-<scenario>` and `incento-demo-<scenario>`); no application-side LLM, explanations come from Reflect with `response_schema`. Open question for organizers: per-member or per-team video.
 - Next integration gate: Bootstrap and contract freeze at elapsed 0:45.
 - Release/demo links: Not available.
 
@@ -85,7 +85,7 @@ Do not put secrets in evidence. A draft demo, mocked memory test, or unmerged fe
 - Last pushed commit / PR / integration status: `6606516` pushed to `origin/main` (docs and ignore rules only); no PRs or integrated code.
 - Decisions and assumptions: SQLite owns structured facts; Hindsight owns qualitative memory; only P2 changes backend dependency files.
 - Verification (exact command, directory, result): Repository inspection confirms no application scaffold. Application checks NOT RUN.
-- Blockers / dependency requests: Human assignments, runtime choices, Hindsight setup, answer on per-member versus per-team video.
+- Blockers / dependency requests: Human assignments, runtime choices, Hindsight Cloud account and key (P4), answer on per-member versus per-team video.
 - Next actions: Agree kickoff time; configure ignore rules; create reviewed baseline; publish v1 contracts and examples; bootstrap API and dependency files.
 - Resume notes: Never stage all files blindly. Queue merges and progress updates sequentially. Leave `AGENTS.md` unchanged unless requested.
 

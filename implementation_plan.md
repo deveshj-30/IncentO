@@ -39,6 +39,14 @@ flowchart LR
 
 SQLite is the source of truth for structured records and run state. Hindsight stores policy context, incident narratives, hypotheses, decisions, and observed outcomes. Numerical results come from analysis code; generated explanations cannot replace calculated values.
 
+### External services
+
+- **Hindsight Cloud (decided).** One team account owned by P4; its LLM, embedding, and reranking models are included, so the application needs no LLM key. Self-hosting is not planned: it requires bringing your own LLM, and Groq's free tier (8,000 tokens per minute against roughly 64,000 for one retain call, per the Hindsight docs) is too small.
+- **Banks.** Development banks are named `incento-<dev>-<scenario>`; demo banks are `incento-demo-<scenario>`. P4 confirms bank creation and isolation against the official documentation.
+- **Explanations.** `explain()` calls Reflect with a `response_schema` (action, evidence-linked rationale, success metric, guardrail) and reads the `structured_output` field. P4 verifies at G2 that Reflect fills the agreed schema reliably and cites only retrieved memory IDs. If it cannot, record the failure and decide on a fallback with P2; do not add an application-side LLM silently.
+- **Secrets.** The only backend secrets are the Hindsight API URL and key (placeholder names `HINDSIGHT_API_URL` and `HINDSIGHT_API_KEY`, plus `HINDSIGHT_BANK_PREFIX`; P4 confirms them against the SDK). They go in `.env.example` as placeholders at bootstrap, are shared privately, never committed, and are revoked after the event.
+- **Credits.** The Hindsight site offers $5 of sign-up credit and the reference PDF gives promo code `MEMHACK99` for $50, applied in the billing section after registering. Check the balance before each rehearsal and before the live demo.
+
 Planned layout and exclusive ownership:
 
 | Owner | Paths | Responsibilities |
@@ -221,7 +229,7 @@ Exit checkpoints — **G1**:
 - [ ] **P2 + all:** Assign human owners, deadline, separate clones/worktrees, and file boundaries; verify each contributor's human Git identity and remote access.
 - [ ] **P2:** Merge the skeleton and v1 schemas/examples. All four contributors confirm field names, module signatures, error shape, and time/money conventions. Example payloads pass schema validation.
 - [ ] **P1/P2:** Frontend starts and renders its shell; backend starts and responds to `/api/health`; setup commands are recorded.
-- [ ] **P4:** Retain a uniquely identified synthetic fact in real Hindsight and recall it in a separate request. Record the bank/namespace identifier and result without secrets.
+- [ ] **P4:** Create the team Hindsight Cloud account, apply the promo credit, and share the API key privately (never in Git). Retain a uniquely identified synthetic fact in a development bank and recall it in a separate request. Record the bank identifier and result without secrets. Also record which text-generation model Hindsight Cloud reports using (check the console and the Cloud docs at docs.hindsight.vectorize.io), or note that it is not visible.
 - [ ] **P2 + all:** Add local configuration and runtime exclusions to Git before scaffolding grows. (Band AI desktop and content deliverables are deferred; see the Event Requirements and Release Checklist.)
 
 **Advance when:** Shared interfaces are frozen and external memory access is proven. A simulated Hindsight response does not pass G1.
@@ -235,7 +243,7 @@ Exit checkpoints — **G2**:
 - [ ] **P1:** Overview and investigation screens render frozen contract fixtures; loading, empty, and error states work; frontend build/type checks pass.
 - [ ] **P2:** Policy listing, fixture loading, and investigation routes validate requests and return contract-valid responses. Loading the same batch twice does not duplicate records; API tests pass with clearly labeled module stubs where needed.
 - [ ] **P3:** Risk, outage, and sparse-data fixtures validate and use consistent source links. Pure analysis returns expected counts/rates for a hand-calculated case; its unit tests pass.
-- [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; output is validated against the agreed explanation contract. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks.
+- [ ] **P4:** Adapter performs actual Retain, Recall, and Reflect operations; Reflect is called with the agreed `response_schema`, and the returned `structured_output` is validated against the explanation contract with only retrieved memory IDs cited. Tests cover unavailable service and malformed output, distinguishing stubbed tests from live checks.
 - [ ] **P2 + owners:** Module PRs are reviewed and merged sequentially; contract compatibility checks pass on `main`; all four handoffs identify their commits and next tasks.
 
 **Advance when:** Each module works independently and its interface is verified. Internal stubs allowed here must be removed from the live demo path at G3.
