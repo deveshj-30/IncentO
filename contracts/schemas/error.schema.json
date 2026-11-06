@@ -6,6 +6,7 @@
         "not_found",
         "forbidden",
         "scenario_not_loaded",
+        "memory_unavailable",
         "as_of_before_memory",
         "retention_pending",
         "idempotency_conflict",

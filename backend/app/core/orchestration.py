@@ -1,12 +1,17 @@
 """The only place analysis and memory are connected: analyze, explain and persist a run."""
 
+import logging
+import re
 import uuid
-from dataclasses import dataclass
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FutureTimeout
+from dataclasses import dataclass, field
 
 from app.core.config import Settings
 from app.core.digest import analysis_digest
 from app.core.errors import ApiError
-from app.core.fixtures import list_scenarios, load_dataset
+from app.core.fixtures import list_scenarios, load_dataset, validate_scenario_name
+from app.core.guards import explanation_codes, fallback_explanation, require_valid_analysis
 from app.core.modules import Modules
 from app.core.repository import Repository, now
 from app.core.schemas import (
@@ -15,6 +20,7 @@ from app.core.schemas import (
     DemoResetResponse,
     ErrorCode,
     ExplainContext,
+    Explanation,
     Incident,
     Investigation,
     InvestigationRequest,
@@ -23,9 +29,13 @@ from app.core.schemas import (
     Outcome,
     OutcomeRequest,
     PolicySummary,
+    RetentionResult,
     RetentionStatus,
+    SeedResult,
     SeedStatus,
 )
+
+log = logging.getLogger("incento")
 
 DEMO_BANK_PREFIX = "incento-demo-"
 
@@ -35,6 +45,22 @@ class Services:
     settings: Settings
     repo: Repository
     modules: Modules
+    executor: ThreadPoolExecutor = field(init=False)
+
+    def __post_init__(self):
+        self.executor = ThreadPoolExecutor(
+            max_workers=self.settings.module_workers, thread_name_prefix="module"
+        )
+
+
+def call_module(svc: Services, fn, timeout: float, *args):
+    """Run a module call with a time limit. A timed-out call keeps running in its worker thread; the
+    request stops waiting. Exceptions propagate to the caller, which decides how to degrade."""
+    future = svc.executor.submit(fn, *args)
+    try:
+        return future.result(timeout=timeout)
+    except FutureTimeout:
+        raise TimeoutError(f"module call exceeded {timeout}s") from None
 
 
 def incident_id_for(analysis: AnalysisResult) -> str | None:
@@ -65,7 +91,7 @@ def demo_load(svc: Services, scenario: str) -> DemoLoadResponse:
             seed_status=SeedStatus(existing["seed_status"]),
             seed_error=existing["seed_error"],
         )
-    seed = svc.modules.seed_history(dataset.history) if dataset.history else None
+    seed = _seed(svc, dataset.history) if dataset.history else None
     status = seed.status if seed else SeedStatus.SKIPPED
     error = seed.error if seed else None
     svc.repo.save_batch(scenario, checksum, status.value, error)
@@ -80,24 +106,51 @@ def demo_load(svc: Services, scenario: str) -> DemoLoadResponse:
     )
 
 
+def _seed(svc: Services, history) -> SeedResult:
+    try:
+        return call_module(svc, svc.modules.seed_history, svc.settings.retain_timeout_seconds, history)
+    except Exception as exc:
+        log.warning("seed_history failed: %s", type(exc).__name__)
+        code = "seed_timeout" if isinstance(exc, TimeoutError) else "seed_error"
+        return SeedResult(status=SeedStatus.UNAVAILABLE, error=code)
+
+
 def demo_reset(svc: Services, scenario: str, confirm: bool) -> DemoResetResponse:
+    """Clear a scenario's run state and reset its demo memory bank.
+
+    P2 can only validate the scenario name. The memory adapter (P4) builds the bank name and must itself
+    refuse any bank that does not start with ``incento-demo-``.
+    """
     if not svc.settings.demo_reset_enabled:
         raise ApiError(403, ErrorCode.FORBIDDEN, "Demo reset is disabled (set DEMO_RESET_ENABLED=true)")
+    validate_scenario_name(scenario)
     if not confirm:
         raise ApiError(422, ErrorCode.VALIDATION_ERROR, "confirm must be true")
-    # P4 owns bank naming; P2 enforces the prefix guard before anything is deleted.
-    bank = f"{DEMO_BANK_PREFIX}{scenario}"
-    if not bank.startswith(DEMO_BANK_PREFIX):
-        raise ApiError(403, ErrorCode.FORBIDDEN, "Refusing to reset a non-demo bank")
-    result = svc.modules.reset_demo_bank(scenario)
-    cleared = svc.repo.clear_scenario(scenario)
-    seed_status = SeedStatus.SKIPPED
-    if result.ok:
+    with svc.repo.lock:
         try:
-            demo_load(svc, scenario)
-            seed_status = SeedStatus(svc.repo.get_batch(scenario)["seed_status"])
-        except ApiError:
-            seed_status = SeedStatus.UNAVAILABLE
+            result = call_module(
+                svc, svc.modules.reset_demo_bank, svc.settings.retain_timeout_seconds, scenario
+            )
+        except Exception as exc:
+            log.warning("reset_demo_bank failed: %s", type(exc).__name__)
+            result = None
+        memory_is_stub = "reset_demo_bank" in svc.modules.stubbed
+        if result is None or (not result.ok and not memory_is_stub):
+            # Clearing SQLite while memory still holds later events would hide them from the as_of guard.
+            raise ApiError(
+                502,
+                ErrorCode.MEMORY_UNAVAILABLE,
+                "Memory reset failed; run state was left unchanged",
+                [result.error] if result is not None and result.error else [],
+            )
+        cleared = svc.repo.clear_scenario(scenario)
+        seed_status = SeedStatus.SKIPPED
+        if result.ok:
+            try:
+                demo_load(svc, scenario)
+                seed_status = SeedStatus(svc.repo.get_batch(scenario)["seed_status"])
+            except ApiError:
+                seed_status = SeedStatus.UNAVAILABLE
     return DemoResetResponse(
         scenario=scenario, cleared_runs=cleared, memory_reset=result.ok, seed_status=seed_status
     )
@@ -154,7 +207,10 @@ def create_investigation(svc: Services, request: InvestigationRequest) -> tuple[
                 404, ErrorCode.NOT_FOUND, f"No policy {request.policy_id!r} in {request.scenario!r}"
             )
 
-        analysis = svc.modules.analyze(dataset, request.policy_id, request.as_of)
+        analysis = AnalysisResult.model_validate(
+            svc.modules.analyze(dataset, request.policy_id, request.as_of)
+        )
+        require_valid_analysis(analysis, dataset, request.policy_id, request.as_of)
         incident_id = incident_id_for(analysis)
 
         if request.memory_mode == MemoryMode.LIVE:
@@ -183,7 +239,7 @@ def create_investigation(svc: Services, request: InvestigationRequest) -> tuple[
             memory_mode=request.memory_mode,
             incident_id=incident_id,
         )
-        explanation = svc.modules.explain(analysis, context)
+        explanation = _explain(svc, analysis, context, request)
         investigation = Investigation(
             run_id=run_id,
             policy_id=request.policy_id,
@@ -241,23 +297,54 @@ def retry_retention(svc: Services, outcome_id: str) -> Outcome:
         return _retain(svc, outcome)
 
 
+def _explain(svc: Services, analysis, context: ExplainContext, request: InvestigationRequest) -> Explanation:
+    """Call P4's explain; any failure or contract violation degrades to a labeled fallback."""
+    try:
+        explanation = Explanation.model_validate(
+            call_module(svc, svc.modules.explain, svc.settings.explain_timeout_seconds, analysis, context)
+        )
+    except Exception as exc:
+        code = (
+            "explain_timeout"
+            if isinstance(exc, TimeoutError)
+            else "explain_invalid_output"
+            if isinstance(exc, ValueError)
+            else "explain_failed"
+        )
+        log.warning("explain failed (%s): %s", context.run_id, code)
+        return fallback_explanation([code])
+    codes = explanation_codes(explanation, analysis, request.memory_mode, request.as_of)
+    if codes:
+        log.warning("explain output rejected (%s): %s", context.run_id, codes)
+        return fallback_explanation(codes)
+    return explanation
+
+
 def _retain(svc: Services, outcome: Outcome) -> Outcome:
     try:
-        result = svc.modules.retain_outcome(outcome)
+        result = RetentionResult.model_validate(
+            call_module(svc, svc.modules.retain_outcome, svc.settings.retain_timeout_seconds, outcome)
+        )
         status, error = result.status, result.error
-    except Exception:  # adapter failures must not lose the saved outcome
-        status, error = RetentionStatus.FAILED, "retention_error"
+    except Exception as exc:  # adapter failures must not lose the saved outcome
+        log.warning("retain_outcome failed (%s): %s", outcome.outcome_id, type(exc).__name__)
+        status = RetentionStatus.FAILED
+        error = "retention_timeout" if isinstance(exc, TimeoutError) else "retention_error"
     updated = outcome.model_copy(update={"retention_status": status, "retention_error": error})
     svc.repo.update_retention(updated)
     return updated
 
 
+_URL = re.compile(r"(?:https?://|www\.)\S+", re.IGNORECASE)
+
+
 def _clean_note(note: str) -> str:
-    """Strip control characters, markup and angle brackets; the note is a labeled manager note."""
-    cleaned = "".join(ch for ch in note if ch.isprintable() or ch == " ")
-    for ch in "<>`":
+    """Strip control characters, URLs and markup; the note is a labeled manager note."""
+    cleaned = "".join(ch for ch in note if ch.isprintable())
+    cleaned = _URL.sub("", cleaned)
+    for ch in "<>`[]":
         cleaned = cleaned.replace(ch, "")
-    return cleaned.strip()
+    return " ".join(cleaned.split())
 
 
 def get_incident_or_404(svc: Services, incident_id: str) -> Incident:

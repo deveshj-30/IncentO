@@ -86,7 +86,9 @@ class FakeMemory:
         return ResetResult(ok=True)
 
 
-def make_modules(memory: FakeMemory, *, flagged_incident: bool = True) -> modules.Modules:
+def make_modules(
+    memory: FakeMemory, *, flagged_incident: bool = True, explain=None, analyze_fn=None, stubbed=None
+) -> modules.Modules:
     def analyze(dataset, policy_id, as_of):
         result = stubs.analyze(dataset, policy_id, as_of)
         if flagged_incident:
@@ -98,12 +100,13 @@ def make_modules(memory: FakeMemory, *, flagged_incident: bool = True) -> module
         return result
 
     return modules.Modules(
-        analyze=analyze,
-        explain=stubs.explain,
-        retain_outcome=memory.retain_outcome,
-        seed_history=memory.seed_history,
-        reset_demo_bank=memory.reset_demo_bank,
-        stubbed=["explain"],
+        analyze=analyze_fn or analyze,
+        explain=explain or stubs.explain,
+        # Looked up at call time so tests can swap behavior after the client is built.
+        retain_outcome=lambda outcome: memory.retain_outcome(outcome),
+        seed_history=lambda incidents: memory.seed_history(incidents),
+        reset_demo_bank=lambda scenario: memory.reset_demo_bank(scenario),
+        stubbed=["explain"] if stubbed is None else stubbed,
     )
 
 
@@ -121,6 +124,23 @@ def memory() -> FakeMemory:
 
 
 @pytest.fixture
-def client(fixtures_dir, memory):
-    settings = Settings(database_path=":memory:", fixtures_dir=str(fixtures_dir), demo_reset_enabled=True)
-    return TestClient(create_app(settings, make_modules(memory)))
+def make_client(fixtures_dir, memory):
+    """Build a client with module overrides and settings overrides."""
+
+    def build(settings_overrides=None, **module_kwargs):
+        settings = Settings(
+            database_path=":memory:",
+            fixtures_dir=str(fixtures_dir),
+            demo_reset_enabled=True,
+            **(settings_overrides or {}),
+        )
+        return TestClient(
+            create_app(settings, make_modules(memory, **module_kwargs)), raise_server_exceptions=False
+        )
+
+    return build
+
+
+@pytest.fixture
+def client(make_client):
+    return make_client()

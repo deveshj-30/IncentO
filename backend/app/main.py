@@ -14,7 +14,9 @@ def create_app(settings: Settings | None = None, mods: modules.Modules | None = 
     settings = settings or get_settings()
     app = FastAPI(title="IncentiveTrap API", version=API_VERSION)
     app.state.services = Services(
-        settings=settings, repo=Repository(connect(settings.database_path)), modules=mods or modules.resolve()
+        settings=settings,
+        repo=Repository(connect(settings.resolved_database_path)),
+        modules=mods or modules.resolve(),
     )
     app.add_middleware(
         CORSMiddleware,

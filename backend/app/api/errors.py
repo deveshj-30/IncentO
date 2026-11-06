@@ -1,5 +1,6 @@
 """Common error shape (code, message, request_id) for every error response."""
 
+import logging
 import uuid
 
 from fastapi import FastAPI, HTTPException, Request
@@ -9,6 +10,8 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.core.errors import ApiError
 from app.core.schemas import ErrorCode, ErrorResponse
+
+log = logging.getLogger("incento")
 
 
 class RequestIdMiddleware(BaseHTTPMiddleware):
@@ -51,4 +54,5 @@ def install_error_handlers(app: FastAPI) -> None:
 
     @app.exception_handler(Exception)
     async def _unexpected(request: Request, exc: Exception):
+        log.exception("unhandled error (request_id=%s)", getattr(request.state, "request_id", "unknown"))
         return error_response(request, 500, ErrorCode.INTERNAL_ERROR, "Unexpected server error")

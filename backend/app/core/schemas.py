@@ -109,6 +109,7 @@ class ErrorCode(StrEnum):
     NOT_FOUND = "not_found"
     FORBIDDEN = "forbidden"
     SCENARIO_NOT_LOADED = "scenario_not_loaded"
+    MEMORY_UNAVAILABLE = "memory_unavailable"
     AS_OF_BEFORE_MEMORY = "as_of_before_memory"
     RETENTION_PENDING = "retention_pending"
     IDEMPOTENCY_CONFLICT = "idempotency_conflict"
