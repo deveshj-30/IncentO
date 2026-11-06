@@ -37,7 +37,8 @@
         },
         "required": [
           "id",
-          "label"
+          "label",
+          "evidence_ids"
         ],
         "title": "AlternativeExplanation",
         "type": "object"
@@ -136,9 +137,15 @@
           "as_of",
           "comparison_id",
           "flagged",
+          "metrics_checked",
+          "thresholds",
           "month_end",
           "other",
-          "metrics"
+          "metrics",
+          "corroborating_customers",
+          "alternatives",
+          "evidence",
+          "insufficient_reasons"
         ],
         "title": "AnalysisResult",
         "type": "object"
@@ -170,6 +177,7 @@
         "required": [
           "label",
           "eligible",
+          "excluded_immature",
           "total"
         ],
         "title": "CohortCounts",
@@ -242,7 +250,8 @@
           "already_loaded",
           "synthetic",
           "policies",
-          "seed_status"
+          "seed_status",
+          "seed_error"
         ],
         "title": "DemoLoadResponse",
         "type": "object"
@@ -339,7 +348,8 @@
         "required": [
           "code",
           "message",
-          "request_id"
+          "request_id",
+          "details"
         ],
         "title": "ErrorResponse",
         "type": "object"
@@ -414,7 +424,11 @@
         "required": [
           "id",
           "source_type",
-          "timestamp"
+          "timestamp",
+          "theme",
+          "customer_id",
+          "deal_id",
+          "excerpt"
         ],
         "title": "Evidence",
         "type": "object"
@@ -490,9 +504,15 @@
         "required": [
           "summary",
           "hypothesis",
+          "supporting_points",
+          "conflicting_points",
+          "alternatives",
           "recommendations",
+          "recalled",
           "explanation_source",
-          "memory_status"
+          "memory_status",
+          "validation_error_codes",
+          "template_text"
         ],
         "title": "Explanation",
         "type": "object"
@@ -541,7 +561,8 @@
           "version",
           "memory_configured",
           "memory_status",
-          "demo_reset_enabled"
+          "demo_reset_enabled",
+          "stubbed_modules"
         ],
         "title": "HealthResponse",
         "type": "object"
@@ -600,7 +621,9 @@
           "policy_id",
           "comparison_id",
           "scenario",
-          "created_at"
+          "created_at",
+          "run_ids",
+          "outcomes"
         ],
         "title": "Incident",
         "type": "object"
@@ -683,7 +706,8 @@
         "required": [
           "lower",
           "upper",
-          "method"
+          "method",
+          "level"
         ],
         "title": "Interval",
         "type": "object"
@@ -762,6 +786,7 @@
           "memory_mode",
           "incident_id",
           "analysis_digest",
+          "synthetic",
           "analysis",
           "explanation"
         ],
@@ -1023,7 +1048,10 @@
           "gap_interval",
           "pre_policy_gap",
           "month_end_n",
-          "other_n"
+          "other_n",
+          "window_days",
+          "reasons",
+          "evidence_ids"
         ],
         "title": "MetricResult",
         "type": "object"
@@ -1104,6 +1132,7 @@
           "note",
           "idempotency_key",
           "retention_status",
+          "retention_error",
           "created_at"
         ],
         "title": "Outcome",
@@ -1251,6 +1280,7 @@
           "id",
           "memory_type",
           "event_time",
+          "incident_id",
           "summary"
         ],
         "title": "RecalledMemory",
@@ -1314,8 +1344,10 @@
           "action_type",
           "action",
           "rationale",
+          "evidence_ids",
           "success_metric",
-          "guardrail"
+          "guardrail",
+          "history_influence"
         ],
         "title": "Recommendation",
         "type": "object"
@@ -1390,6 +1422,12 @@
             "type": "integer"
           }
         },
+        "required": [
+          "gap_threshold",
+          "baseline_margin",
+          "min_group_size",
+          "month_end_days"
+        ],
         "title": "Thresholds",
         "type": "object"
       }

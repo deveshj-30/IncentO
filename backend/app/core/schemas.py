@@ -36,7 +36,7 @@ Id = Annotated[str, Field(min_length=1, max_length=128)]
 class Contract(BaseModel):
     """Base for every contract model: unknown fields are rejected."""
 
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", json_schema_serialization_defaults_required=True)
 
 
 # --- Enumerations ---------------------------------------------------------
