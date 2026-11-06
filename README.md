@@ -15,6 +15,7 @@ cp ../.env.example .env                # optional; add secrets locally only
 ## Checks and contracts
 
 - `scripts/check.sh` runs lint, tests, and the contract drift check (and frontend checks once `frontend/` exists).
+- `scripts/smoke_test.py --base-url http://localhost:8000 --scenario <name>` runs the full API flow against a running server (needs a loaded fixture in `data/scenarios/`).
 - Contracts are generated from `backend/app/core/schemas.py`. After changing a model run `backend/.venv/bin/python scripts/export_contracts.py` and commit the regenerated `contracts/` files. Never hand-edit generated files.
 - `contracts/v1.md` explains semantics; `contracts/examples/*.json` must parse into the models (tested).
 
