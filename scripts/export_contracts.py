@@ -16,13 +16,19 @@ sys.path.insert(0, str(ROOT / "backend"))
 from pydantic import TypeAdapter  # noqa: E402
 
 from app.core import schemas  # noqa: E402
-from app.main import app  # noqa: E402
+from app.core.config import Settings  # noqa: E402
+from app.main import create_app  # noqa: E402
+
+app = create_app(Settings(database_path=":memory:"))
 
 SCHEMA_FILES = {
     "analysis.schema.json": schemas.AnalysisResult,
     "investigation.schema.json": schemas.Investigation,
     "investigation-request.schema.json": schemas.InvestigationRequest,
     "error.schema.json": schemas.ErrorResponse,
+    "dataset.schema.json": schemas.Dataset,
+    "outcome.schema.json": schemas.Outcome,
+    "outcome-request.schema.json": schemas.OutcomeRequest,
 }
 
 

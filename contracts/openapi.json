@@ -175,10 +175,136 @@
         "title": "CohortCounts",
         "type": "object"
       },
+      "DemoLoadRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scenario"
+        ],
+        "title": "DemoLoadRequest",
+        "type": "object"
+      },
+      "DemoLoadResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "already_loaded": {
+            "title": "Already Loaded",
+            "type": "boolean"
+          },
+          "checksum": {
+            "title": "Checksum",
+            "type": "string"
+          },
+          "policies": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Policies",
+            "type": "array"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          },
+          "seed_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed Error"
+          },
+          "seed_status": {
+            "$ref": "#/components/schemas/SeedStatus"
+          },
+          "synthetic": {
+            "title": "Synthetic",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "scenario",
+          "checksum",
+          "already_loaded",
+          "synthetic",
+          "policies",
+          "seed_status"
+        ],
+        "title": "DemoLoadResponse",
+        "type": "object"
+      },
+      "DemoResetRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "confirm": {
+            "title": "Confirm",
+            "type": "boolean"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scenario",
+          "confirm"
+        ],
+        "title": "DemoResetRequest",
+        "type": "object"
+      },
+      "DemoResetResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "cleared_runs": {
+            "minimum": 0.0,
+            "title": "Cleared Runs",
+            "type": "integer"
+          },
+          "memory_reset": {
+            "title": "Memory Reset",
+            "type": "boolean"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          },
+          "seed_status": {
+            "$ref": "#/components/schemas/SeedStatus"
+          }
+        },
+        "required": [
+          "scenario",
+          "cleared_runs",
+          "memory_reset",
+          "seed_status"
+        ],
+        "title": "DemoResetResponse",
+        "type": "object"
+      },
       "ErrorCode": {
         "enum": [
           "validation_error",
           "not_found",
+          "forbidden",
+          "scenario_not_loaded",
           "as_of_before_memory",
           "retention_pending",
           "idempotency_conflict",
@@ -398,6 +524,13 @@
             "title": "Status",
             "type": "string"
           },
+          "stubbed_modules": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Stubbed Modules",
+            "type": "array"
+          },
           "version": {
             "title": "Version",
             "type": "string"
@@ -411,6 +544,112 @@
           "demo_reset_enabled"
         ],
         "title": "HealthResponse",
+        "type": "object"
+      },
+      "Incident": {
+        "additionalProperties": false,
+        "properties": {
+          "comparison_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Comparison Id",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "incident_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Incident Id",
+            "type": "string"
+          },
+          "outcomes": {
+            "items": {
+              "$ref": "#/components/schemas/Outcome"
+            },
+            "title": "Outcomes",
+            "type": "array"
+          },
+          "policy_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Id",
+            "type": "string"
+          },
+          "run_ids": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Run Ids",
+            "type": "array"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          }
+        },
+        "required": [
+          "incident_id",
+          "policy_id",
+          "comparison_id",
+          "scenario",
+          "created_at"
+        ],
+        "title": "Incident",
+        "type": "object"
+      },
+      "IncidentSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "incident_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Incident Id",
+            "type": "string"
+          },
+          "outcome_count": {
+            "minimum": 0.0,
+            "title": "Outcome Count",
+            "type": "integer"
+          },
+          "pending_retention": {
+            "title": "Pending Retention",
+            "type": "boolean"
+          },
+          "policy_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Id",
+            "type": "string"
+          },
+          "run_count": {
+            "minimum": 0.0,
+            "title": "Run Count",
+            "type": "integer"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          }
+        },
+        "required": [
+          "incident_id",
+          "policy_id",
+          "scenario",
+          "run_count",
+          "outcome_count",
+          "pending_retention"
+        ],
+        "title": "IncidentSummary",
         "type": "object"
       },
       "Interval": {
@@ -799,6 +1038,179 @@
         "title": "MetricStatus",
         "type": "string"
       },
+      "Outcome": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "event_time": {
+            "format": "date-time",
+            "title": "Event Time",
+            "type": "string"
+          },
+          "idempotency_key": {
+            "title": "Idempotency Key",
+            "type": "string"
+          },
+          "incident_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Incident Id",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "outcome_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Outcome Id",
+            "type": "string"
+          },
+          "retention_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retention Error"
+          },
+          "retention_status": {
+            "$ref": "#/components/schemas/RetentionStatus"
+          },
+          "run_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Run Id",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/OutcomeType"
+          }
+        },
+        "required": [
+          "outcome_id",
+          "type",
+          "incident_id",
+          "run_id",
+          "event_time",
+          "note",
+          "idempotency_key",
+          "retention_status",
+          "created_at"
+        ],
+        "title": "Outcome",
+        "type": "object"
+      },
+      "OutcomeRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "event_time": {
+            "format": "date-time",
+            "title": "Event Time",
+            "type": "string"
+          },
+          "idempotency_key": {
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Idempotency Key",
+            "type": "string"
+          },
+          "note": {
+            "default": "",
+            "maxLength": 280,
+            "title": "Note",
+            "type": "string"
+          },
+          "run_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Run Id",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/OutcomeType"
+          }
+        },
+        "required": [
+          "type",
+          "run_id",
+          "event_time",
+          "idempotency_key"
+        ],
+        "title": "OutcomeRequest",
+        "type": "object"
+      },
+      "OutcomeType": {
+        "enum": [
+          "decision",
+          "measured_result"
+        ],
+        "title": "OutcomeType",
+        "type": "string"
+      },
+      "PolicySummary": {
+        "additionalProperties": false,
+        "properties": {
+          "channel": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Channel",
+            "type": "string"
+          },
+          "effective_at": {
+            "format": "date-time",
+            "title": "Effective At",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "policy_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Id",
+            "type": "string"
+          },
+          "scenario": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Scenario",
+            "type": "string"
+          },
+          "segment": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Segment",
+            "type": "string"
+          },
+          "version": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "policy_id",
+          "version",
+          "name",
+          "scenario",
+          "effective_at",
+          "segment",
+          "channel"
+        ],
+        "title": "PolicySummary",
+        "type": "object"
+      },
       "RecalledMemory": {
         "additionalProperties": false,
         "description": "A memory that shaped a recommendation (``history_influence`` target).",
@@ -908,6 +1320,24 @@
         "title": "Recommendation",
         "type": "object"
       },
+      "RetentionStatus": {
+        "enum": [
+          "pending",
+          "retained",
+          "failed"
+        ],
+        "title": "RetentionStatus",
+        "type": "string"
+      },
+      "SeedStatus": {
+        "enum": [
+          "seeded",
+          "skipped",
+          "unavailable"
+        ],
+        "title": "SeedStatus",
+        "type": "string"
+      },
       "SourceType": {
         "enum": [
           "deal",
@@ -971,6 +1401,128 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/demo/load": {
+      "post": {
+        "operationId": "load_api_demo_load_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DemoLoadRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemoLoadResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Load",
+        "tags": [
+          "demo"
+        ]
+      }
+    },
+    "/api/demo/reset": {
+      "post": {
+        "operationId": "reset_api_demo_reset_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DemoResetRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemoResetResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Reset",
+        "tags": [
+          "demo"
+        ]
+      }
+    },
     "/api/health": {
       "get": {
         "operationId": "health_api_health_get",
@@ -992,19 +1544,51 @@
         ]
       }
     },
-    "/api/investigations": {
+    "/api/incidents": {
       "get": {
-        "operationId": "list_investigations_api_investigations_get",
+        "operationId": "list_incidents_api_incidents_get",
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/InvestigationSummary"
+                    "$ref": "#/components/schemas/IncidentSummary"
                   },
-                  "title": "Response List Investigations Api Investigations Get",
+                  "title": "Response List Incidents Api Incidents Get",
                   "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Incidents",
+        "tags": [
+          "incidents"
+        ]
+      }
+    },
+    "/api/incidents/{incident_id}": {
+      "get": {
+        "operationId": "get_incident_api_incidents__incident_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "title": "Incident Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
                 }
               }
             },
@@ -1039,8 +1623,50 @@
               }
             },
             "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Get Incident",
+        "tags": [
+          "incidents"
+        ]
+      }
+    },
+    "/api/incidents/{incident_id}/outcomes": {
+      "post": {
+        "operationId": "create_outcome_api_incidents__incident_id__outcomes_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "title": "Incident Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OutcomeRequest"
+              }
+            }
           },
-          "501": {
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Outcome"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
             "content": {
               "application/json": {
                 "schema": {
@@ -1048,7 +1674,92 @@
                 }
               }
             },
-            "description": "Not Implemented"
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Create Outcome",
+        "tags": [
+          "incidents"
+        ]
+      }
+    },
+    "/api/investigations": {
+      "get": {
+        "operationId": "list_investigations_api_investigations_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/InvestigationSummary"
+                  },
+                  "title": "Response List Investigations Api Investigations Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
           }
         },
         "summary": "List Investigations",
@@ -1079,6 +1790,16 @@
             },
             "description": "Successful Response"
           },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
           "404": {
             "content": {
               "application/json": {
@@ -1108,16 +1829,6 @@
               }
             },
             "description": "Unprocessable Content"
-          },
-          "501": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Not Implemented"
           }
         },
         "summary": "Create Investigation",
@@ -1151,6 +1862,16 @@
             },
             "description": "Successful Response"
           },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
           "404": {
             "content": {
               "application/json": {
@@ -1180,8 +1901,40 @@
               }
             },
             "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Get Investigation",
+        "tags": [
+          "investigations"
+        ]
+      }
+    },
+    "/api/outcomes/{outcome_id}/retention": {
+      "post": {
+        "operationId": "retry_retention_api_outcomes__outcome_id__retention_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "outcome_id",
+            "required": true,
+            "schema": {
+              "title": "Outcome Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Outcome"
+                }
+              }
+            },
+            "description": "Successful Response"
           },
-          "501": {
+          "404": {
             "content": {
               "application/json": {
                 "schema": {
@@ -1189,12 +1942,57 @@
                 }
               }
             },
-            "description": "Not Implemented"
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
           }
         },
-        "summary": "Get Investigation",
+        "summary": "Retry Retention",
         "tags": [
-          "investigations"
+          "incidents"
+        ]
+      }
+    },
+    "/api/policies": {
+      "get": {
+        "operationId": "list_policies_api_policies_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PolicySummary"
+                  },
+                  "title": "Response List Policies Api Policies Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Policies",
+        "tags": [
+          "policies"
         ]
       }
     }

@@ -1,6 +1,7 @@
 """Environment loading. Secrets stay server-side and are never logged or returned."""
 
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -17,6 +18,7 @@ class Settings(BaseSettings):
     demo_reset_enabled: bool = False
     database_path: str = ".local/incento.sqlite3"
     cors_origins: str = "http://localhost:5173"
+    fixtures_dir: str = str(Path(__file__).resolve().parents[3] / "data" / "scenarios")
 
     @property
     def memory_configured(self) -> bool:

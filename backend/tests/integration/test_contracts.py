@@ -5,14 +5,18 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.core import schemas
-from app.main import app
+from app.core.config import Settings
+from app.main import create_app
 
+app = create_app(Settings(database_path=":memory:"))
 EXAMPLES = Path(__file__).resolve().parents[3] / "contracts" / "examples"
 
 EXAMPLE_MODELS = {
     "investigation-request.json": schemas.InvestigationRequest,
     "investigation-response.json": schemas.Investigation,
     "error-response.json": schemas.ErrorResponse,
+    "outcome-request.json": schemas.OutcomeRequest,
+    "outcome-response.json": schemas.Outcome,
 }
 
 

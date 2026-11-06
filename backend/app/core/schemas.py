@@ -107,6 +107,8 @@ class RecalledMemoryType(StrEnum):
 class ErrorCode(StrEnum):
     VALIDATION_ERROR = "validation_error"
     NOT_FOUND = "not_found"
+    FORBIDDEN = "forbidden"
+    SCENARIO_NOT_LOADED = "scenario_not_loaded"
     AS_OF_BEFORE_MEMORY = "as_of_before_memory"
     RETENTION_PENDING = "retention_pending"
     IDEMPOTENCY_CONFLICT = "idempotency_conflict"
@@ -287,6 +289,7 @@ class HealthResponse(Contract):
     memory_configured: bool
     memory_status: MemoryStatus
     demo_reset_enabled: bool
+    stubbed_modules: list[str] = Field(default_factory=list)
 
 
 class ErrorResponse(Contract):
@@ -294,3 +297,211 @@ class ErrorResponse(Contract):
     message: str
     request_id: str
     details: list[str] = Field(default_factory=list)
+
+
+# === Slice B: dataset, incidents, outcomes, demo endpoints =================
+
+
+class OutcomeType(StrEnum):
+    DECISION = "decision"
+    MEASURED_RESULT = "measured_result"
+
+
+class RetentionStatus(StrEnum):
+    PENDING = "pending"
+    RETAINED = "retained"
+    FAILED = "failed"
+
+
+class DatasetMeta(Contract):
+    """The UI's "Synthetic data" badge is driven by ``synthetic``."""
+
+    scenario: Id
+    synthetic: bool = True
+    generator_version: str
+    text_version: str
+
+
+class Policy(Contract):
+    policy_id: Id
+    version: Id
+    name: str
+    effective_at: UtcDatetime
+    segment: Id
+    channel: Id
+    description: str = ""
+
+
+class Customer(Contract):
+    customer_id: Id
+    display_name: str
+    industry: str
+    region: str
+
+
+class Deal(Contract):
+    deal_id: Id
+    customer_id: Id
+    policy_id: Id
+    policy_version: Id
+    segment: Id
+    channel: Id
+    closed_at: UtcDatetime
+    revenue: Money
+    discount: Fraction
+
+
+class Ticket(Contract):
+    ticket_id: Id
+    customer_id: Id
+    deal_id: Id
+    created_at: UtcDatetime
+    theme: Theme
+    excerpt: Annotated[str, Field(max_length=500)] | None = None
+
+
+class Cancellation(Contract):
+    cancellation_id: Id
+    customer_id: Id
+    deal_id: Id
+    cancelled_at: UtcDatetime
+    theme: Theme
+    excerpt: Annotated[str, Field(max_length=500)] | None = None
+
+
+class HistoryRecord(Contract):
+    """One seeded memory item, retained under a fixed category."""
+
+    record_id: Id
+    memory_type: RecalledMemoryType
+    event_time: UtcDatetime
+    summary: str
+
+
+class HistoricalIncident(Contract):
+    incident_id: Id
+    title: str
+    occurred_at: UtcDatetime
+    records: list[HistoryRecord] = Field(default_factory=list)
+
+
+class Dataset(Contract):
+    """A scenario batch as stored in ``data/scenarios/<scenario>.json``."""
+
+    meta: DatasetMeta
+    policies: list[Policy]
+    customers: list[Customer] = Field(default_factory=list)
+    deals: list[Deal] = Field(default_factory=list)
+    tickets: list[Ticket] = Field(default_factory=list)
+    cancellations: list[Cancellation] = Field(default_factory=list)
+    history: list[HistoricalIncident] = Field(default_factory=list)
+
+
+class OutcomeRequest(Contract):
+    type: OutcomeType
+    run_id: Id
+    event_time: UtcDatetime
+    note: Annotated[str, Field(max_length=280)] = ""
+    idempotency_key: Annotated[str, Field(min_length=8, max_length=128)]
+
+
+class Outcome(Contract):
+    outcome_id: Id
+    type: OutcomeType
+    incident_id: Id
+    run_id: Id
+    event_time: UtcDatetime
+    note: str
+    idempotency_key: str
+    retention_status: RetentionStatus
+    retention_error: str | None = None
+    created_at: UtcDatetime
+
+
+class Incident(Contract):
+    incident_id: Id
+    policy_id: Id
+    comparison_id: Id
+    scenario: Id
+    created_at: UtcDatetime
+    run_ids: list[Id] = Field(default_factory=list)
+    outcomes: list[Outcome] = Field(default_factory=list)
+
+
+class IncidentSummary(Contract):
+    incident_id: Id
+    policy_id: Id
+    scenario: Id
+    run_count: Annotated[int, Field(ge=0)]
+    outcome_count: Annotated[int, Field(ge=0)]
+    pending_retention: bool
+
+
+class SeedStatus(StrEnum):
+    SEEDED = "seeded"
+    SKIPPED = "skipped"
+    UNAVAILABLE = "unavailable"
+
+
+class DemoLoadRequest(Contract):
+    scenario: Id
+
+
+class DemoLoadResponse(Contract):
+    scenario: Id
+    checksum: str
+    already_loaded: bool
+    synthetic: bool
+    policies: list[Id]
+    seed_status: SeedStatus
+    seed_error: str | None = None
+
+
+class DemoResetRequest(Contract):
+    scenario: Id
+    confirm: bool
+
+
+class DemoResetResponse(Contract):
+    scenario: Id
+    cleared_runs: Annotated[int, Field(ge=0)]
+    memory_reset: bool
+    seed_status: SeedStatus
+
+
+class PolicySummary(Contract):
+    policy_id: Id
+    version: Id
+    name: str
+    scenario: Id
+    effective_at: UtcDatetime
+    segment: Id
+    channel: Id
+
+
+class RetentionResult(Contract):
+    """P4's ``retain_outcome`` result."""
+
+    status: RetentionStatus
+    error: str | None = None
+
+
+class SeedResult(Contract):
+    status: SeedStatus
+    error: str | None = None
+
+
+class ResetResult(Contract):
+    ok: bool
+    error: str | None = None
+
+
+class ExplainContext(Contract):
+    """Non-metric inputs P2 passes to P4's ``explain``."""
+
+    run_id: Id
+    scenario: Id
+    policy_id: Id
+    as_of: UtcDatetime
+    memory_mode: MemoryMode
+    incident_id: Id | None

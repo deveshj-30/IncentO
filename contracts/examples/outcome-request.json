@@ -1,0 +1,7 @@
+{
+  "type": "decision",
+  "run_id": "run-0001-a1b2c3",
+  "event_time": "2026-07-10T00:00:00Z",
+  "note": "Approved a one-quarter discount approval pilot for month-end deals.",
+  "idempotency_key": "outcome-demo-0001"
+}

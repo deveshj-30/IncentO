@@ -7,6 +7,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
+from app.core.errors import ApiError
 from app.core.schemas import ErrorCode, ErrorResponse
 
 
@@ -32,6 +33,10 @@ def error_response(
 
 def install_error_handlers(app: FastAPI) -> None:
     app.add_middleware(RequestIdMiddleware)
+
+    @app.exception_handler(ApiError)
+    async def _api(request: Request, exc: ApiError):
+        return error_response(request, exc.status, exc.code, exc.message, exc.details)
 
     @app.exception_handler(RequestValidationError)
     async def _validation(request: Request, exc: RequestValidationError):

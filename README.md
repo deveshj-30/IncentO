@@ -9,7 +9,7 @@ cd backend
 uv venv --python 3.14 .venv            # Python 3.12+ works
 uv pip install --python .venv/bin/python -r requirements.txt
 cp ../.env.example .env                # optional; add secrets locally only
-.venv/bin/python -m uvicorn app.main:app --reload   # http://localhost:8000/api/health
+.venv/bin/python -m uvicorn app.main:create_app --factory --reload   # http://localhost:8000/api/health
 ```
 
 ## Checks and contracts

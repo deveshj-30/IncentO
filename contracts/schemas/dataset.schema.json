@@ -1,0 +1,457 @@
+{
+  "$defs": {
+    "Cancellation": {
+      "additionalProperties": false,
+      "properties": {
+        "cancellation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Cancellation Id",
+          "type": "string"
+        },
+        "cancelled_at": {
+          "format": "date-time",
+          "title": "Cancelled At",
+          "type": "string"
+        },
+        "customer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Customer Id",
+          "type": "string"
+        },
+        "deal_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Deal Id",
+          "type": "string"
+        },
+        "excerpt": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excerpt"
+        },
+        "theme": {
+          "$ref": "#/$defs/Theme"
+        }
+      },
+      "required": [
+        "cancellation_id",
+        "customer_id",
+        "deal_id",
+        "cancelled_at",
+        "theme"
+      ],
+      "title": "Cancellation",
+      "type": "object"
+    },
+    "Customer": {
+      "additionalProperties": false,
+      "properties": {
+        "customer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Customer Id",
+          "type": "string"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "industry": {
+          "title": "Industry",
+          "type": "string"
+        },
+        "region": {
+          "title": "Region",
+          "type": "string"
+        }
+      },
+      "required": [
+        "customer_id",
+        "display_name",
+        "industry",
+        "region"
+      ],
+      "title": "Customer",
+      "type": "object"
+    },
+    "DatasetMeta": {
+      "additionalProperties": false,
+      "description": "The UI's \"Synthetic data\" badge is driven by ``synthetic``.",
+      "properties": {
+        "generator_version": {
+          "title": "Generator Version",
+          "type": "string"
+        },
+        "scenario": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Scenario",
+          "type": "string"
+        },
+        "synthetic": {
+          "default": true,
+          "title": "Synthetic",
+          "type": "boolean"
+        },
+        "text_version": {
+          "title": "Text Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scenario",
+        "generator_version",
+        "text_version"
+      ],
+      "title": "DatasetMeta",
+      "type": "object"
+    },
+    "Deal": {
+      "additionalProperties": false,
+      "properties": {
+        "channel": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Channel",
+          "type": "string"
+        },
+        "closed_at": {
+          "format": "date-time",
+          "title": "Closed At",
+          "type": "string"
+        },
+        "customer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Customer Id",
+          "type": "string"
+        },
+        "deal_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Deal Id",
+          "type": "string"
+        },
+        "discount": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Discount",
+          "type": "number"
+        },
+        "policy_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "revenue": {
+          "$ref": "#/$defs/Money"
+        },
+        "segment": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Segment",
+          "type": "string"
+        }
+      },
+      "required": [
+        "deal_id",
+        "customer_id",
+        "policy_id",
+        "policy_version",
+        "segment",
+        "channel",
+        "closed_at",
+        "revenue",
+        "discount"
+      ],
+      "title": "Deal",
+      "type": "object"
+    },
+    "HistoricalIncident": {
+      "additionalProperties": false,
+      "properties": {
+        "incident_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Incident Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "records": {
+          "items": {
+            "$ref": "#/$defs/HistoryRecord"
+          },
+          "title": "Records",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "incident_id",
+        "title",
+        "occurred_at"
+      ],
+      "title": "HistoricalIncident",
+      "type": "object"
+    },
+    "HistoryRecord": {
+      "additionalProperties": false,
+      "description": "One seeded memory item, retained under a fixed category.",
+      "properties": {
+        "event_time": {
+          "format": "date-time",
+          "title": "Event Time",
+          "type": "string"
+        },
+        "memory_type": {
+          "$ref": "#/$defs/RecalledMemoryType"
+        },
+        "record_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_id",
+        "memory_type",
+        "event_time",
+        "summary"
+      ],
+      "title": "HistoryRecord",
+      "type": "object"
+    },
+    "Money": {
+      "additionalProperties": false,
+      "properties": {
+        "amount_minor": {
+          "title": "Amount Minor",
+          "type": "integer"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount_minor",
+        "currency"
+      ],
+      "title": "Money",
+      "type": "object"
+    },
+    "Policy": {
+      "additionalProperties": false,
+      "properties": {
+        "channel": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Channel",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "effective_at": {
+          "format": "date-time",
+          "title": "Effective At",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "segment": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Segment",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "version",
+        "name",
+        "effective_at",
+        "segment",
+        "channel"
+      ],
+      "title": "Policy",
+      "type": "object"
+    },
+    "RecalledMemoryType": {
+      "enum": [
+        "fact",
+        "hypothesis",
+        "rejected_hypothesis",
+        "decision",
+        "measured_result"
+      ],
+      "title": "RecalledMemoryType",
+      "type": "string"
+    },
+    "Theme": {
+      "enum": [
+        "missing_feature",
+        "onboarding_difficulty",
+        "pricing_dispute",
+        "outage",
+        "other"
+      ],
+      "title": "Theme",
+      "type": "string"
+    },
+    "Ticket": {
+      "additionalProperties": false,
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "customer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Customer Id",
+          "type": "string"
+        },
+        "deal_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Deal Id",
+          "type": "string"
+        },
+        "excerpt": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excerpt"
+        },
+        "theme": {
+          "$ref": "#/$defs/Theme"
+        },
+        "ticket_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Ticket Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ticket_id",
+        "customer_id",
+        "deal_id",
+        "created_at",
+        "theme"
+      ],
+      "title": "Ticket",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A scenario batch as stored in ``data/scenarios/<scenario>.json``.",
+  "properties": {
+    "cancellations": {
+      "items": {
+        "$ref": "#/$defs/Cancellation"
+      },
+      "title": "Cancellations",
+      "type": "array"
+    },
+    "customers": {
+      "items": {
+        "$ref": "#/$defs/Customer"
+      },
+      "title": "Customers",
+      "type": "array"
+    },
+    "deals": {
+      "items": {
+        "$ref": "#/$defs/Deal"
+      },
+      "title": "Deals",
+      "type": "array"
+    },
+    "history": {
+      "items": {
+        "$ref": "#/$defs/HistoricalIncident"
+      },
+      "title": "History",
+      "type": "array"
+    },
+    "meta": {
+      "$ref": "#/$defs/DatasetMeta"
+    },
+    "policies": {
+      "items": {
+        "$ref": "#/$defs/Policy"
+      },
+      "title": "Policies",
+      "type": "array"
+    },
+    "tickets": {
+      "items": {
+        "$ref": "#/$defs/Ticket"
+      },
+      "title": "Tickets",
+      "type": "array"
+    }
+  },
+  "required": [
+    "meta",
+    "policies"
+  ],
+  "title": "Dataset",
+  "type": "object"
+}

@@ -1,0 +1,91 @@
+{
+  "$defs": {
+    "OutcomeType": {
+      "enum": [
+        "decision",
+        "measured_result"
+      ],
+      "title": "OutcomeType",
+      "type": "string"
+    },
+    "RetentionStatus": {
+      "enum": [
+        "pending",
+        "retained",
+        "failed"
+      ],
+      "title": "RetentionStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "event_time": {
+      "format": "date-time",
+      "title": "Event Time",
+      "type": "string"
+    },
+    "idempotency_key": {
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "incident_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Incident Id",
+      "type": "string"
+    },
+    "note": {
+      "title": "Note",
+      "type": "string"
+    },
+    "outcome_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Outcome Id",
+      "type": "string"
+    },
+    "retention_error": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Retention Error"
+    },
+    "retention_status": {
+      "$ref": "#/$defs/RetentionStatus"
+    },
+    "run_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/$defs/OutcomeType"
+    }
+  },
+  "required": [
+    "outcome_id",
+    "type",
+    "incident_id",
+    "run_id",
+    "event_time",
+    "note",
+    "idempotency_key",
+    "retention_status",
+    "created_at"
+  ],
+  "title": "Outcome",
+  "type": "object"
+}

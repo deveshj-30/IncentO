@@ -1,0 +1,49 @@
+{
+  "$defs": {
+    "OutcomeType": {
+      "enum": [
+        "decision",
+        "measured_result"
+      ],
+      "title": "OutcomeType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "event_time": {
+      "format": "date-time",
+      "title": "Event Time",
+      "type": "string"
+    },
+    "idempotency_key": {
+      "maxLength": 128,
+      "minLength": 8,
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "note": {
+      "default": "",
+      "maxLength": 280,
+      "title": "Note",
+      "type": "string"
+    },
+    "run_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/$defs/OutcomeType"
+    }
+  },
+  "required": [
+    "type",
+    "run_id",
+    "event_time",
+    "idempotency_key"
+  ],
+  "title": "OutcomeRequest",
+  "type": "object"
+}
