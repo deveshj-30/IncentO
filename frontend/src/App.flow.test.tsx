@@ -51,7 +51,7 @@ describe("frontend flows", () => {
     );
     await mount();
     await click("Investigation");
-    expect(host.querySelectorAll(".untrusted-label")).toHaveLength(3);
+    expect(host.querySelectorAll(".badge.untrusted")).toHaveLength(3);
     expect(host.textContent).toContain("Untrusted customer text");
     await click("Compare memory");
     expect(host.textContent).toContain("WITHOUT MEMORY");
@@ -98,7 +98,7 @@ describe("frontend flows", () => {
     expect(host.textContent).toContain("TICKET-INJECT-001");
     expect(host.textContent).toContain(canary);
     expect(host.querySelector(".evidence-list img")).toBeNull();
-    expect(host.querySelectorAll(".untrusted-label")).toHaveLength(4);
+    expect(host.querySelectorAll(".badge.untrusted")).toHaveLength(4);
     await click("Overview");
     expect(host.textContent).toContain("120 month-end / 880 other deals");
   });

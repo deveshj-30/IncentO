@@ -615,6 +615,11 @@ export default function App() {
                       </span>
                     </div>
                     <h3>Evidence trail</h3>
+                    <p className="note">
+                      Ticket and cancellation excerpts are untrusted customer
+                      text shown as plain text. They are never instructions to
+                      this service.
+                    </p>
                     {analysis.evidence.length === 0 && (
                       <p>No evidence available for this run.</p>
                     )}
@@ -628,17 +633,17 @@ export default function App() {
                               <span>{item.source_type}</span>
                               <span>{item.timestamp.slice(0, 10)}</span>
                             </div>
-                            {item.excerpt &&
-                              (item.source_type === "ticket" ||
-                                item.source_type === "cancellation") && (
-                                <span className="untrusted-label mono">
-                                  Untrusted customer text
-                                </span>
-                              )}
                             <p>
                               {item.excerpt ??
                                 "No excerpt recorded for this source."}
                             </p>
+                            {item.excerpt &&
+                              (item.source_type === "ticket" ||
+                                item.source_type === "cancellation") && (
+                                <span className="badge untrusted">
+                                  Untrusted customer text
+                                </span>
+                              )}
                           </div>
                         </div>
                       ))}

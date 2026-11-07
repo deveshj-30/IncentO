@@ -56,9 +56,7 @@ class HindsightAdapter:
         self.base_url = (
             base_url if base_url is not None else (os.environ.get("HINDSIGHT_BASE_URL") or DEFAULT_BASE_URL)
         ).rstrip("/")
-        self.api_key = (
-            api_key if api_key is not None else (os.environ.get("HINDSIGHT_API_KEY") or "")
-        )
+        self.api_key = api_key if api_key is not None else (os.environ.get("HINDSIGHT_API_KEY") or "")
         self.timeout = timeout_seconds
         self.store_path = store_path or LOCAL_STORE_PATH
         self._local_banks: dict[str, dict[str, StoredMemory]] = {}
@@ -70,9 +68,7 @@ class HindsightAdapter:
             try:
                 data = json.loads(self.store_path.read_text(encoding="utf-8"))
                 for bank, items in data.items():
-                    self._local_banks[bank] = {
-                        k: StoredMemory(**v) for k, v in items.items()
-                    }
+                    self._local_banks[bank] = {k: StoredMemory(**v) for k, v in items.items()}
             except Exception as exc:
                 log.warning("Failed to load local hindsight bank store: %s", exc)
 
@@ -81,8 +77,7 @@ class HindsightAdapter:
         try:
             self.store_path.parent.mkdir(parents=True, exist_ok=True)
             serializable = {
-                bank: {k: asdict(v) for k, v in items.items()}
-                for bank, items in self._local_banks.items()
+                bank: {k: asdict(v) for k, v in items.items()} for bank, items in self._local_banks.items()
             }
             self.store_path.write_text(json.dumps(serializable, indent=2), encoding="utf-8")
         except Exception as exc:
@@ -114,9 +109,7 @@ class HindsightAdapter:
         """True if offline simulation mode is explicitly enabled."""
         return os.environ.get("HINDSIGHT_SIMULATE", "").lower() in ("1", "true", "yes")
 
-    def seed_incidents(
-        self, bank_name: str, incidents: list[HistoricalIncident]
-    ) -> SeedResult:
+    def seed_incidents(self, bank_name: str, incidents: list[HistoricalIncident]) -> SeedResult:
         """Seed past historical incidents into memory with scenario isolation."""
         self._validate_bank_name(bank_name)
         if not incidents:
@@ -380,10 +373,13 @@ class HindsightAdapter:
                             parsed = self._parse_cloud_result(item, as_of_dt)
                             if parsed:
                                 cloud_recalled.append(parsed)
-                        if cloud_recalled:
-                            return cloud_recalled[:limit]
+                        return cloud_recalled[:limit]
+                    log.warning("Hindsight live recall failed: HTTP %s", resp.status_code)
             except Exception as exc:
                 log.warning("Hindsight live recall failed: %s", exc)
+            # A configured Cloud that cannot be reached returns nothing. The local simulation store is
+            # never a substitute for it: its records would be shown as live memory.
+            return []
 
         # Offline local bank candidates
         bank = self._local_banks.get(bank_name, {})

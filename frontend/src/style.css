@@ -95,6 +95,17 @@ button:disabled {
   color: #ededed;
   white-space: nowrap;
 }
+.badge.untrusted {
+  margin-top: 6px;
+  padding: 3px 9px;
+  font-size: 10px;
+  color: #c9a227;
+  border-color: #c9a22766;
+}
+.note {
+  font-size: 12px;
+  color: #a8a8a8;
+}
 .main-nav {
   display: flex;
   gap: 4px;
@@ -599,16 +610,6 @@ article p {
 .evidence-meta strong {
   color: #fff;
   font-weight: 500;
-}
-.untrusted-label {
-  display: inline-block;
-  margin-top: 11px;
-  padding: 4px 6px;
-  border: 1px solid #555;
-  border-radius: 3px;
-  color: #b9b9b9;
-  font-size: 10px;
-  text-transform: uppercase;
 }
 .evidence-item p {
   margin: 8px 0 0;

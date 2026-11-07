@@ -618,13 +618,75 @@ def test_normalize_citations_repairs_misplaced_ids_and_drops_invented_ones() -> 
 def test_causal_wording_is_rejected_but_causation_disclaimer_is_not() -> None:
     from app.memory.validation import validate_explanation_text
 
-    for bad in (
-        "Previous abrupt suspensions caused seller departures.",
-        "Discounting may lead to more complaints.",
-        "Churn rose due to the change.",
-        "Pipeline disruption resulted in lost deals.",
+    for bad, word in (
+        ("Previous abrupt suspensions caused seller departures.", "caused"),
+        ("Discounting may lead to more complaints.", "lead to"),
+        ("Churn rose due to the change.", "due to"),
+        ("Pipeline disruption resulted in lost deals.", "resulted in"),
     ):
-        assert validate_explanation_text(bad, {}) == (False, "causal_claim"), bad
+        assert validate_explanation_text(bad, {}) == (False, f"causal_claim:{word}"), bad
     ok = "The gap may be associated with discounting; this does not establish causation."
     assert validate_explanation_text(ok, {}) == (True, None)
     assert validate_explanation_text("Seller departures followed the suspension.", {}) == (True, None)
+
+
+def test_configured_status_follows_key_and_simulation(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.delenv("HINDSIGHT_SIMULATE", raising=False)
+    service.set_adapter(HindsightAdapter(api_key="", store_path=tmp_path / "b.json"))
+    assert service.configured_status() == MemoryStatus.UNAVAILABLE
+    monkeypatch.setenv("HINDSIGHT_SIMULATE", "1")
+    assert service.configured_status() == MemoryStatus.FIXTURE
+    monkeypatch.delenv("HINDSIGHT_SIMULATE")
+    service.set_adapter(HindsightAdapter(api_key="test-key", store_path=tmp_path / "b.json"))
+    assert service.configured_status() == MemoryStatus.LIVE
+
+
+def test_unreachable_cloud_never_falls_back_to_the_local_store_as_live(tmp_path: Path, monkeypatch) -> None:
+    """With a key set but Cloud failing, local simulation records must not appear as live memory."""
+    import httpx
+
+    monkeypatch.delenv("HINDSIGHT_SIMULATE", raising=False)
+    store = tmp_path / "banks.json"
+    when = datetime(2025, 9, 12, tzinfo=UTC)
+    seed_adapter = HindsightAdapter(api_key="", store_path=store)
+    monkeypatch.setenv("HINDSIGHT_SIMULATE", "1")
+    service.set_adapter(seed_adapter)
+    service.seed_history(
+        [
+            HistoricalIncident(
+                incident_id="INC-RISK-PRIOR",
+                title="Prior",
+                occurred_at=when,
+                records=[
+                    HistoryRecord(
+                        record_id="HIST-RISK-RESULT",
+                        memory_type=RecalledMemoryType.MEASURED_RESULT,
+                        event_time=when,
+                        summary="Synthetic.",
+                    )
+                ],
+            )
+        ],
+        scenario="tiny",
+    )
+    monkeypatch.delenv("HINDSIGHT_SIMULATE")
+
+    def boom(*args, **kwargs):
+        raise httpx.ConnectError("no network")
+
+    monkeypatch.setattr(httpx.Client, "post", boom)
+    live = HindsightAdapter(api_key="test-key", store_path=store)
+    service.set_adapter(live)
+    as_of = datetime(2026, 11, 1, tzinfo=UTC)
+    assert live.recall("incento-demo-tiny", "q", as_of=as_of) == []
+    ctx = ExplainContext(
+        run_id="run-offline",
+        scenario="tiny",
+        policy_id="pol-acq-bonus",
+        as_of=as_of,
+        memory_mode=MemoryMode.LIVE,
+        incident_id="inc-1",
+    )
+    exp = service.explain(_sample_analysis(as_of), ctx)
+    assert exp.recalled == []
+    assert exp.memory_status == MemoryStatus.UNAVAILABLE
