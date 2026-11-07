@@ -11,6 +11,12 @@ describe("frontend shell", () => {
     expect(html).not.toContain("brand-mark");
     expect(html).toContain("Acquisition bonus");
     expect(html).toContain("19 points");
+    expect(html).toContain(
+      "Outcome profile: Discount rate, month-end 28 percent",
+    );
+    expect(html.match(/class="plot-point"/g)).toHaveLength(6);
+    expect(html).toContain("CONTRACT FIXTURE");
+    expect(html.match(/class="bar-pointer/g)).toHaveLength(6);
     expect(html).toContain("Incident timeline");
     expect(html).toContain('value="risk"');
     expect(html).toContain('value="POL-RISK-001"');
