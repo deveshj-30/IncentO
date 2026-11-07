@@ -72,6 +72,42 @@ Each scenario is one JSON file with policies, customers, deals, tickets, cancell
 
 Python 3.12+ with FastAPI, pydantic v2 and SQLite on the backend. React 19, TypeScript and Vite on the frontend. Hindsight Cloud for memory.
 
+## Project file structure
+
+```text
+IncentO/
+├── backend/
+│   ├── app/
+│   │   ├── main.py              # FastAPI app factory
+│   │   ├── api/                 # routes: investigations, outcomes, demo, policies, health
+│   │   ├── core/                # schemas, SQLite, fixtures, guards, orchestration
+│   │   ├── analysis/            # deterministic cohort metrics and intervals
+│   │   └── memory/              # Hindsight adapter, explanation templates, validation
+│   ├── tests/                   # analysis, memory and integration tests
+│   ├── requirements.txt
+│   └── pyproject.toml
+├── frontend/
+│   ├── src/                     # React app, API client, generated contract types
+│   └── package.json
+├── data/
+│   ├── generate/                # seeded scenario generator
+│   ├── scenarios/               # risk, outage and sparse fixtures (synthetic)
+│   └── text/                    # frozen fictional customer text
+├── contracts/
+│   ├── openapi.json             # generated from backend/app/core/schemas.py
+│   ├── schemas/                 # generated JSON schemas
+│   └── examples/                # example payloads checked by tests
+├── scripts/
+│   ├── check.sh                 # lint, tests, contract and frontend checks
+│   ├── export_contracts.py      # regenerate contracts/
+│   ├── smoke_test.py            # full API flow against a running server
+│   ├── g4_check.py              # persistence and recall checks
+│   ├── demo_check.py            # memory off versus on, same numbers
+│   └── record_demo.mjs          # captioned screen recording of the demo flow
+├── .env.example                 # copy to backend/.env
+└── README.md
+```
+
 ## How to run it
 
 Backend (needs Python 3.12+):

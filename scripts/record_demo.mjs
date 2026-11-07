@@ -1,6 +1,6 @@
 // Records the demo walkthrough with captions (no audio) from a running app.
 //   Needs: backend on :8000 and the frontend on :5173 (see README "Running the demo"), plus `npm i playwright`.
-//   Run:   node docs/demo/record_demo.mjs                 (live memory; set FIXTURE=1 for a labeled simulated-memory fallback)
+//   Run:   node scripts/record_demo.mjs                 (live memory; set FIXTURE=1 for a labeled simulated-memory fallback)
 //   Output: .local/demo/incento-demo[-fallback-fixture].webm (git-ignored). Add a voiceover from the local demo script.
 // Set CHROMIUM_PATH to a Chromium/Chrome binary if Playwright's own browser is not installed.
 import { chromium } from 'playwright';
