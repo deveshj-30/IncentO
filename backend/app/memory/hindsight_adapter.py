@@ -100,19 +100,16 @@ class HindsightAdapter:
                     {
                         "document_id": rec.record_id,
                         "content": f"[{inc.title}] {rec.summary}",
-                        "metadata": {
-                            "incident_id": inc.incident_id,
-                            "memory_type": rec.memory_type.value,
-                            "event_time": rec.event_time.isoformat(),
-                        },
                     }
                     for inc in incidents
                     for rec in inc.records
                 ]
                 with httpx.Client(timeout=self.timeout) as client:
+                    # Ensure bank exists on Cloud
+                    client.put(f"{self.base_url}/v1/default/banks/{bank_name}", json={}, headers=headers)
                     resp = client.post(
-                        f"{self.base_url}/v1/banks/{bank_name}/memories/batch",
-                        json={"memories": payload},
+                        f"{self.base_url}/v1/default/banks/{bank_name}/memories",
+                        json={"items": payload},
                         headers=headers,
                     )
                     if resp.status_code >= 400:
@@ -146,18 +143,17 @@ class HindsightAdapter:
             try:
                 headers = {"Authorization": f"Bearer {self.api_key}"}
                 payload = {
-                    "document_id": mem_id,
-                    "content": outcome.note,
-                    "metadata": {
-                        "incident_id": outcome.incident_id,
-                        "run_id": outcome.run_id,
-                        "type": outcome.type.value,
-                        "event_time": outcome.event_time.isoformat(),
-                    },
+                    "items": [
+                        {
+                            "document_id": mem_id,
+                            "content": f"[Outcome:{outcome.type.value}] {outcome.note}",
+                        }
+                    ]
                 }
                 with httpx.Client(timeout=self.timeout) as client:
+                    client.put(f"{self.base_url}/v1/default/banks/{bank_name}", json={}, headers=headers)
                     resp = client.post(
-                        f"{self.base_url}/v1/banks/{bank_name}/memories",
+                        f"{self.base_url}/v1/default/banks/{bank_name}/memories",
                         json=payload,
                         headers=headers,
                     )
@@ -197,32 +193,32 @@ class HindsightAdapter:
         if self.is_live:
             try:
                 headers = {"Authorization": f"Bearer {self.api_key}"}
-                payload = {"query": query, "limit": limit}
+                payload = {"query": query}
                 with httpx.Client(timeout=self.timeout) as client:
                     resp = client.post(
-                        f"{self.base_url}/v1/banks/{bank_name}/recall",
+                        f"{self.base_url}/v1/default/banks/{bank_name}/memories/recall",
                         json=payload,
                         headers=headers,
                     )
                     if resp.status_code == 200:
-                        data = resp.json().get("memories", [])
+                        data = resp.json().get("results", [])
                         cloud_recalled: list[RecalledMemory] = []
                         for item in data:
-                            meta = item.get("metadata", {})
-                            ev_time_raw = meta.get("event_time")
+                            ev_time_raw = item.get("occurred_start") or item.get("mentioned_at")
                             ev_time = (
                                 datetime.fromisoformat(ev_time_raw)
                                 if ev_time_raw
                                 else as_of
                             )
                             if ev_time <= as_of:
+                                doc_id = item.get("document_id") or item.get("id") or "mem-cloud"
                                 cloud_recalled.append(
                                     RecalledMemory(
-                                        id=item.get("document_id") or item.get("id"),
-                                        memory_type=RecalledMemoryType(meta.get("memory_type", "fact")),
+                                        id=doc_id,
+                                        memory_type=RecalledMemoryType.DECISION,
                                         event_time=ev_time,
-                                        incident_id=meta.get("incident_id"),
-                                        summary=item.get("content") or item.get("summary", ""),
+                                        incident_id=None,
+                                        summary=item.get("text") or item.get("content") or "",
                                     )
                                 )
                         if cloud_recalled:
@@ -245,7 +241,7 @@ class HindsightAdapter:
                 headers = {"Authorization": f"Bearer {self.api_key}"}
                 with httpx.Client(timeout=self.timeout) as client:
                     resp = client.delete(
-                        f"{self.base_url}/v1/banks/{bank_name}",
+                        f"{self.base_url}/v1/default/banks/{bank_name}",
                         headers=headers,
                     )
                     if resp.status_code not in (200, 204, 404):
