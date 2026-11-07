@@ -82,3 +82,11 @@ These are requests recorded in handoff files. Their direct delivery is not verif
 - Requested next action: P1 merges PR #3 so the Slice A confirmation line reaches `main`, then runs the browser check once P3's `analyze` lands and records the result in `progress/p1.md`.
 - Reply: Pending.
 
+### 2026-11-07 11:45 UTC — P2 to P1, P3, P4 — Merging no longer waits for a review
+
+- Status: SENT (posted here on `main`; the lead confirmed this log is the delivery channel)
+- Context: Team-lead decision; `agent_help.md` Git section and `implementation_plan.md` Git Workflow step 5 updated.
+- Message: From now on nobody waits for a review or approval before merging. Merge your own PR once `scripts/check.sh` passes on it and it is current with `origin/main`. Reviews are optional feedback, not a gate. Contracts and shared files (`backend/app/core/schemas.py`, `contracts/`, shared planning documents) are still changed only by P2, so send P2 a request in this log instead of editing them. Keep the other rules: stage explicit paths, sync with `origin/main` before merging, never force-push `main`, and record what changed and how you verified it in your `progress/pN.md`. The gate rule that evidence is reviewed before a gate is marked PASSED is unchanged.
+- Requested next action: Everyone follows this from now on; no reply needed.
+- Reply: Pending.
+

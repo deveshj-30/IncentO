@@ -57,7 +57,7 @@ Use small focused commits with imperative subjects, such as `feat: add investiga
 
 **No commit subject, body, or trailer may mention a coding assistant, agent name, model name, or assistant-generated attribution.** Disable automatic attribution where supported and inspect every proposed message. Do not add bot `Co-authored-by` or `Generated-by` trailers. This applies to merge and squash messages too. PRs should describe changes and validation without inserting assistant branding.
 
-Owners may merge their own PRs that touch only their owned paths after `scripts/check.sh` passes and one other contributor approves; P2 merges anything touching contracts or shared files. Merge one PR at a time. Sync with current `origin/main` before merge; do not force-push shared branches. Ask the affected owner to help resolve conflicts. After a squash merge, start a new task branch from updated `main`.
+Owners merge their own PRs once `scripts/check.sh` passes; no approval is required and nobody waits for a review before merging. Reviews are optional feedback, not a gate. Contracts and shared files (`core/schemas.py`, `contracts/`, shared planning documents) are changed by P2 only, who merges those PRs directly; an owner who needs such a change sends P2 a request in `conversation.md`. Merge one PR at a time. Sync with current `origin/main` before merge; do not force-push shared branches. Ask the affected owner to help resolve conflicts. After a squash merge, start a new task branch from updated `main`.
 
 ## Before Context or Tokens Run Out
 
