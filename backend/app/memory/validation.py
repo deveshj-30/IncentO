@@ -4,7 +4,7 @@ import re
 from datetime import datetime
 from typing import Any
 
-from app.core.schemas import AnalysisResult, RecalledMemory, Recommendation
+from app.core.schemas import ActionType, AnalysisResult, RecalledMemory, Recommendation
 
 _TOKEN_RE = re.compile(r"\{\{([mt]):([a-zA-Z0-9_.]+)\}\}")
 
@@ -88,3 +88,99 @@ def sanitize_recommendations(
             )
         )
     return sanitized
+
+
+def validate_explanation_text(text: str, token_dict: dict[str, str]) -> tuple[bool, str | None]:
+    """Validate a text field per the explanation number and safety rules:
+    - All tokens must resolve against token_dict; unknown tokens reject.
+    - After tokens are stripped, text must not contain digits (0-9), '%', or 'percent'.
+    - Must not contain URLs, HTML, markdown links, or code fences.
+    """
+    if not text:
+        return True, None
+
+    # Free-text security checks: no URLs, HTML, markdown links, code fences
+    if "```" in text or ("<" in text and ">" in text):
+        return False, "contains_code_or_html"
+    if "http://" in text or "https://" in text or "www." in text:
+        return False, "contains_url"
+    if re.search(r"\[.*?\]\(.*?\)", text):
+        return False, "contains_markdown_link"
+
+    # Check that all tokens in the text resolve against token_dict
+    for match in _TOKEN_RE.finditer(text):
+        key = f"{match.group(1)}:{match.group(2)}"
+        if key not in token_dict:
+            return False, f"unknown_token:{key}"
+
+    # Strip tokens before checking for numbers
+    stripped = _TOKEN_RE.sub("", text)
+
+    # Number rules: no digits, %, or 'percent'
+    if any(ch.isdigit() for ch in stripped):
+        return False, "contains_digits"
+    if "%" in stripped or "percent" in stripped.lower():
+        return False, "contains_percent"
+
+    return True, None
+
+
+def validate_structured_output(
+    data: dict[str, Any],
+    token_dict: dict[str, str],
+    valid_evidence_ids: set[str],
+    valid_recalled_ids: set[str],
+) -> tuple[bool, str | None]:
+    """Validate Reflect structured output against contract rules:
+    - summary, hypothesis, supporting_points, conflicting_points, alternatives, rec action & rationale
+      must pass validate_explanation_text.
+    - recommendations must have valid action_type enum, evidence_ids subset of valid_evidence_ids,
+      and history_influence subset of valid_recalled_ids.
+    """
+    if not isinstance(data, dict):
+        return False, "not_a_dict"
+
+    for field in ("summary", "hypothesis"):
+        val = data.get(field, "")
+        ok, err = validate_explanation_text(val, token_dict)
+        if not ok:
+            return False, f"{field}:{err}"
+
+    for list_field in ("supporting_points", "conflicting_points", "alternatives"):
+        items = data.get(list_field, [])
+        if not isinstance(items, list):
+            return False, f"{list_field}:not_a_list"
+        for item in items:
+            if isinstance(item, str):
+                ok, err = validate_explanation_text(item, token_dict)
+                if not ok:
+                    return False, f"{list_field}:{err}"
+
+    recs = data.get("recommendations", [])
+    if not isinstance(recs, list) or not recs:
+        return False, "missing_recommendations"
+
+    valid_actions = {a.value for a in ActionType}
+    for rec in recs:
+        if not isinstance(rec, dict):
+            return False, "rec_not_a_dict"
+        action_type = rec.get("action_type")
+        if action_type not in valid_actions:
+            return False, f"invalid_action_type:{action_type}"
+
+        for tf in ("action", "rationale"):
+            val = rec.get(tf, "")
+            ok, err = validate_explanation_text(val, token_dict)
+            if not ok:
+                return False, f"rec_{tf}:{err}"
+
+        # Citation subset validation
+        eids = rec.get("evidence_ids", [])
+        if not set(eids).issubset(valid_evidence_ids):
+            return False, "unknown_evidence_citation"
+
+        hids = rec.get("history_influence", [])
+        if not set(hids).issubset(valid_recalled_ids):
+            return False, "unknown_history_citation"
+
+    return True, None

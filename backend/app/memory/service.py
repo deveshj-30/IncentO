@@ -25,6 +25,7 @@ from app.memory.validation import (
     filter_memories_by_as_of,
     resolve_tokens,
     sanitize_recommendations,
+    validate_structured_output,
 )
 
 log = logging.getLogger(__name__)
@@ -69,6 +70,8 @@ REFLECT_RESPONSE_SCHEMA: dict[str, Any] = {
                     "rationale": {"type": "string"},
                     "success_metric": {"type": "string"},
                     "guardrail": {"type": "string"},
+                    "evidence_ids": {"type": "array", "items": {"type": "string"}},
+                    "history_influence": {"type": "array", "items": {"type": "string"}},
                 },
                 "required": ["action_type", "action", "rationale", "success_metric", "guardrail"],
             },
@@ -119,56 +122,81 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
     )
 
     recalled_memories = []
-    structured_out = None
-
-    if adapter.is_live:
-        structured_out, reflect_memories = adapter.reflect(
-            bank_name, query, REFLECT_RESPONSE_SCHEMA, as_of=context.as_of
-        )
-        if reflect_memories:
-            recalled_memories = filter_memories_by_as_of(reflect_memories, as_of=context.as_of)
-
-    if not recalled_memories:
-        # Fallback to direct recall
-        raw_recalled = adapter.recall(bank_name, query, as_of=context.as_of, limit=3)
+    # Recall direct candidates first
+    raw_recalled = adapter.recall(bank_name, query, as_of=context.as_of, limit=3)
+    if raw_recalled:
         recalled_memories = filter_memories_by_as_of(raw_recalled, as_of=context.as_of)
-
     recalled_ids = [m.id for m in recalled_memories]
     valid_recalled_set = set(recalled_ids)
 
-    # 3. If Reflect returned valid structured output, use it
-    if structured_out:
-        parsed_recs = []
-        for r in structured_out.get("recommendations", []):
-            try:
-                action_type = ActionType(r.get("action_type", "pilot_guardrail"))
-            except ValueError:
-                action_type = ActionType.PILOT_GUARDRAIL
-            parsed_recs.append(
-                Recommendation(
-                    action_type=action_type,
-                    action=r.get("action", ""),
-                    rationale=r.get("rationale", ""),
-                    evidence_ids=evidence_list[:3],
-                    success_metric=r.get("success_metric", "Monitor churn metrics within baseline."),
-                    guardrail=r.get("guardrail", "Alert when cancellation gap exceeds threshold."),
-                    history_influence=recalled_ids[:2],
-                )
-            )
-        sanitized_recs = sanitize_recommendations(parsed_recs, valid_evidence_ids, valid_recalled_set)
-        return Explanation(
-            summary=structured_out.get("summary", ""),
-            hypothesis=structured_out.get("hypothesis", ""),
-            supporting_points=structured_out.get("supporting_points", []),
-            conflicting_points=structured_out.get("conflicting_points", []),
-            alternatives=structured_out.get("alternatives", []),
-            recommendations=sanitized_recs,
-            recalled=recalled_memories,
-            explanation_source=ExplanationSource.REFLECT,
-            memory_status=MemoryStatus.LIVE,
-            validation_error_codes=[],
-            template_text={},
+    token_dict = build_token_dict(analysis)
+    structured_out = None
+
+    if adapter.is_live:
+        reflect_query = (
+            f"Commission policy {context.policy_id} month-end incentive investigation "
+            f"(flagged={analysis.flagged}). "
+            f"Available evidence IDs: {evidence_list[:10]}. Recalled memory IDs: {recalled_ids}. "
+            "Directives: Never cite unprovided IDs. Never include raw numbers or percentages in "
+            "summary/hypothesis/action/rationale; "
+            "use metric tokens like {{m:discount.gap}} and {{m:complaint_30d.gap}}."
         )
+        structured_out, reflect_memories = adapter.reflect(
+            bank_name, reflect_query, REFLECT_RESPONSE_SCHEMA, as_of=context.as_of
+        )
+        if reflect_memories:
+            for rm in filter_memories_by_as_of(reflect_memories, as_of=context.as_of):
+                if rm.id not in valid_recalled_set:
+                    recalled_memories.append(rm)
+                    valid_recalled_set.add(rm.id)
+                    recalled_ids.append(rm.id)
+
+    # 3. If Reflect returned valid structured output, validate against contract rules
+    if structured_out:
+        is_valid, err = validate_structured_output(
+            structured_out, token_dict, valid_evidence_ids, valid_recalled_set
+        )
+        if is_valid:
+            parsed_recs = []
+            for r in structured_out.get("recommendations", []):
+                try:
+                    action_type = ActionType(r.get("action_type", "pilot_guardrail"))
+                except ValueError:
+                    action_type = ActionType.PILOT_GUARDRAIL
+                clean_evidence = [e for e in r.get("evidence_ids", []) if e in valid_evidence_ids]
+                clean_influence = [h for h in r.get("history_influence", []) if h in valid_recalled_set]
+                parsed_recs.append(
+                    Recommendation(
+                        action_type=action_type,
+                        action=resolve_tokens(r.get("action", ""), token_dict),
+                        rationale=resolve_tokens(r.get("rationale", ""), token_dict),
+                        evidence_ids=clean_evidence,
+                        success_metric=r.get("success_metric", "Monitor churn metrics within baseline."),
+                        guardrail=r.get("guardrail", "Alert when cancellation gap exceeds threshold."),
+                        history_influence=clean_influence,
+                    )
+                )
+            return Explanation(
+                summary=resolve_tokens(structured_out.get("summary", ""), token_dict),
+                hypothesis=resolve_tokens(structured_out.get("hypothesis", ""), token_dict),
+                supporting_points=[
+                    resolve_tokens(p, token_dict) for p in structured_out.get("supporting_points", [])
+                ],
+                conflicting_points=[
+                    resolve_tokens(p, token_dict) for p in structured_out.get("conflicting_points", [])
+                ],
+                alternatives=[
+                    resolve_tokens(a, token_dict) for a in structured_out.get("alternatives", [])
+                ],
+                recommendations=parsed_recs,
+                recalled=recalled_memories,
+                explanation_source=ExplanationSource.REFLECT,
+                memory_status=MemoryStatus.LIVE,
+                validation_error_codes=[],
+                template_text={},
+            )
+        else:
+            log.warning("Reflect output rejected by contract validation: %s; using template fallback", err)
 
     # 4. Fallback to tokenized template
     (
@@ -182,7 +210,6 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
     ) = build_template_explanation(analysis, evidence_list, recalled_ids)
 
     sanitized_recs = sanitize_recommendations(recs, valid_evidence_ids, valid_recalled_set)
-    token_dict = build_token_dict(analysis)
 
     if adapter.is_live and recalled_memories:
         memory_status = MemoryStatus.LIVE

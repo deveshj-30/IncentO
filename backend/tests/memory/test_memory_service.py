@@ -391,3 +391,51 @@ def test_store_path_resolves_to_repo_root() -> None:
 
     assert LOCAL_STORE_PATH.is_absolute()
     assert str(LOCAL_STORE_PATH) == str(REPO_ROOT / ".local" / "hindsight_banks.json")
+
+
+def test_validate_structured_output_rules() -> None:
+    from app.memory.validation import validate_structured_output
+
+    token_dict = {"m:discount.gap": "+14.6%", "t:min_group_size": "30"}
+    valid_eids = {"EVID-1", "EVID-2"}
+    valid_hids = {"MEM-1"}
+
+    # Valid output with metric token and known citations passes
+    valid_data = {
+        "summary": "Discount gap is {{m:discount.gap}} divergence.",
+        "hypothesis": "Policy divergence is observable across cohorts.",
+        "supporting_points": ["Observed cohort gap."],
+        "conflicting_points": [],
+        "alternatives": ["Macro market conditions."],
+        "recommendations": [
+            {
+                "action_type": "pilot_guardrail",
+                "action": "Pilot a threshold approval.",
+                "rationale": "Observed gap warrants guardrail.",
+                "success_metric": "Reduce gap below threshold",
+                "guardrail": "Maintain SLA",
+                "evidence_ids": ["EVID-1"],
+                "history_influence": ["MEM-1"],
+            }
+        ],
+    }
+    ok, err = validate_structured_output(valid_data, token_dict, valid_eids, valid_hids)
+    assert ok is True
+    assert err is None
+
+    # Raw digits in summary fails number rules
+    bad_digits = dict(valid_data, summary="Discount gap is 14.6% divergence.")
+    ok, err = validate_structured_output(bad_digits, token_dict, valid_eids, valid_hids)
+    assert ok is False
+    assert "contains_digits" in str(err)
+
+    # Unknown evidence citation fails
+    bad_citation = {
+        **valid_data,
+        "recommendations": [
+            {**valid_data["recommendations"][0], "evidence_ids": ["UNKNOWN-999"]}
+        ],
+    }
+    ok, err = validate_structured_output(bad_citation, token_dict, valid_eids, valid_hids)
+    assert ok is False
+    assert "unknown_evidence_citation" in str(err)
