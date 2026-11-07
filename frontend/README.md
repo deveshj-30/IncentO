@@ -13,4 +13,4 @@ npm test           # Vitest
 npm run format     # Prettier source formatting
 ```
 
-Start the backend on `http://localhost:8000` before using the live flow; Vite proxies `/api` there. The shell initially displays the contract fixture with a clear label. Use **Load and investigate** to load a scenario and create a live run. The incident screen can record an outcome and retry failed retention. Generated types are committed for contract drift checks; do not edit them by hand.
+Start the backend on `http://localhost:8000` before using the live flow; Vite proxies `/api` there. The shell initially displays an illustrative contract fixture. The **Compare memory** tab uses a labeled memory-off fixture paired with it until you load a live run. Use **Load and investigate** for the `risk` scenario, or choose another scenario; the API supplies its policy ID. **Saved investigations** reopens a stored run. A live run can request the opposite memory mode in the Compare tab. The incident screen records an outcome and retries failed retention. Generated types are committed for contract drift checks; do not edit them by hand.
