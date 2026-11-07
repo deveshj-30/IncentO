@@ -72,10 +72,6 @@ Each scenario is one JSON file with policies, customers, deals, tickets, cancell
 
 Python 3.12+ with FastAPI, pydantic v2 and SQLite on the backend. React 19, TypeScript and Vite on the frontend. Hindsight Cloud for memory.
 
-## Further reading
-
-Planning notes, API semantics, per-module notes, the demo script and the progress log are in [`references/`](references/).
-
 ## How to run it
 
 Backend (needs Python 3.12+):
@@ -98,4 +94,4 @@ npm run dev                   # http://localhost:5173, proxies /api to port 8000
 
 Open the app and choose **Load and investigate**. With no key, set `HINDSIGHT_SIMULATE=1` for an offline run, which the header shows as `fixture`. Hindsight Cloud needs credits: when they run out, memory shows as `unavailable`.
 
-Checks: `scripts/check.sh` runs lint, tests, the contract drift check and the frontend checks. See `references/demo-checklist.md` for the demo procedure.
+Checks: `scripts/check.sh` runs lint, tests, the contract drift check and the frontend checks.
