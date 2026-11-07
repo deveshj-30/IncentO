@@ -628,6 +628,13 @@ export default function App() {
                               <span>{item.source_type}</span>
                               <span>{item.timestamp.slice(0, 10)}</span>
                             </div>
+                            {item.excerpt &&
+                              (item.source_type === "ticket" ||
+                                item.source_type === "cancellation") && (
+                                <span className="untrusted-label mono">
+                                  Untrusted customer text
+                                </span>
+                              )}
                             <p>
                               {item.excerpt ??
                                 "No excerpt recorded for this source."}
