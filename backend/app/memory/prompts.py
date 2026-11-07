@@ -115,7 +115,7 @@ def build_template_explanation(
                     rationale=(
                         "Discount and early complaint gaps are flagged above threshold. "
                         "Past remembered outcome indicates that abrupt policy cancellation "
-                        "causes seller churn and pipeline disruption without improved onboarding."
+                        "was followed by seller churn and pipeline disruption without improved onboarding."
                     ),
                     evidence_ids=top_evidence,
                     success_metric="Month-end complaint gap under 10 points within two quarters",
