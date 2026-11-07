@@ -3,6 +3,7 @@
 import json
 import logging
 import os
+import re
 import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
@@ -83,10 +84,21 @@ class HindsightAdapter:
         except Exception as exc:
             log.warning("Failed to save local hindsight bank store: %s", exc)
 
+    @staticmethod
+    def demo_bank_name(scenario: str) -> str:
+        """``incento-demo-<scenario>``, plus ``-<suffix>`` when HINDSIGHT_BANK_SUFFIX is set.
+
+        Cloud does not reliably empty a deleted bank (documents came back after a delete), and teammates'
+        test runs write to the shared bank. A suffix selects a fresh, private bank for a recording or demo.
+        """
+        suffix = os.environ.get("HINDSIGHT_BANK_SUFFIX", "").strip().lower()
+        if suffix and not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,31}", suffix):
+            raise ValueError("HINDSIGHT_BANK_SUFFIX must be 1-32 characters of a-z, 0-9 and '-'")
+        return f"{DEMO_BANK_PREFIX}{scenario}" + (f"-{suffix}" if suffix else "")
+
     def get_bank_name(self, scenario: str, is_demo: bool = True) -> str:
         """Construct a validated bank name adhering to the prefix rules."""
-        prefix = DEMO_BANK_PREFIX if is_demo else "incento-dev-"
-        bank = f"{prefix}{scenario}"
+        bank = self.demo_bank_name(scenario) if is_demo else f"incento-dev-{scenario}"
         self._validate_bank_name(bank)
         return bank
 
@@ -466,7 +478,7 @@ class HindsightAdapter:
 
     def reset_demo_bank(self, scenario: str) -> ResetResult:
         """Reset a demo memory bank. Refuses any bank not prefixed with incento-demo-."""
-        bank_name = f"{DEMO_BANK_PREFIX}{scenario}"
+        bank_name = self.demo_bank_name(scenario)
         if not bank_name.startswith(DEMO_BANK_PREFIX):
             return ResetResult(ok=False, error="forbidden_bank_reset")
 

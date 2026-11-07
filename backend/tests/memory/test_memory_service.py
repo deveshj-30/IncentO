@@ -4,6 +4,8 @@ import os
 from datetime import UTC, datetime
 from pathlib import Path
 
+import pytest
+
 from app.core.schemas import (
     ActionType,
     AnalysisResult,
@@ -692,9 +694,11 @@ def test_unreachable_cloud_never_falls_back_to_the_local_store_as_live(tmp_path:
     assert exp.memory_status == MemoryStatus.UNAVAILABLE
 
 
-def test_untrusted_customer_text_never_reaches_memory_or_prompts() -> None:
+def test_untrusted_customer_text_never_reaches_memory_or_prompts(monkeypatch) -> None:
     """Gate G5 requirement: verify that ticket excerpts and customer text NEVER reach Reflect or prompt."""
     from unittest.mock import MagicMock
+
+    monkeypatch.setenv("HINDSIGHT_REFLECT", "1")
 
     from app.core.schemas import Evidence, SourceType
 
@@ -767,3 +771,44 @@ def test_memory_status_reports_correctly() -> None:
     mock_adapter.api_key = "some-key"
     mock_adapter.is_live = False
     assert service.memory_status() == MemoryStatus.UNAVAILABLE
+
+
+def test_reflect_is_skipped_unless_enabled(monkeypatch) -> None:
+    """With the key set but HINDSIGHT_REFLECT unset, no Reflect call is made, and the status stays live."""
+    from unittest.mock import MagicMock
+
+    monkeypatch.delenv("HINDSIGHT_REFLECT", raising=False)
+    assert service.reflect_enabled() is False
+    adapter = MagicMock()
+    adapter.is_live = True
+    adapter.get_bank_name.return_value = "incento-demo-risk"
+    adapter.recall.return_value = []
+    service.set_adapter(adapter)
+    as_of = datetime(2026, 3, 1, tzinfo=UTC)
+    ctx = ExplainContext(
+        run_id="run-1",
+        scenario="risk",
+        policy_id="pol-acq-bonus",
+        as_of=as_of,
+        memory_mode=MemoryMode.LIVE,
+        incident_id="inc-1",
+    )
+    exp = service.explain(_sample_analysis(as_of), ctx)
+    assert not adapter.reflect.called
+    assert adapter.recall.called
+    assert exp.explanation_source == ExplanationSource.TEMPLATE
+
+    monkeypatch.setenv("HINDSIGHT_REFLECT", "true")
+    assert service.reflect_enabled() is True
+
+
+def test_bank_suffix_selects_a_private_demo_bank(monkeypatch, tmp_path: Path) -> None:
+    adapter = HindsightAdapter(api_key="", store_path=tmp_path / "b.json")
+    monkeypatch.delenv("HINDSIGHT_BANK_SUFFIX", raising=False)
+    assert adapter.get_bank_name("risk") == "incento-demo-risk"
+    monkeypatch.setenv("HINDSIGHT_BANK_SUFFIX", "Final-1")
+    assert adapter.get_bank_name("risk") == "incento-demo-risk-final-1"
+    assert adapter.get_bank_name("risk", is_demo=False) == "incento-dev-risk"
+    monkeypatch.setenv("HINDSIGHT_BANK_SUFFIX", "bad suffix!")
+    with pytest.raises(ValueError):
+        adapter.get_bank_name("risk")

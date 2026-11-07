@@ -1,6 +1,7 @@
 """Public memory module entry points called by the core orchestrator."""
 
 import logging
+import os
 from typing import Any
 
 from app.core.schemas import (
@@ -43,6 +44,16 @@ def get_adapter() -> HindsightAdapter:
 def set_adapter(adapter: HindsightAdapter) -> None:
     global _adapter
     _adapter = adapter
+
+
+def reflect_enabled() -> bool:
+    """Reflect is called only when HINDSIGHT_REFLECT is 1/true/yes.
+
+    Reflect's own wording is rejected by the no-causation rule on every run, and each call spends Cloud
+    credits and about ten seconds, so the demo path skips it and shows the labeled template. Recall still
+    runs, and the memory status stays ``live``.
+    """
+    return os.environ.get("HINDSIGHT_REFLECT", "").lower() in ("1", "true", "yes")
 
 
 def configured_status() -> MemoryStatus:
@@ -194,7 +205,7 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
     token_dict = build_token_dict(analysis)
     structured_out = None
 
-    if adapter.is_live:
+    if adapter.is_live and reflect_enabled():
         temp_ids = [m.id for m in recalled_memories]
         recalled_context = "; ".join(
             f"{m.id} ({m.memory_type.value}): {m.summary}"

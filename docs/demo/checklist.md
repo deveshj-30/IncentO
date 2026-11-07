@@ -15,10 +15,13 @@ Use this checklist before recording the submission video and before the live jud
   npm run dev
   ```
 - [ ] `scripts/check.sh` passes 100% cleanly (ruff, pytest, contract drift).
-- [ ] Reset the demo memory bank before each rehearsal:
-  ```bash
-  backend/.venv/bin/python scripts/demo_check.py --scenario incentive-risk
-  ```
+- [ ] Use a fresh private bank for each rehearsal and recording (Cloud does not reliably empty a deleted bank):
+  start the backend with `HINDSIGHT_BANK_SUFFIX=<new word>` and `DEMO_RESET_ENABLED=true`, then call
+  `POST /api/demo/reset` once with `{"scenario": "risk", "confirm": true}` to load the history into the new bank.
+  Never run outcome-writing tests against the shared `incento-demo-risk` bank.
+- [ ] Check Hindsight Cloud credits first: with a zero balance every call returns HTTP 402 and live recall is empty.
+- [ ] Repeat check (reads only): `backend/.venv/bin/python scripts/demo_check.py --repeat 5 --skip-retention`.
+- [ ] After saving an outcome, wait about 15 seconds before investigating again.
 - [ ] Verify `HINDSIGHT_API_KEY` is set if running against live Hindsight Cloud, or verify fallback behavior.
 
 ## Recording Guidelines (Deliverables Checklist)
