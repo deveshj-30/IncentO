@@ -91,7 +91,7 @@ def demo_load(svc: Services, scenario: str) -> DemoLoadResponse:
             seed_status=SeedStatus(existing["seed_status"]),
             seed_error=existing["seed_error"],
         )
-    seed = _seed(svc, dataset.history) if dataset.history else None
+    seed = _seed(svc, dataset.history, scenario) if dataset.history else None
     status = seed.status if seed else SeedStatus.SKIPPED
     error = seed.error if seed else None
     svc.repo.save_batch(scenario, checksum, status.value, error)
@@ -106,9 +106,11 @@ def demo_load(svc: Services, scenario: str) -> DemoLoadResponse:
     )
 
 
-def _seed(svc: Services, history) -> SeedResult:
+def _seed(svc: Services, history, scenario: str) -> SeedResult:
     try:
-        return call_module(svc, svc.modules.seed_history, svc.settings.retain_timeout_seconds, history)
+        return call_module(
+            svc, svc.modules.seed_history, svc.settings.retain_timeout_seconds, history, scenario
+        )
     except Exception as exc:
         log.warning("seed_history failed: %s", type(exc).__name__)
         code = "seed_timeout" if isinstance(exc, TimeoutError) else "seed_error"
@@ -284,7 +286,7 @@ def create_outcome(svc: Services, incident_id: str, request: OutcomeRequest) -> 
             created_at=now(),
         )
         svc.repo.save_outcome(request, outcome, incident.scenario)
-        return _retain(svc, outcome), True
+        return _retain(svc, outcome, incident.scenario), True
 
 
 def retry_retention(svc: Services, outcome_id: str) -> Outcome:
@@ -294,7 +296,8 @@ def retry_retention(svc: Services, outcome_id: str) -> Outcome:
             raise ApiError(404, ErrorCode.NOT_FOUND, f"No outcome {outcome_id}")
         if outcome.retention_status == RetentionStatus.RETAINED:
             return outcome
-        return _retain(svc, outcome)
+        incident = get_incident_or_404(svc, outcome.incident_id)
+        return _retain(svc, outcome, incident.scenario)
 
 
 def _explain(svc: Services, analysis, context: ExplainContext, request: InvestigationRequest) -> Explanation:
@@ -320,10 +323,12 @@ def _explain(svc: Services, analysis, context: ExplainContext, request: Investig
     return explanation
 
 
-def _retain(svc: Services, outcome: Outcome) -> Outcome:
+def _retain(svc: Services, outcome: Outcome, scenario: str) -> Outcome:
     try:
         result = RetentionResult.model_validate(
-            call_module(svc, svc.modules.retain_outcome, svc.settings.retain_timeout_seconds, outcome)
+            call_module(
+                svc, svc.modules.retain_outcome, svc.settings.retain_timeout_seconds, outcome, scenario
+            )
         )
         status, error = result.status, result.error
     except Exception as exc:  # adapter failures must not lose the saved outcome

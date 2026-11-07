@@ -70,16 +70,20 @@ class FakeMemory:
 
     def __init__(self):
         self.retained: list[str] = []
+        self.retain_scenarios: list[str] = []
+        self.seed_scenarios: list[str] = []
         self.status = RetentionStatus.RETAINED
 
-    def retain_outcome(self, outcome):
+    def retain_outcome(self, outcome, scenario):
         if self.status == RetentionStatus.RETAINED:
             self.retained.append(outcome.outcome_id)
+            self.retain_scenarios.append(scenario)
         return RetentionResult(
             status=self.status, error=None if self.status != RetentionStatus.FAILED else "boom"
         )
 
-    def seed_history(self, incidents):
+    def seed_history(self, incidents, scenario):
+        self.seed_scenarios.append(scenario)
         return SeedResult(status=SeedStatus.SEEDED)
 
     def reset_demo_bank(self, scenario):
@@ -103,8 +107,8 @@ def make_modules(
         analyze=analyze_fn or analyze,
         explain=explain or stubs.explain,
         # Looked up at call time so tests can swap behavior after the client is built.
-        retain_outcome=lambda outcome: memory.retain_outcome(outcome),
-        seed_history=lambda incidents: memory.seed_history(incidents),
+        retain_outcome=lambda outcome, scenario: memory.retain_outcome(outcome, scenario),
+        seed_history=lambda incidents, scenario: memory.seed_history(incidents, scenario),
         reset_demo_bank=lambda scenario: memory.reset_demo_bank(scenario),
         stubbed=["explain"] if stubbed is None else stubbed,
     )

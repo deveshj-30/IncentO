@@ -188,14 +188,14 @@ def test_retain_crash_and_timeout_keep_the_outcome(make_client, memory):
         "idempotency_key": "outcome-crash-1",
     }
 
-    def boom(outcome):
+    def boom(outcome, scenario):
         raise RuntimeError("down")
 
     memory.retain_outcome = boom
     crashed = c.post(path, json=body).json()
     assert crashed["retention_status"] == "failed" and crashed["retention_error"] == "retention_error"
 
-    def slow(outcome):
+    def slow(outcome, scenario):
         time.sleep(0.5)
 
     memory.retain_outcome = slow
@@ -223,7 +223,7 @@ def test_seed_failure_is_reported_not_fatal(make_client, memory, fixtures_dir):
     ]
     (fixtures_dir / "seeded.json").write_text(json.dumps(data))
 
-    def boom(history):
+    def boom(history, scenario):
         raise RuntimeError("down")
 
     memory.seed_history = boom

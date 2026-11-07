@@ -82,11 +82,11 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
     )
 
 
-def retain_outcome(outcome) -> RetentionResult:
+def retain_outcome(outcome, scenario: str) -> RetentionResult:
     return RetentionResult(status=RetentionStatus.FAILED, error="memory_not_connected")
 
 
-def seed_history(incidents) -> SeedResult:
+def seed_history(incidents, scenario: str) -> SeedResult:
     return SeedResult(status=SeedStatus.UNAVAILABLE, error="memory_not_connected")
 
 

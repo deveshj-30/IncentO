@@ -208,3 +208,53 @@ def test_stub_modules_are_honest(fixtures_dir):
     assert inv["incident_id"] is None  # stub analysis is insufficient_data
     assert inv["explanation"]["explanation_source"] == "template"
     assert inv["explanation"]["memory_status"] == "unavailable"
+
+
+def test_scenario_is_passed_to_seed_and_retain(make_client, memory, fixtures_dir):
+    import json
+
+    from tests.conftest import tiny_dataset
+
+    data = tiny_dataset("seeded")
+    data["history"] = [
+        {
+            "incident_id": "hist-1",
+            "title": "Old incident",
+            "occurred_at": "2025-01-01T00:00:00Z",
+            "records": [
+                {
+                    "record_id": "rec-1",
+                    "memory_type": "fact",
+                    "event_time": "2025-01-01T00:00:00Z",
+                    "summary": "x",
+                }
+            ],
+        }
+    ]
+    (fixtures_dir / "seeded.json").write_text(json.dumps(data))
+    c = make_client()
+    c.post("/api/demo/load", json={"scenario": "seeded"})
+    assert memory.seed_scenarios == ["seeded"]
+
+    inv = Investigation.model_validate(
+        c.post(
+            "/api/investigations", json={**BODY, "scenario": "seeded", "idempotency_key": "scen-key-0001"}
+        ).json()
+    )
+    body = {
+        "type": "decision",
+        "run_id": inv.run_id,
+        "event_time": "2026-07-10T00:00:00Z",
+        "idempotency_key": "scen-out-0001",
+    }
+    out = c.post(f"/api/incidents/{inv.incident_id}/outcomes", json=body).json()
+    assert memory.retain_scenarios == ["seeded"]
+
+    memory.status = RetentionStatus.FAILED
+    failed = c.post(
+        f"/api/incidents/{inv.incident_id}/outcomes", json={**body, "idempotency_key": "scen-out-0002"}
+    ).json()
+    memory.status = RetentionStatus.RETAINED
+    c.post(f"/api/outcomes/{failed['outcome_id']}/retention")
+    assert memory.retain_scenarios == ["seeded", "seeded"]  # the retry also passes the incident's scenario
+    assert out["retention_status"] == "retained"
