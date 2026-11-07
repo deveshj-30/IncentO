@@ -24,10 +24,10 @@ Use this file for actionable handoffs between P1 (frontend), P2 (API/integration
 
 These are requests recorded in handoff files. Their direct delivery is not verified here; the sender should send them and replace `DRAFT` with `SENT` and a real UTC time.
 
-### Draft — P3 to P2 — Slice A example corrections and Slice B fixture review
+### Draft — P3 to P2 — Slice B fixture review and G1 status
 
 - Status: DRAFT
-- Context: P3 Slice A review at `2dde205`; scenario drafts merged on `main` at `c992776`; `progress/p3.md`.
-- Message: P3 confirmed the Slice A shapes. In `contracts/examples/investigation-response.json`, metric citations `DEAL-0188`, `DEAL-0191`, and `CANCEL-0071` are missing from `analysis.evidence`; the `cancel_30d` gap of `.07` is labeled `watch` despite the plan's `no_signal` rule. The risk, outage, and sparse fixtures validate against the Dataset loader and need Slice B review.
-- Requested next action: P2 corrects or resolves the example issues, reviews the fixtures with P4, collects all Slice A reviews, and records the freeze decision in `progress.md` with a reviewed commit.
+- Context: P3 Slice A review at `2dde205`; scenario drafts at `c992776`; P2's example fixes at `7013add`; `progress/p3.md` and `progress.md`.
+- Message: P3 confirmed the Slice A shapes. P2 fixed the example evidence citations and `cancel_30d` status in `7013add`. The risk, outage, and sparse fixtures validate against the Dataset loader and need Slice B review. G1 remains in progress while P1 rechecks and P4 records confirmation and live Cloud proof.
+- Requested next action: P2 reviews the fixtures with P4, tells P3 any Slice B changes needed, and records the Slice A freeze and G1 result in `progress.md` when their remaining checkpoints pass.
 - Reply: Pending.
