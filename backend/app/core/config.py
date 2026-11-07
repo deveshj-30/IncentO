@@ -3,15 +3,18 @@
 from functools import lru_cache
 from pathlib import Path
 
+from dotenv import load_dotenv
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 API_VERSION = "0.1.0"
 REPO_ROOT = Path(__file__).resolve().parents[3]
+# Absolute, so the file is found whatever directory the server starts from.
+ENV_FILE = REPO_ROOT / "backend" / ".env"
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(env_file=ENV_FILE, extra="ignore")
 
     # Variable names are proposals until P4 confirms the Hindsight client settings.
     hindsight_api_key: SecretStr | None = None
@@ -34,6 +37,14 @@ class Settings(BaseSettings):
     @property
     def memory_configured(self) -> bool:
         return self.hindsight_api_key is not None
+
+
+def load_env_into_process(path: Path = ENV_FILE) -> None:
+    """Export variables from ``backend/.env`` into ``os.environ`` without overriding real ones.
+
+    The memory adapter reads ``os.environ`` directly, so the settings object alone is not enough.
+    """
+    load_dotenv(path, override=False)
 
 
 @lru_cache

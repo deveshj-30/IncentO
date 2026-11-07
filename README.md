@@ -8,7 +8,7 @@ Hackathon MVP that investigates whether an acquisition-based sales commission ma
 cd backend
 uv venv --python 3.14 .venv            # Python 3.12+ works
 uv pip install --python .venv/bin/python -r requirements.txt
-cp ../.env.example .env                # optional; add secrets locally only
+cp ../.env.example .env                # optional; secrets stay in this git-ignored file
 .venv/bin/python -m uvicorn app.main:create_app --factory --reload   # http://localhost:8000/api/health
 ```
 
@@ -22,3 +22,7 @@ cp ../.env.example .env                # optional; add secrets locally only
 ## Folders
 
 `backend/` API and core (P2), `frontend/` (P1), `data/` (P3), `backend/app/analysis/` (P3), `backend/app/memory/` and `docs/demo/` (P4), `scripts/` (P2; `demo_check.py` is P4's). Folder READMEs are written by their owners.
+
+## Using the real Hindsight key
+
+Put `HINDSIGHT_API_KEY` in `backend/.env` (see `.env.example`). Real calls write to the team account's demo bank `incento-demo-<scenario>`, so running `scripts/smoke_test.py` against Cloud adds a test outcome to the memory the demo uses. Agree a time with P4 first, and afterwards reset the scenario (`DEMO_RESET_ENABLED=true`, then `POST /api/demo/reset` with `{"scenario": "risk", "confirm": true}`), which deletes and reseeds that bank. Without a key, memory reports `memory_not_configured`; `HINDSIGHT_SIMULATE=1` uses a local file and is always labeled `fixture`.
