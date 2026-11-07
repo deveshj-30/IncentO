@@ -10,7 +10,7 @@ import pytest
 
 from app.core import modules
 
-# name -> positional arguments P2 passes (see "Signatures P4 implements" in contracts/v1.md)
+# name -> positional arguments P2 passes (see "Signatures P4 implements" in references/contracts-v1.md)
 CALLS = {
     "analyze": ("dataset", "policy_id", "as_of"),
     "explain": ("analysis", "context"),

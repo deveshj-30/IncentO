@@ -2,7 +2,7 @@
 
 One team video. All data is synthetic. The screen text below matches the app as built; do not change numbers or promise causation.
 
-**Setup before recording** (see `README.md`, "Running the demo"): backend with the team key and a fresh `HINDSIGHT_BANK_SUFFIX`, `POST /api/demo/reset` once, frontend on port 5173, browser at 1440×810 or larger. The header must show `Synthetic data` and `Memory: live`. If Cloud is unavailable, record with `HINDSIGHT_SIMULATE=1` and say on screen that memory is simulated (`fixture`), never "live".
+**Setup before recording** (see `demo-checklist.md`): backend with the team key and a fresh `HINDSIGHT_BANK_SUFFIX`, `POST /api/demo/reset` once, frontend on port 5173, browser at 1440×810 or larger. The header must show `Synthetic data` and `Memory: live`. If Cloud is unavailable, record with `HINDSIGHT_SIMULATE=1` and say on screen that memory is simulated (`fixture`), never "live".
 
 Two recordings are made with `docs/demo/record_demo.mjs` (captions only, no audio; add the voiceover below) and kept out of Git in `.local/demo/`:
 - `incento-demo-fallback-fixture.mp4` — simulated memory, captioned "FALLBACK RECORDING, simulated memory (fixture), not live Hindsight". Use only as a labeled fallback.
