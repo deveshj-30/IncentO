@@ -54,6 +54,7 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>("Overview");
   const [compare, setCompare] = useState(false);
   const [policies, setPolicies] = useState<PolicySummary[]>([]);
+  const [policyError, setPolicyError] = useState("");
   const [runs, setRuns] = useState<InvestigationSummary[]>([]);
   const [runsError, setRunsError] = useState("");
   const [selectedRunId, setSelectedRunId] = useState("");
@@ -93,8 +94,15 @@ export default function App() {
   useEffect(() => {
     api
       .policies()
-      .then(setPolicies)
-      .catch(() => undefined);
+      .then((items) => {
+        setPolicies(items);
+        setPolicyError("");
+      })
+      .catch(() =>
+        setPolicyError(
+          "Policy list is unavailable. You can still load a scenario.",
+        ),
+      );
     api
       .investigations()
       .then(setRuns)
@@ -146,8 +154,11 @@ export default function App() {
       refreshRuns();
       api
         .policies()
-        .then(setPolicies)
-        .catch(() => undefined);
+        .then((items) => {
+          setPolicies(items);
+          setPolicyError("");
+        })
+        .catch(() => setPolicyError("Could not refresh the policy list."));
     } catch (cause) {
       setError(errorText(cause, "Investigation failed"));
     } finally {
@@ -342,6 +353,7 @@ export default function App() {
                 </select>
               </label>
             </div>
+            {policyError && <p className="error">{policyError}</p>}
             <button
               className="primary"
               disabled={busy || !scenario || !asOf}

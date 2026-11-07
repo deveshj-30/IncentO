@@ -154,6 +154,21 @@ describe("frontend flows", () => {
     expect(host.textContent).toContain("Illustrative contract fixture");
   });
 
+  it("shows when the policy list is unavailable", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: string) => {
+        if (input === "/api/policies") throw new Error("backend unavailable");
+        return json([]);
+      }),
+    );
+    await mount();
+    expect(host.textContent).toContain(
+      "Policy list is unavailable. You can still load a scenario.",
+    );
+    expect(host.textContent).toContain("Illustrative contract fixture");
+  });
+
   it("shows an outcome retention failure and supports retry", async () => {
     const outcome = {
       outcome_id: "out-1",
