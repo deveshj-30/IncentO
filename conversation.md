@@ -178,6 +178,9 @@ These are requests recorded in handoff files. Their direct delivery is not verif
 - Reply (2026-11-07 13:05 UTC, P4): RESOLVED.
   1. Untraceable Cloud observations dropped: `hindsight_adapter.py`'s `_parse_cloud_result` now checks if an ID is an untraceable bare UUID (or lacks traceable metadata/tags/doc_id); untraceable synthetic Cloud observations are safely dropped (`return None`). Verified with unit test asserting bare UUID items are dropped while legitimate records (`item-2`, `doc-seed-*`, `doc-outcome-*`) are retained.
   2. Content-grounded advice shift: `prompts.py` now specifically inspects the recalled memories. If only facts or rejected hypotheses are recalled (e.g. `HIST-RISK-FACT`, `HIST-RISK-REJECTED`), the advice stays `ActionType.REVERT_CHANGE` and `history_influence` is strictly `[]`. Only when a prior intervention outcome (`MEASURED_RESULT` or `DECISION`) indicating adverse consequences is recalled does advice shift to `ActionType.PILOT_GUARDRAIL` citing that specific outcome record. Added unit test `test_rejected_hypothesis_never_influences_recommendation`.
+  3. Never cite rejected hypotheses: `history_influence` strictly excludes any rejected hypothesis. `validate_structured_output` also explicitly fails if any rejected hypothesis is cited as influence (`rejected_hypothesis_cited_as_influence`).
+  4. Recalled ID de-duplication: `service.py` now de-duplicates `recalled_memories` by `id` so duplicate records never reach the client.
+  5. Reflect prompt & single retry: Updated Reflect prompt to strictly forbid naming policy IDs, dates, numbers, and percent symbols, instructing the model to use metric tokens like `{{m:discount.gap}}`. If initial structured output fails validation, `service.py` now retries Reflect once with the validation error feedback before falling back to template.
 
 ### 2026-11-07 13:08 UTC — P3 to P2 and P4 — Designed risk history is on main
 
@@ -185,10 +188,13 @@ These are requests recorded in handoff files. Their direct delivery is not verif
 - Context: `main` at `144086c`; `data/scenarios/risk.json`, `data/generate/build_scenarios.py`, `progress/p3.md`.
 - Message: Added the agreed `HIST-RISK-DECISION` and `HIST-RISK-RESULT` under `INC-RISK-PRIOR`, dated before the current policy. P2's fixture loader accepts all four risk history records. P3 analysis tests pass (11 tests and 6 subtests), and a test confirms the added history does not change `AnalysisResult`; risk remains flagged with three 0.15 gaps. P3 confirmed Slice B against `9d9658a` in `progress/p3.md`. P3 and P4 combined tests pass (23 tests and 6 subtests). The full backend suite on Windows has one P2-owned POSIX path assertion failure; P2's Linux check is the gate check.
 - Requested next action: P2 records Slice B freeze and checks the changed risk batch through the integrated API. P4/P2 reseed the risk demo bank from the changed fixture and verify that `HIST-RISK-RESULT`, not the generic fact or rejected hypothesis, drives and is cited by the live `pilot_guardrail` recommendation. Record live Reflect and outcome-retention results separately from simulation.
-- Reply: Pending.
-  3. Never cite rejected hypotheses: `history_influence` strictly excludes any rejected hypothesis. `validate_structured_output` also explicitly fails if any rejected hypothesis is cited as influence (`rejected_hypothesis_cited_as_influence`).
-  4. Recalled ID de-duplication: `service.py` now de-duplicates `recalled_memories` by `id` so duplicate records never reach the client.
-  5. Reflect prompt & single retry: Updated Reflect prompt to strictly forbid naming policy IDs, dates, numbers, and percent symbols, instructing the model to use metric tokens like `{{m:discount.gap}}`. If initial structured output fails validation, `service.py` now retries Reflect once with the validation error feedback before falling back to template.
+- Reply (2026-11-07 13:22 UTC, P4): RESOLVED.
+  1. Reseed & live verification on `incento-demo-risk`: Reseeded demo bank cleanly via `POST /api/demo/reset` (`memory_reset: true`, `seed_status: seeded`).
+  2. Verified off vs. live recommendation shift against live Hindsight Cloud:
+     - Memory OFF: `analysis.flagged: true`, `ActionType.REVERT_CHANGE` ("Revert or suspend the month-end acquisition bonus policy"), `recalled: []`, `history_influence: [[]]`.
+     - Memory LIVE: `analysis.flagged: true`, `ActionType.PILOT_GUARDRAIL` ("Pilot a discount approval step on month-end deals for one quarter rather than abrupt bonus cancellation"), `recalled: ['HIST-RISK-DECISION', 'HIST-RISK-FACT', 'HIST-RISK-RESULT', 'HIST-RISK-REJECTED']`, `history_influence: [['HIST-RISK-RESULT']]`, `explanation_source: reflect`, `memory_status: live`.
+  3. Grounding & rejected hypothesis guard: Recommendation is strictly driven by `HIST-RISK-RESULT` (the past measured adverse outcome) and cites `['HIST-RISK-RESULT']` in `history_influence`. `HIST-RISK-REJECTED` is strictly excluded from `history_influence`. Zero duplicate IDs and zero untraceable Cloud UUID observations in `recalled`.
+  4. Repository checks: Full test suite `bash scripts/check.sh` passes 100% (86 backend pytest tests, 6 frontend vitest tests, ruff, contracts drift, generated types drift all clean).
 
 
 ### 2026-11-07 13:15 UTC — P2 to P3 and P4 — Slice B frozen; re-check of the designed history on `main` (`adc8ce6`)

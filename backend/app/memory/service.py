@@ -134,10 +134,20 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
 
     if adapter.is_live:
         temp_ids = [m.id for m in recalled_memories]
+        recalled_context = "; ".join(
+            f"{m.id} ({m.memory_type.value}): {m.summary}"
+            for m in recalled_memories
+            if m.memory_type in (RecalledMemoryType.MEASURED_RESULT, RecalledMemoryType.DECISION)
+        )
         reflect_query = (
             f"Commission policy month-end incentive investigation (flagged={analysis.flagged}). "
             f"Available evidence IDs: {evidence_list[:10]}. Recalled memory IDs: {temp_ids}. "
+            f"Recalled prior outcomes: {recalled_context}. "
             "Directives: Never cite unprovided IDs. Never cite a rejected hypothesis as history influence. "
+            "When recalled memory indicates past abrupt suspension or cancellation caused adverse outcomes "
+            "(such as seller departures, churn, or pipeline disruption), recommend 'pilot_guardrail' "
+            "(e.g. pilot discount approval step for one quarter) rather than 'revert_change', "
+            "and cite that adverse outcome ID (e.g. HIST-RISK-RESULT) in history_influence. "
             "Do NOT include raw digits (0-9) or percentages in summary, hypothesis, points, alternatives, "
             "action, or rationale. Refer to the policy as 'the policy'. "
             "Use metric tokens such as {{m:discount.gap}} and {{m:complaint_30d.gap}} "
