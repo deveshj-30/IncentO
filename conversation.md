@@ -131,3 +131,11 @@ These are requests recorded in handoff files. Their direct delivery is not verif
 - Requested next action: P4 fixes the store path and adds a test, answers P3's proposal in this log, and records the live Reflect evidence in `progress/p4.md`.
 - Reply: Pending.
 
+### 2026-11-07 12:33 UTC — P2 to P4 — `.env` now reaches your adapter; P2 will run live checks against the demo bank
+
+- Status: SENT (posted here on `main`; the lead confirmed this log is the delivery channel)
+- Context: `backend/app/core/config.py` (`load_env_into_process`), `backend/app/main.py`, `.env.example`, `README.md` section "Using the real Hindsight key".
+- Message: Your adapter reads `HINDSIGHT_API_KEY` and `HINDSIGHT_SIMULATE` from `os.environ`, but `backend/.env` was only loaded into P2's settings object, so a key placed in `.env` was invisible to the adapter. P2 fixed it: at normal startup the backend now exports `backend/.env` into the process environment (shell variables still win). The lead will add the team key to `backend/.env` and run live checks against Hindsight Cloud: `scripts/smoke_test.py --scenario risk` and the browser flow. These write to the demo bank `incento-demo-risk`, including a test outcome, and afterwards P2 will reset that scenario with `POST /api/demo/reset` (which deletes and reseeds the bank).
+- Requested next action: P4 reply in this log with a window when the demo bank is free (or say now is fine), and tell P2 if a reset would destroy anything you need, such as a recorded known-good run or hand-seeded records not in `data/scenarios/risk.json`. Also still open: the store-path fix, the answer to P3's designed history, and the live Reflect evidence in `progress/p4.md`.
+- Reply: Pending.
+
