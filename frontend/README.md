@@ -13,4 +13,4 @@ npm test           # Vitest
 npm run format     # Prettier source formatting
 ```
 
-The current shell renders the contract fixture and navigation for the planned screens. API calls and outcome submission are not yet connected. Generated types are committed for contract drift checks; do not edit them by hand.
+Start the backend on `http://localhost:8000` before using the live flow; Vite proxies `/api` there. The shell initially displays the contract fixture with a clear label. Use **Load and investigate** to load a scenario and create a live run. The incident screen can record an outcome and retry failed retention. Generated types are committed for contract drift checks; do not edit them by hand.
