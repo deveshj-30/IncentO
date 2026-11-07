@@ -36,6 +36,15 @@ log = logging.getLogger(__name__)
 _adapter = HindsightAdapter()
 
 
+def get_adapter() -> HindsightAdapter:
+    return _adapter
+
+
+def set_adapter(adapter: HindsightAdapter) -> None:
+    global _adapter
+    _adapter = adapter
+
+
 def configured_status() -> MemoryStatus:
     """How memory is configured, without a network call: a key is `live`, simulation is `fixture`."""
     adapter = get_adapter()
@@ -46,13 +55,9 @@ def configured_status() -> MemoryStatus:
     return MemoryStatus.UNAVAILABLE
 
 
-def get_adapter() -> HindsightAdapter:
-    return _adapter
-
-
-def set_adapter(adapter: HindsightAdapter) -> None:
-    global _adapter
-    _adapter = adapter
+# Aliases for status hooks
+memory_status = configured_status
+get_memory_status = configured_status
 
 
 # Large enough that every seeded record of a scenario comes back on every run.
@@ -198,21 +203,27 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
         )
         reflect_query = (
             f"Commission policy month-end incentive investigation (flagged={analysis.flagged}). "
-            f"Allowed evidence IDs (cite only these, exactly as written): {evidence_list}. "
-            f"Recalled memory IDs: {temp_ids}. "
+            f"Allowed evidence IDs (cite only these in evidence_ids, exactly as written): {evidence_list}. "
+            f"Recalled memory IDs (cite only these in history_influence): {temp_ids}. "
             f"Recalled prior outcomes: {recalled_context}. "
-            "Directives: Never cite unprovided IDs. Never cite a rejected hypothesis as history influence. "
-            "When recalled memory indicates past abrupt suspension or cancellation caused adverse outcomes "
-            "(such as seller departures, churn, or pipeline disruption), recommend 'pilot_guardrail' "
-            "(e.g. pilot discount approval step for one quarter) rather than 'revert_change', "
-            "and cite that adverse outcome ID (e.g. HIST-RISK-RESULT) in history_influence. "
-            "Do NOT include raw digits (0-9) or percentages in summary, hypothesis, points, alternatives, "
-            "action, or rationale. Refer to the policy as 'the policy'. "
-            "Use metric tokens such as {{m:discount.gap}} and {{m:complaint_30d.gap}} "
-            "instead of typing numbers. "
-            "Fields must be strictly free of digits and percent signs. "
-            "Never claim causation: describe prior outcomes as having 'followed' an action, "
-            "never as caused by it, and never write 'caused', 'led to', 'due to' or 'because of'."
+            "Directives:\n"
+            "1. In recommendations: cite ONLY evidence IDs from the allowed list in evidence_ids; "
+            "never cite memory IDs under evidence_ids. In history_influence, cite ONLY IDs from "
+            "recalled memory IDs (e.g. HIST-RISK-RESULT). "
+            "Never cite a rejected hypothesis in history_influence.\n"
+            "2. When recalled memory indicates past abrupt suspension or cancellation was followed by "
+            "adverse outcomes (such as seller departures, churn, or pipeline disruption), recommend "
+            "'pilot_guardrail' (e.g. pilot discount approval step for one quarter) rather than "
+            "'revert_change', and cite that adverse outcome ID (HIST-RISK-RESULT) in history_influence.\n"
+            "3. NO NUMBERS OR PERCENTAGES: Do NOT include raw digits (0-9), '%', or 'percent' anywhere in "
+            "summary, hypothesis, points, alternatives, action, or rationale. Never type bare metrics like "
+            "complaint_30d; you MUST wrap tokens in double curly braces, e.g. {{m:discount.gap}} and "
+            "{{m:complaint_30d.gap}}.\n"
+            "4. NO CAUSATION CLAIMS: The product strictly forbids causal claims. "
+            "Forbidden words and phrases: "
+            "'cause', 'causes', 'caused', 'causing', 'led to', 'leads to', 'resulted in', 'results in', "
+            "'due to', 'because of', 'driven by', 'drove'. Describe outcomes strictly using sequence and "
+            "association only, such as 'followed by' or 'associated with'."
         )
         structured_out, reflect_memories = adapter.reflect(
             bank_name, reflect_query, REFLECT_RESPONSE_SCHEMA, as_of=context.as_of
@@ -253,7 +264,11 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
                 "and never write "
                 "causal wording (caused, led to, due to, because of); say 'followed' instead. "
                 "Rewrite the whole text, including summary, in that style. "
-                "In evidence_ids use only IDs from the allowed list; leave the list empty rather than guess."
+                "Forbidden causation words (do not use): cause, causes, caused, causing, led to, leads to, "
+                "resulted in, results in, due to, because of, driven by, drove. "
+                "Under evidence_ids use only IDs from the allowed list; "
+                "leave the list empty rather than guess. "
+                "Under history_influence use only IDs from recalled memory IDs."
             )
             structured_out_retry, _ = adapter.reflect(
                 bank_name, retry_query, REFLECT_RESPONSE_SCHEMA, as_of=context.as_of
