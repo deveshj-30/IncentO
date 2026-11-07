@@ -96,6 +96,12 @@ class AnalysisServiceTests(unittest.TestCase):
         self.assertEqual(actual.other, baseline.other)
         self.assertEqual(actual.metrics, baseline.metrics)
 
+    def test_seeded_history_does_not_change_analysis(self) -> None:
+        dataset = scenario("risk")
+        with_history = analyze(dataset, "POL-RISK-001", AS_OF)
+        without_history = analyze(dataset.model_copy(update={"history": []}), "POL-RISK-001", AS_OF)
+        self.assertEqual(with_history, without_history)
+
     def test_future_and_duplicate_tickets_do_not_change_rates(self) -> None:
         dataset = scenario("risk")
         baseline = analyze(dataset, "POL-RISK-001", AS_OF)

@@ -33316,19 +33316,31 @@
     {
       "incident_id": "INC-RISK-PRIOR",
       "title": "Prior acquisition review",
-      "occurred_at": "2025-12-15T12:00:00Z",
+      "occurred_at": "2025-09-12T12:00:00Z",
       "records": [
         {
           "record_id": "HIST-RISK-FACT",
           "memory_type": "fact",
-          "event_time": "2025-12-15T12:00:00Z",
-          "summary": "A prior review checked customer onboarding after an incentive change."
+          "event_time": "2025-09-12T12:00:00Z",
+          "summary": "A prior review checked onboarding after an acquisition incentive change."
         },
         {
           "record_id": "HIST-RISK-REJECTED",
           "memory_type": "rejected_hypothesis",
-          "event_time": "2025-12-16T12:00:00Z",
-          "summary": "A previous incentive explanation was rejected without matched cohort evidence."
+          "event_time": "2025-09-14T12:00:00Z",
+          "summary": "Customer complaints alone were judged insufficient to prove the incentive caused poor fit without matched cohort evidence."
+        },
+        {
+          "record_id": "HIST-RISK-DECISION",
+          "memory_type": "decision",
+          "event_time": "2025-09-15T12:00:00Z",
+          "summary": "Management abruptly suspended the mid-market direct acquisition bonus while investigating a suspected deal-quality problem."
+        },
+        {
+          "record_id": "HIST-RISK-RESULT",
+          "memory_type": "measured_result",
+          "event_time": "2025-10-31T12:00:00Z",
+          "summary": "Seller departures and pipeline disruption followed the abrupt suspension, while onboarding complaints did not improve. Management judged the broad suspension ineffective."
         }
       ]
     }

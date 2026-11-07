@@ -154,6 +154,44 @@ def build_scenario(spec: Scenario) -> dict:
         ],
     }
 
+    if spec.name == "risk":
+        incident = dataset["history"][0]
+        incident["occurred_at"] = "2025-09-12T12:00:00Z"
+        incident["records"][0].update(
+            event_time="2025-09-12T12:00:00Z",
+            summary="A prior review checked onboarding after an acquisition incentive change.",
+        )
+        incident["records"][1].update(
+            event_time="2025-09-14T12:00:00Z",
+            summary=(
+                "Customer complaints alone were judged insufficient to prove the "
+                "incentive caused poor fit without matched cohort evidence."
+            ),
+        )
+        incident["records"].extend(
+            [
+                {
+                    "record_id": "HIST-RISK-DECISION",
+                    "memory_type": "decision",
+                    "event_time": "2025-09-15T12:00:00Z",
+                    "summary": (
+                        "Management abruptly suspended the mid-market direct acquisition "
+                        "bonus while investigating a suspected deal-quality problem."
+                    ),
+                },
+                {
+                    "record_id": "HIST-RISK-RESULT",
+                    "memory_type": "measured_result",
+                    "event_time": "2025-10-31T12:00:00Z",
+                    "summary": (
+                        "Seller departures and pipeline disruption followed the abrupt "
+                        "suspension, while onboarding complaints did not improve. "
+                        "Management judged the broad suspension ineffective."
+                    ),
+                },
+            ]
+        )
+
     groups = (
         (MONTHS[:3], True, spec.pre_month_end),
         (MONTHS[:3], False, spec.pre_other),
