@@ -83,6 +83,34 @@ def explanation_codes(
     return sorted(set(codes))
 
 
+def canonical_recalled(explanation: Explanation, ds: Dataset) -> Explanation:
+    """Show a seeded record as the dataset stores it.
+
+    The memory service can return a rephrased copy of a record (Cloud extracts its own
+    observations from what was retained) and the rephrasing can add claims the record
+    does not make, such as cause. For IDs that match a history record in the dataset the
+    stored summary, type and event time replace whatever came back; other IDs (outcomes)
+    are left as returned.
+    """
+    stored = {r.record_id: r for inc in ds.history for r in inc.records}
+    fixed = []
+    for item in explanation.recalled:
+        record = stored.get(item.id)
+        if record is None:
+            fixed.append(item)
+            continue
+        fixed.append(
+            item.model_copy(
+                update={
+                    "summary": record.summary,
+                    "memory_type": record.memory_type,
+                    "event_time": record.event_time,
+                }
+            )
+        )
+    return explanation.model_copy(update={"recalled": fixed})
+
+
 def fallback_explanation(codes: list[str]) -> Explanation:
     """Last-resort explanation when a module fails or breaks the contract. Never presented as live."""
     return Explanation(

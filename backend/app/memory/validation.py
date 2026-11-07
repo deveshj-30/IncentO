@@ -8,6 +8,13 @@ from app.core.schemas import ActionType, AnalysisResult, RecalledMemory, Recomme
 
 _TOKEN_RE = re.compile(r"\{\{([mt]):([a-zA-Z0-9_.]+)\}\}")
 
+# The product never claims causation: the data shows association and sequence only.
+_CAUSAL_RE = re.compile(
+    r"\b(?:caus(?:e|es|ed|ing)|led to|leads? to|resulted? in|results? in"
+    r"|due to|because of|driven by|drove)\b",
+    re.IGNORECASE,
+)
+
 
 def _format_val(val: Any) -> str:
     if val is None:
@@ -59,9 +66,7 @@ def resolve_tokens(text: str, token_dict: dict[str, str]) -> str:
     return _TOKEN_RE.sub(_replace, text)
 
 
-def filter_memories_by_as_of(
-    memories: list[RecalledMemory], as_of: datetime
-) -> list[RecalledMemory]:
+def filter_memories_by_as_of(memories: list[RecalledMemory], as_of: datetime) -> list[RecalledMemory]:
     """Strictly filter out any memory dated strictly after as_of cutoff."""
     return [m for m in memories if m.event_time <= as_of]
 
@@ -95,6 +100,7 @@ def validate_explanation_text(text: str, token_dict: dict[str, str]) -> tuple[bo
     - All tokens must resolve against token_dict; unknown tokens reject.
     - After tokens are stripped, text must not contain digits (0-9), '%', or 'percent'.
     - Must not contain URLs, HTML, markdown links, or code fences.
+    - Must not state or imply causation ("caused", "led to", "due to", ...).
     """
     if not text:
         return True, None
@@ -112,6 +118,9 @@ def validate_explanation_text(text: str, token_dict: dict[str, str]) -> tuple[bo
         key = f"{match.group(1)}:{match.group(2)}"
         if key not in token_dict:
             return False, f"unknown_token:{key}"
+
+    if _CAUSAL_RE.search(text):
+        return False, "causal_claim"
 
     # Strip tokens before checking for numbers
     stripped = _TOKEN_RE.sub("", text)

@@ -35,18 +35,24 @@ def build_template_explanation(
 
     # Find influential recalled memory: must be a measured result or past decision,
     # and strictly NEVER a rejected hypothesis.
+    # A measured result outranks a decision; ties go to the most recent event. The choice must
+    # not depend on the order recall returned the records in.
     influential_mem: Any | None = None
-    for item in recalled_items:
-        if isinstance(item, RecalledMemory):
-            if item.memory_type in (
-                RecalledMemoryType.MEASURED_RESULT,
-                RecalledMemoryType.DECISION,
-            ):
-                influential_mem = item
-                break
-        elif isinstance(item, str):
+    typed = [i for i in recalled_items if isinstance(i, RecalledMemory)]
+    candidates = [
+        i
+        for i in typed
+        if i.memory_type in (RecalledMemoryType.MEASURED_RESULT, RecalledMemoryType.DECISION)
+    ]
+    if candidates:
+        influential_mem = max(
+            candidates,
+            key=lambda m: (m.memory_type == RecalledMemoryType.MEASURED_RESULT, m.event_time),
+        )
+    else:
+        for item in recalled_items:
             # String ID fallback: exclude rejected hypotheses
-            if "rejected" not in item.lower() and "fact" not in item.lower():
+            if isinstance(item, str) and "rejected" not in item.lower() and "fact" not in item.lower():
                 influential_mem = item
                 break
 

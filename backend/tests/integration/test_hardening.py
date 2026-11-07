@@ -347,3 +347,40 @@ def test_health_reports_stubs_and_never_live_memory(client):
     h = client.get("/api/health").json()
     assert h["memory_status"] != MemoryStatus.LIVE.value
     assert BODY["scenario"]
+
+
+# --- a seeded record is shown as the dataset stores it ---
+
+
+def test_recalled_seeded_record_is_shown_with_its_stored_text():
+    from app.core.fixtures import load_dataset
+    from app.core.guards import canonical_recalled
+
+    ds, _ = load_dataset(str(REPO_ROOT / "data" / "scenarios"), "risk")
+    stored = {r.record_id: r for inc in ds.history for r in inc.records}
+    rephrased = RecalledMemory(
+        id="HIST-RISK-RESULT",
+        memory_type="fact",
+        event_time="2026-01-01T00:00:00Z",
+        incident_id="INC-RISK-PRIOR",
+        summary="The abrupt suspension caused seller departures.",
+    )
+    outcome = _recalled()  # an outcome id is not a seeded record and stays as returned
+    explanation = good_explain_for_risk().model_copy(update={"recalled": [rephrased, outcome]})
+    fixed = canonical_recalled(explanation, ds).recalled
+    assert fixed[0].summary == stored["HIST-RISK-RESULT"].summary
+    assert fixed[0].memory_type == stored["HIST-RISK-RESULT"].memory_type
+    assert fixed[0].event_time == stored["HIST-RISK-RESULT"].event_time
+    assert fixed[1] == outcome
+
+
+def good_explain_for_risk():
+    from app.core.schemas import Explanation, ExplanationSource
+
+    return Explanation(
+        summary="s",
+        hypothesis="h",
+        recommendations=[],
+        explanation_source=ExplanationSource.TEMPLATE,
+        memory_status=MemoryStatus.LIVE,
+    )

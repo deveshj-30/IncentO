@@ -501,10 +501,130 @@ def test_validate_structured_output_rules() -> None:
     # Unknown evidence citation fails
     bad_citation = {
         **valid_data,
-        "recommendations": [
-            {**valid_data["recommendations"][0], "evidence_ids": ["UNKNOWN-999"]}
-        ],
+        "recommendations": [{**valid_data["recommendations"][0], "evidence_ids": ["UNKNOWN-999"]}],
     }
     ok, err = validate_structured_output(bad_citation, token_dict, valid_eids, valid_hids)
     assert ok is False
     assert "unknown_evidence_citation" in str(err)
+
+
+def _recalled(record_id: str, kind: RecalledMemoryType, day: int):
+    from app.core.schemas import RecalledMemory
+
+    return RecalledMemory(
+        id=record_id,
+        memory_type=kind,
+        event_time=datetime(2025, 9, day, 12, tzinfo=UTC),
+        incident_id="INC-RISK-PRIOR",
+        summary="Synthetic prior record.",
+    )
+
+
+def test_measured_result_is_cited_whatever_order_recall_returns() -> None:
+    """The cited record depends on the records, not on the order Cloud returned them in."""
+    import itertools
+
+    from app.memory.prompts import build_template_explanation
+
+    as_of = datetime(2026, 11, 1, tzinfo=UTC)
+    analysis = _sample_analysis(as_of)
+    records = [
+        _recalled("HIST-RISK-FACT", RecalledMemoryType.FACT, 12),
+        _recalled("HIST-RISK-REJECTED", RecalledMemoryType.REJECTED_HYPOTHESIS, 14),
+        _recalled("HIST-RISK-DECISION", RecalledMemoryType.DECISION, 15),
+        _recalled("HIST-RISK-RESULT", RecalledMemoryType.MEASURED_RESULT, 1),
+    ]
+    for order in itertools.permutations(records):
+        recs = build_template_explanation(analysis, ["TICKET-001"], list(order))[5]
+        assert recs[0].action_type == ActionType.PILOT_GUARDRAIL
+        assert recs[0].history_influence == ["HIST-RISK-RESULT"]
+
+
+def test_decision_alone_is_cited_when_no_result_recalled() -> None:
+    from app.memory.prompts import build_template_explanation
+
+    analysis = _sample_analysis(datetime(2026, 11, 1, tzinfo=UTC))
+    recs = build_template_explanation(
+        analysis, ["TICKET-001"], [_recalled("HIST-RISK-DECISION", RecalledMemoryType.DECISION, 15)]
+    )[5]
+    assert recs[0].history_influence == ["HIST-RISK-DECISION"]
+
+
+def test_recall_returns_every_seeded_record(tmp_path: Path) -> None:
+    """Recall must not drop seeded records because of a small limit (it used to cap at three)."""
+    os.environ["HINDSIGHT_SIMULATE"] = "1"
+    try:
+        service.set_adapter(HindsightAdapter(api_key="", store_path=tmp_path / "banks.json"))
+        kinds = [
+            ("HIST-RISK-FACT", RecalledMemoryType.FACT),
+            ("HIST-RISK-REJECTED", RecalledMemoryType.REJECTED_HYPOTHESIS),
+            ("HIST-RISK-DECISION", RecalledMemoryType.DECISION),
+            ("HIST-RISK-RESULT", RecalledMemoryType.MEASURED_RESULT),
+        ]
+        when = datetime(2025, 9, 12, tzinfo=UTC)
+        service.seed_history(
+            [
+                HistoricalIncident(
+                    incident_id="INC-RISK-PRIOR",
+                    title="Prior acquisition review",
+                    occurred_at=when,
+                    records=[
+                        HistoryRecord(record_id=i, memory_type=k, event_time=when, summary="Synthetic.")
+                        for i, k in kinds
+                    ],
+                )
+            ],
+            scenario="tiny",
+        )
+        as_of = datetime(2026, 11, 1, tzinfo=UTC)
+        ctx = ExplainContext(
+            run_id="run-recall-all",
+            scenario="tiny",
+            policy_id="pol-acq-bonus",
+            as_of=as_of,
+            memory_mode=MemoryMode.LIVE,
+            incident_id="inc-1",
+        )
+        exp = service.explain(_sample_analysis(as_of), ctx)
+        assert {m.id for m in exp.recalled} == {i for i, _ in kinds}
+        assert exp.recommendations[0].history_influence == ["HIST-RISK-RESULT"]
+    finally:
+        os.environ.pop("HINDSIGHT_SIMULATE", None)
+
+
+def test_normalize_citations_repairs_misplaced_ids_and_drops_invented_ones() -> None:
+    out = {
+        "summary": "s",
+        "recommendations": [
+            {
+                "action_type": "pilot_guardrail",
+                "evidence_ids": ["HIST-RISK-RESULT", "TICKET-001", "TICKET-INVENTED"],
+                "history_influence": ["Prior decision led to seller departures.", "HIST-RISK-GHOST"],
+            },
+            {"action_type": "no_action", "evidence_ids": ["NOPE"], "history_influence": []},
+        ],
+    }
+    fixed = service.normalize_citations(
+        out, {"TICKET-001", "TICKET-002"}, {"HIST-RISK-RESULT"}, ["TICKET-001", "TICKET-002"]
+    )
+    first, second = fixed["recommendations"]
+    assert first["evidence_ids"] == ["TICKET-001"]
+    assert first["history_influence"] == ["HIST-RISK-RESULT"]
+    assert second["evidence_ids"] == ["TICKET-001", "TICKET-002"]  # nothing valid cited: leading evidence
+    assert second["history_influence"] == []
+    assert out["recommendations"][0]["evidence_ids"][0] == "HIST-RISK-RESULT"  # input not mutated
+
+
+def test_causal_wording_is_rejected_but_causation_disclaimer_is_not() -> None:
+    from app.memory.validation import validate_explanation_text
+
+    for bad in (
+        "Previous abrupt suspensions caused seller departures.",
+        "Discounting may lead to more complaints.",
+        "Churn rose due to the change.",
+        "Pipeline disruption resulted in lost deals.",
+    ):
+        assert validate_explanation_text(bad, {}) == (False, "causal_claim"), bad
+    ok = "The gap may be associated with discounting; this does not establish causation."
+    assert validate_explanation_text(ok, {}) == (True, None)
+    assert validate_explanation_text("Seller departures followed the suspension.", {}) == (True, None)

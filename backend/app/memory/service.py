@@ -45,6 +45,9 @@ def set_adapter(adapter: HindsightAdapter) -> None:
     _adapter = adapter
 
 
+# Large enough that every seeded record of a scenario comes back on every run.
+RECALL_LIMIT = 10
+
 REFLECT_RESPONSE_SCHEMA: dict[str, Any] = {
     "type": "object",
     "properties": {
@@ -83,11 +86,56 @@ REFLECT_RESPONSE_SCHEMA: dict[str, Any] = {
 }
 
 
+def _log_unknown_citations(out: dict[str, Any], evidence: set[str], recalled: set[str]) -> None:
+    """Name the IDs Reflect invented, so a validation failure can be diagnosed from the log."""
+    bad_evidence: set[str] = set()
+    bad_memory: set[str] = set()
+    for rec in out.get("recommendations", []) if isinstance(out, dict) else []:
+        if isinstance(rec, dict):
+            bad_evidence |= {e for e in rec.get("evidence_ids", []) if e not in evidence}
+            bad_memory |= {h for h in rec.get("history_influence", []) if h not in recalled}
+    if bad_evidence or bad_memory:
+        log.warning(
+            "Reflect cited unknown IDs: evidence=%s memory=%s", sorted(bad_evidence), sorted(bad_memory)
+        )
+
+
+def normalize_citations(
+    out: dict[str, Any], evidence: set[str], recalled: set[str], fallback_evidence: list[str]
+) -> dict[str, Any]:
+    """Repair citation fields Reflect fills in the wrong place; never keep an ID that does not resolve.
+
+    Reflect often lists a memory ID under evidence_ids or writes prose under history_influence.
+    A memory ID found under evidence_ids moves to history_influence; anything that is not a real
+    evidence or recalled-memory ID is dropped. A recommendation left with no evidence falls back to
+    the analysis's own leading evidence, as the template does.
+    """
+    if not isinstance(out, dict) or not isinstance(out.get("recommendations"), list):
+        return out
+    fixed = []
+    for rec in out["recommendations"]:
+        if not isinstance(rec, dict):
+            fixed.append(rec)
+            continue
+        raw_evidence = [e for e in rec.get("evidence_ids", []) if isinstance(e, str)]
+        raw_history = [h for h in rec.get("history_influence", []) if isinstance(h, str)]
+        history = list(dict.fromkeys(h for h in raw_history + raw_evidence if h in recalled))
+        cited = list(dict.fromkeys(e for e in raw_evidence if e in evidence))
+        fixed.append(
+            {
+                **rec,
+                "evidence_ids": cited or fallback_evidence[:2],
+                "history_influence": history,
+            }
+        )
+    return {**out, "recommendations": fixed}
+
+
 def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
     """Generate an explanation and recommendations with evidence and memory citations."""
     adapter = get_adapter()
     valid_evidence_ids = {e.id for e in analysis.evidence}
-    evidence_list = list(valid_evidence_ids)
+    evidence_list = sorted(valid_evidence_ids)
 
     # 1. When memory_mode is OFF: strictly no recall, template explanation
     if context.memory_mode == MemoryMode.OFF:
@@ -119,13 +167,12 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
     # 2. When memory_mode is LIVE
     bank_name = adapter.get_bank_name(context.scenario, is_demo=True)
     query = (
-        f"Sales commission policy {context.policy_id} month-end incentive impact: "
-        f"flagged={analysis.flagged}."
+        f"Sales commission policy {context.policy_id} month-end incentive impact: flagged={analysis.flagged}."
     )
 
     recalled_memories = []
     # Recall direct candidates first
-    raw_recalled = adapter.recall(bank_name, query, as_of=context.as_of, limit=3)
+    raw_recalled = adapter.recall(bank_name, query, as_of=context.as_of, limit=RECALL_LIMIT)
     if raw_recalled:
         recalled_memories = filter_memories_by_as_of(raw_recalled, as_of=context.as_of)
 
@@ -141,7 +188,8 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
         )
         reflect_query = (
             f"Commission policy month-end incentive investigation (flagged={analysis.flagged}). "
-            f"Available evidence IDs: {evidence_list[:10]}. Recalled memory IDs: {temp_ids}. "
+            f"Allowed evidence IDs (cite only these, exactly as written): {evidence_list}. "
+            f"Recalled memory IDs: {temp_ids}. "
             f"Recalled prior outcomes: {recalled_context}. "
             "Directives: Never cite unprovided IDs. Never cite a rejected hypothesis as history influence. "
             "When recalled memory indicates past abrupt suspension or cancellation caused adverse outcomes "
@@ -152,7 +200,9 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
             "action, or rationale. Refer to the policy as 'the policy'. "
             "Use metric tokens such as {{m:discount.gap}} and {{m:complaint_30d.gap}} "
             "instead of typing numbers. "
-            "Fields must be strictly free of digits and percent signs."
+            "Fields must be strictly free of digits and percent signs. "
+            "Never claim causation: describe prior outcomes as having 'followed' an action, "
+            "never as caused by it, and never write 'caused', 'led to', 'due to' or 'because of'."
         )
         structured_out, reflect_memories = adapter.reflect(
             bank_name, reflect_query, REFLECT_RESPONSE_SCHEMA, as_of=context.as_of
@@ -176,20 +226,31 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
 
     # 3. If Reflect returned valid structured output, validate against contract rules
     if structured_out:
+        structured_out = normalize_citations(
+            structured_out, valid_evidence_ids, valid_recalled_set, evidence_list
+        )
         is_valid, err = validate_structured_output(
             structured_out, token_dict, valid_evidence_ids, valid_recalled_set, rejected_ids
         )
+        if not is_valid:
+            _log_unknown_citations(structured_out, valid_evidence_ids, valid_recalled_set)
         if not is_valid and adapter.is_live:
             # Plan requirement: retry once with validation errors listed before falling back
             log.info("Reflect output attempt 1 failed validation (%s); retrying with error feedback", err)
             retry_query = (
                 f"{reflect_query}\n\nCRITICAL FIX: Your previous response failed contract validation: {err}. "
-                "You must remove ALL digits (0-9) and percent signs. Use tokens like {{m:discount.gap}}."
+                "Remove ALL digits (0-9) and percent signs, use tokens like {{m:discount.gap}}, "
+                "and never write "
+                "causal wording (caused, led to, due to, because of); say 'followed' instead. "
+                "In evidence_ids use only IDs from the allowed list; leave the list empty rather than guess."
             )
             structured_out_retry, _ = adapter.reflect(
                 bank_name, retry_query, REFLECT_RESPONSE_SCHEMA, as_of=context.as_of
             )
             if structured_out_retry:
+                structured_out_retry = normalize_citations(
+                    structured_out_retry, valid_evidence_ids, valid_recalled_set, evidence_list
+                )
                 is_valid_retry, err_retry = validate_structured_output(
                     structured_out_retry, token_dict, valid_evidence_ids, valid_recalled_set, rejected_ids
                 )
@@ -208,7 +269,8 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
                     action_type = ActionType.PILOT_GUARDRAIL
                 clean_evidence = [e for e in r.get("evidence_ids", []) if e in valid_evidence_ids]
                 clean_influence = [
-                    h for h in r.get("history_influence", [])
+                    h
+                    for h in r.get("history_influence", [])
                     if h in valid_recalled_set and h not in rejected_ids
                 ]
                 parsed_recs.append(
@@ -231,9 +293,7 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
                 conflicting_points=[
                     resolve_tokens(p, token_dict) for p in structured_out.get("conflicting_points", [])
                 ],
-                alternatives=[
-                    resolve_tokens(a, token_dict) for a in structured_out.get("alternatives", [])
-                ],
+                alternatives=[resolve_tokens(a, token_dict) for a in structured_out.get("alternatives", [])],
                 recommendations=parsed_recs,
                 recalled=recalled_memories,
                 explanation_source=ExplanationSource.REFLECT,

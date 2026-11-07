@@ -11,7 +11,12 @@ from app.core.config import Settings
 from app.core.digest import analysis_digest
 from app.core.errors import ApiError
 from app.core.fixtures import list_scenarios, load_dataset, validate_scenario_name
-from app.core.guards import explanation_codes, fallback_explanation, require_valid_analysis
+from app.core.guards import (
+    canonical_recalled,
+    explanation_codes,
+    fallback_explanation,
+    require_valid_analysis,
+)
 from app.core.modules import Modules
 from app.core.repository import Repository, now
 from app.core.schemas import (
@@ -241,7 +246,7 @@ def create_investigation(svc: Services, request: InvestigationRequest) -> tuple[
             memory_mode=request.memory_mode,
             incident_id=incident_id,
         )
-        explanation = _explain(svc, analysis, context, request)
+        explanation = _explain(svc, analysis, context, request, dataset)
         investigation = Investigation(
             run_id=run_id,
             policy_id=request.policy_id,
@@ -300,7 +305,9 @@ def retry_retention(svc: Services, outcome_id: str) -> Outcome:
         return _retain(svc, outcome, incident.scenario)
 
 
-def _explain(svc: Services, analysis, context: ExplainContext, request: InvestigationRequest) -> Explanation:
+def _explain(
+    svc: Services, analysis, context: ExplainContext, request: InvestigationRequest, dataset
+) -> Explanation:
     """Call P4's explain; any failure or contract violation degrades to a labeled fallback."""
     try:
         explanation = Explanation.model_validate(
@@ -316,6 +323,7 @@ def _explain(svc: Services, analysis, context: ExplainContext, request: Investig
         )
         log.warning("explain failed (%s): %s", context.run_id, code)
         return fallback_explanation([code])
+    explanation = canonical_recalled(explanation, dataset)
     codes = explanation_codes(explanation, analysis, request.memory_mode, request.as_of)
     if codes:
         log.warning("explain output rejected (%s): %s", context.run_id, codes)
