@@ -50,7 +50,7 @@ class HindsightAdapter:
         self,
         base_url: str | None = None,
         api_key: str | None = None,
-        timeout_seconds: float = 15.0,
+        timeout_seconds: float = 28.0,
         store_path: Path | None = None,
     ) -> None:
         self.base_url = (
