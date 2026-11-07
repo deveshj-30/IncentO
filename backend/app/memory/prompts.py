@@ -1,10 +1,14 @@
 """Explanation templates, tokenized strings, and prompt construction."""
 
+from typing import Any
+
 from app.core.schemas import (
     ActionType,
     AnalysisResult,
     MetricName,
     MetricStatus,
+    RecalledMemory,
+    RecalledMemoryType,
     Recommendation,
 )
 
@@ -12,14 +16,14 @@ from app.core.schemas import (
 def build_template_explanation(
     analysis: AnalysisResult,
     evidence_ids: list[str],
-    recalled_ids: list[str] | None = None,
+    recalled_items: list[Any] | None = None,
 ) -> tuple[str, str, list[str], list[str], list[str], list[Recommendation], dict[str, str]]:
     """Build tokenized explanation components and recommendations based on analysis signals.
 
     Returns:
         (summary, hypothesis, supporting, conflicting, alternatives, recommendations, template_dict)
     """
-    recalled_ids = recalled_ids or []
+    recalled_items = recalled_items or []
     metrics_by_name = {m.name: m for m in analysis.metrics}
     cancel = metrics_by_name.get(MetricName.CANCEL_30D)
 
@@ -28,6 +32,23 @@ def build_template_explanation(
 
     # Use first 2 evidence IDs if available
     top_evidence = evidence_ids[:2]
+
+    # Find influential recalled memory: must be a measured result or past decision,
+    # and strictly NEVER a rejected hypothesis.
+    influential_mem: Any | None = None
+    for item in recalled_items:
+        if isinstance(item, RecalledMemory):
+            if item.memory_type in (
+                RecalledMemoryType.MEASURED_RESULT,
+                RecalledMemoryType.DECISION,
+            ):
+                influential_mem = item
+                break
+        elif isinstance(item, str):
+            # String ID fallback: exclude rejected hypotheses
+            if "rejected" not in item.lower() and "fact" not in item.lower():
+                influential_mem = item
+                break
 
     if has_insufficient and not is_flagged:
         summary_tmpl = (
@@ -49,7 +70,7 @@ def build_template_explanation(
                 evidence_ids=top_evidence,
                 success_metric="Observe at least {{t:min_group_size}} deals per cohort group",
                 guardrail="Do not alter commission policies without confirmed cohort divergence",
-                history_influence=recalled_ids[:1],
+                history_influence=[],
             )
         ]
     elif is_flagged:
@@ -76,8 +97,14 @@ def build_template_explanation(
             "at quarter and month end."
         ]
 
-        # Recommendation tailored to memory or policy adjustment
-        if recalled_ids:
+        # Recommendation tailored to memory: only shifts from revert_change to pilot_guardrail
+        # when an adverse prior outcome or intervention is recalled, citing that record.
+        if influential_mem is not None:
+            inf_id = (
+                influential_mem.id
+                if isinstance(influential_mem, RecalledMemory)
+                else str(influential_mem)
+            )
             recs = [
                 Recommendation(
                     action_type=ActionType.PILOT_GUARDRAIL,
@@ -86,13 +113,14 @@ def build_template_explanation(
                         "rather than abrupt bonus cancellation."
                     ),
                     rationale=(
-                        "Discount and early complaint gaps are flagged; past incident history indicates "
-                        "abrupt policy cancellation causes seller churn and pipeline disruption."
+                        "Discount and early complaint gaps are flagged above threshold. "
+                        "Past remembered outcome indicates that abrupt policy cancellation "
+                        "causes seller churn and pipeline disruption without improved onboarding."
                     ),
                     evidence_ids=top_evidence,
                     success_metric="Month-end complaint gap under 10 points within two quarters",
                     guardrail="Do not slow deals below the approval service level of two business days",
-                    history_influence=recalled_ids[:1],
+                    history_influence=[inf_id],
                 )
             ]
         else:
@@ -128,7 +156,7 @@ def build_template_explanation(
                 evidence_ids=top_evidence,
                 success_metric="Sustain current cohort alignment across the upcoming quarter",
                 guardrail="Review immediately if month-end cancellation gap exceeds 10 percentage points",
-                history_influence=recalled_ids[:1],
+                history_influence=[],
             )
         ]
 
