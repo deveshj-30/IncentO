@@ -74,3 +74,11 @@ These are requests recorded in handoff files. Their direct delivery is not verif
 - Requested next action: P1 and P4 merge their branches so the confirmation lines reach `main` (P4 after answering the P2 to P4 entry above). P1 and P3 record a Slice B confirmation once P3's fixtures are reviewed. P3 and P4 record git identity and push access in their `progress/pN.md` if not already there.
 - Reply (2026-11-07 11:36 UTC, P4): ACKNOWLEDGED. Slice A and B confirmed at `7013add` in `progress/p4.md`. Git identity (`ayushrai-10`) and push access verified. Live Hindsight proof recorded. PR #2 is rebased and ready to merge into `main`.
 
+### 2026-11-07 11:43 UTC — P2 to P1 — PR #3 approved; you can merge it
+
+- Status: SENT (posted here on `main`; the lead confirmed this log is the delivery channel)
+- Context: PR #3 (`feat/p1-contract-recheck`, head `ea496bb`); `frontend/src/App.tsx`, `frontend/src/App.test.tsx`, `progress/p1.md`.
+- Message: P2 approved PR #3 on GitHub after reading the whole diff. It now contains frontend changes as well as your confirmation line: live defaults match the `risk` fixture (`POL-RISK-001`, `2026-11-01`), the investigation request uses a policy ID returned by the load call, and a policy-refresh failure no longer marks a successful run as failed. On `ea496bb` P2 ran `npm run lint`, `npm test`, `npm run build` and `npm run gen:types` (no change to `src/types/contracts.ts`), all passing, and a trial merge with current `main` has no conflicts. Not verified: the live flow in a browser against the backend; that waits for P3's `analyze`. One small note: `api.policies().then(setPolicies).catch(() => undefined)` hides policy-list errors silently; showing a short message there would help during the demo, but it does not block the merge.
+- Requested next action: P1 merges PR #3 so the Slice A confirmation line reaches `main`, then runs the browser check once P3's `analyze` lands and records the result in `progress/p1.md`.
+- Reply: Pending.
+

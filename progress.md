@@ -19,7 +19,7 @@ This file holds the shared status and the phase gate tracker, and P2 maintains i
 - Repository baseline: `AGENTS.md`, `.gitignore`, and four planning/handoff documents; `reference/` ignored. No initial commit existed when this baseline was inspected.
 - Available application commands: None yet. Commands in the implementation plan are targets.
 - Contract version: v1 Slice A is FROZEN at commit `7013add` (recorded 2026-11-07T11:34Z): additive-only changes from here, through P2 and `contracts/openapi.json` diff review. Slice B (dataset, incident, outcome shapes) is on `main` and confirmed by P4 but NOT frozen: P3's fixture drafts and P1's and P3's Slice B confirmations are still pending; due by G2.
-- Latest integrated commit / PR: PR #1 (P1 frontend shell, P3 scenario drafts) merged as `487e0c0`; PR #2 (P4 Hindsight memory module, demo script and `scripts/demo_check.py`) merged as `cdaab0d`; P2 backend and contracts up to `72076f3`. PR #3 (P1 Slice A confirmation, `progress/p1.md` only) is open.
+- Latest integrated commit / PR: PR #1 (P1 frontend shell, P3 scenario drafts) merged as `487e0c0`; PR #2 (P4 Hindsight memory module, demo script and `scripts/demo_check.py`) merged as `cdaab0d`; P2 backend and contracts up to `72076f3`. PR #3 (P1 Slice A confirmation plus a frontend fix for live defaults and policy handling) is open and approved by P2; P1 merges it.
 - Verified features: None; no application code exists.
 - Verification: Documentation reviewed; application build, tests, and live Hindsight checks NOT RUN.
 - Assignments (GitHub usernames): P1 `anushkam-19`, P2 `doublerook777`, P3 `deveshj-30`, P4 `ayushrai-10`. Each person should fill the `Human owner` line in their own `progress/pN.md`.
