@@ -13,6 +13,8 @@ from app.core.schemas import (
     MemoryMode,
     MemoryStatus,
     Outcome,
+    RecalledMemory,
+    RecalledMemoryType,
     Recommendation,
     ResetResult,
     RetentionResult,
@@ -126,36 +128,67 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
     raw_recalled = adapter.recall(bank_name, query, as_of=context.as_of, limit=3)
     if raw_recalled:
         recalled_memories = filter_memories_by_as_of(raw_recalled, as_of=context.as_of)
-    recalled_ids = [m.id for m in recalled_memories]
-    valid_recalled_set = set(recalled_ids)
 
     token_dict = build_token_dict(analysis)
     structured_out = None
 
     if adapter.is_live:
+        temp_ids = [m.id for m in recalled_memories]
         reflect_query = (
-            f"Commission policy {context.policy_id} month-end incentive investigation "
-            f"(flagged={analysis.flagged}). "
-            f"Available evidence IDs: {evidence_list[:10]}. Recalled memory IDs: {recalled_ids}. "
-            "Directives: Never cite unprovided IDs. Never include raw numbers or percentages in "
-            "summary/hypothesis/action/rationale; "
-            "use metric tokens like {{m:discount.gap}} and {{m:complaint_30d.gap}}."
+            f"Commission policy month-end incentive investigation (flagged={analysis.flagged}). "
+            f"Available evidence IDs: {evidence_list[:10]}. Recalled memory IDs: {temp_ids}. "
+            "Directives: Never cite unprovided IDs. Never cite a rejected hypothesis as history influence. "
+            "Do NOT include raw digits (0-9) or percentages in summary, hypothesis, points, alternatives, "
+            "action, or rationale. Refer to the policy as 'the policy'. "
+            "Use metric tokens such as {{m:discount.gap}} and {{m:complaint_30d.gap}} "
+            "instead of typing numbers. "
+            "Fields must be strictly free of digits and percent signs."
         )
         structured_out, reflect_memories = adapter.reflect(
             bank_name, reflect_query, REFLECT_RESPONSE_SCHEMA, as_of=context.as_of
         )
         if reflect_memories:
-            for rm in filter_memories_by_as_of(reflect_memories, as_of=context.as_of):
-                if rm.id not in valid_recalled_set:
-                    recalled_memories.append(rm)
-                    valid_recalled_set.add(rm.id)
-                    recalled_ids.append(rm.id)
+            recalled_memories.extend(filter_memories_by_as_of(reflect_memories, as_of=context.as_of))
+
+    # Deduplicate recalled memories by ID
+    seen_ids: set[str] = set()
+    deduped_memories: list[RecalledMemory] = []
+    for m in recalled_memories:
+        if m.id not in seen_ids:
+            seen_ids.add(m.id)
+            deduped_memories.append(m)
+    recalled_memories = deduped_memories
+    recalled_ids = [m.id for m in recalled_memories]
+    valid_recalled_set = set(recalled_ids)
+    rejected_ids = {
+        m.id for m in recalled_memories if m.memory_type == RecalledMemoryType.REJECTED_HYPOTHESIS
+    }
 
     # 3. If Reflect returned valid structured output, validate against contract rules
     if structured_out:
         is_valid, err = validate_structured_output(
-            structured_out, token_dict, valid_evidence_ids, valid_recalled_set
+            structured_out, token_dict, valid_evidence_ids, valid_recalled_set, rejected_ids
         )
+        if not is_valid and adapter.is_live:
+            # Plan requirement: retry once with validation errors listed before falling back
+            log.info("Reflect output attempt 1 failed validation (%s); retrying with error feedback", err)
+            retry_query = (
+                f"{reflect_query}\n\nCRITICAL FIX: Your previous response failed contract validation: {err}. "
+                "You must remove ALL digits (0-9) and percent signs. Use tokens like {{m:discount.gap}}."
+            )
+            structured_out_retry, _ = adapter.reflect(
+                bank_name, retry_query, REFLECT_RESPONSE_SCHEMA, as_of=context.as_of
+            )
+            if structured_out_retry:
+                is_valid_retry, err_retry = validate_structured_output(
+                    structured_out_retry, token_dict, valid_evidence_ids, valid_recalled_set, rejected_ids
+                )
+                if is_valid_retry:
+                    structured_out = structured_out_retry
+                    is_valid = True
+                else:
+                    log.warning("Reflect retry also failed validation: %s", err_retry)
+
         if is_valid:
             parsed_recs = []
             for r in structured_out.get("recommendations", []):
@@ -164,7 +197,10 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
                 except ValueError:
                     action_type = ActionType.PILOT_GUARDRAIL
                 clean_evidence = [e for e in r.get("evidence_ids", []) if e in valid_evidence_ids]
-                clean_influence = [h for h in r.get("history_influence", []) if h in valid_recalled_set]
+                clean_influence = [
+                    h for h in r.get("history_influence", [])
+                    if h in valid_recalled_set and h not in rejected_ids
+                ]
                 parsed_recs.append(
                     Recommendation(
                         action_type=action_type,
@@ -207,7 +243,7 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
         alt_tmpl,
         recs,
         template_dict,
-    ) = build_template_explanation(analysis, evidence_list, recalled_ids)
+    ) = build_template_explanation(analysis, evidence_list, recalled_memories)
 
     sanitized_recs = sanitize_recommendations(recs, valid_evidence_ids, valid_recalled_set)
 
