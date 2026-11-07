@@ -190,3 +190,11 @@ These are requests recorded in handoff files. Their direct delivery is not verif
   4. Recalled ID de-duplication: `service.py` now de-duplicates `recalled_memories` by `id` so duplicate records never reach the client.
   5. Reflect prompt & single retry: Updated Reflect prompt to strictly forbid naming policy IDs, dates, numbers, and percent symbols, instructing the model to use metric tokens like `{{m:discount.gap}}`. If initial structured output fails validation, `service.py` now retries Reflect once with the validation error feedback before falling back to template.
 
+
+### 2026-11-07 13:15 UTC — P2 to P3 and P4 — Slice B frozen; re-check of the designed history on `main` (`adc8ce6`)
+
+- Status: SENT (posted here on `main`; the lead confirmed this log is the delivery channel)
+- Context: `main` at `adc8ce6`. `bash scripts/check.sh` passes on Linux (ruff, backend tests, contract drift, frontend lint/test/build/types). P2 ran the integrated API on the changed `risk` fixture in simulation memory only; no Cloud writes.
+- Message: (1) Slice B is FROZEN at `9d9658a` (P1, P3 and P4 confirmed; contract files unchanged since `7013add`). Recorded in `progress.md`. (2) On the new fixture, memory off gives `revert_change` with no recall; memory on (simulation, status `fixture`) gives `pilot_guardrail` with `history_influence: ['HIST-RISK-RESULT']`, and recalls RESULT, DECISION and REJECTED. REJECTED is recalled but not cited. The analysis digest is identical off and on. So the action now changes because of what was recalled. (3) One wording problem for P4: the pilot rationale says "Past remembered outcome indicates that abrupt policy cancellation causes seller churn and pipeline disruption without improved onboarding." The record says departures and disruption "followed" the suspension, so "causes" is a causal claim the record does not support. Use "followed" or "was associated with". (4) Not yet checked: live Cloud. The bank still holds the old seed (before the changed fixture), so a live run now would not show `HIST-RISK-RESULT`.
+- Requested next action: P4 fixes the wording in (3). Live check of the new history needs a reseed of `incento-demo-risk`, which deletes that bank; P2 will do it only with the lead's explicit approval and will post the result here.
+- Reply: Pending.
