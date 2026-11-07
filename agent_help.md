@@ -2,7 +2,7 @@
 
 ## Read First
 
-Read `AGENTS.md`, then this file, `implementation_plan.md`, and your own handoff file, `progress/pN.md`. Read `matka.md` for the plain-language product story. These files support any coding assistant; they do not assume a particular vendor or tool.
+Read `AGENTS.md`, then this file, `implementation_plan.md`, `conversation.md`, and your own handoff file, `progress/pN.md`. Read `matka.md` for the plain-language product story. These files support any coding assistant; they do not assume a particular vendor or tool.
 
 The repository currently has planning documents, not an implemented application. Check the filesystem before assuming planned paths or commands exist. The local problem statement is in ignored `reference/`; its relevant requirements are summarized in the plan for teammates without that file.
 
@@ -17,7 +17,7 @@ The eight-hour MVP uses synthetic data and explicit batch replay. It does not es
 1. Confirm your human assignment (P1 frontend, P2 API/integration, P3 analysis/data, P4 memory/demo), branch, and clone/worktree. If no role is assigned, inspect read-only and ask the team lead before editing implementation files.
 2. Inspect `git status --short`, recent commits if any, and the current contract version. Preserve existing uncommitted work.
 3. Read only the files needed for the next task. Use targeted search, short command output, and focused diffs to conserve context.
-4. Check the phase gate tracker in `progress.md` and the exit checklist in `implementation_plan.md`. Work within the current phase; do not advance dependent implementation until every checkpoint passes and P2 records review evidence.
+4. Check the phase gate tracker in `progress.md`, the exit checklist in `implementation_plan.md`, and open requests in `conversation.md`. Work within the current phase; do not advance dependent implementation until every checkpoint passes and P2 records review evidence.
 5. State a small deliverable and its acceptance check. Complete it before expanding scope. If a change breaks a passed checkpoint, notify P2 so the gate is reopened and affected checks are repeated.
 
 ## Ownership and Coordination
@@ -28,7 +28,9 @@ Do not edit another owner's folder to unblock yourself. Send P2 a precise reques
 
 P1 alone updates frontend dependencies; P2 alone updates backend dependencies. Avoid global formatting, renames, framework migrations, new infrastructure, and new dependencies without a specific need. Work in separate clones or worktrees, never simultaneous sessions in one checkout.
 
-Your handoff is your own file, `progress/pN.md`; edit only that file and commit it with your branch. `progress.md` (shared status and the gate tracker) belongs to P2. Never rewrite another person's file. Shared planning-document updates go through P2. Do not change `AGENTS.md` unless the user requests it.
+Your work-status handoff is your own file, `progress/pN.md`; edit only your file under `progress/` and commit it with your branch. `progress.md` (shared status and the gate tracker) belongs to P2. Never rewrite another person's file. Shared planning-document updates go through P2. Do not change `AGENTS.md` unless the user requests it.
+
+Record each actionable teammate message and its reply in `conversation.md` using its template. Send the message directly; a log entry marked `DRAFT` does not count as delivery. Participants may append their own entries or replies, while P2 coordinates merges of this shared log. Keep your own `progress/pN.md` current and let P2 record contract and gate decisions in `progress.md`.
 
 ## Implementation Rules
 
