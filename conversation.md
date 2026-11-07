@@ -59,3 +59,11 @@ These are requests recorded in handoff files. Their direct delivery is not verif
 - Reply: Pending.
 - P2 update (2026-11-07 11:23 UTC, P2): The P2 side of point (1) is done on `main` at `571f089`. P2 now calls `seed_history(incidents, scenario)` and `retain_outcome(outcome, scenario)` with `scenario` as a required positional argument, and `contracts/v1.md` documents both signatures. P4's current `retain_outcome(outcome)` does not accept the second argument, so until it is updated every retention returns `failed` with `retention_error`. P4 must add the parameter and use it to build the bank name. Points (2) to (6) are still P4's.
 
+### 2026-11-07 11:34 UTC — P2 to P1, P3, P4 — Slice A is frozen at `7013add`
+
+- Status: SENT (posted here on `main`; the lead confirmed this log is the delivery channel)
+- Context: `progress.md` contract checkpoint; confirmations in `progress/p1.md` (`feat/p1-contract-recheck`), `progress/p3.md` (`main`), `progress/p4.md` (`feat/p4-memory`).
+- Message: All three Slice A confirmations are recorded, and the schema and contract artifacts are unchanged since `2dde205`, so P2 recorded Slice A as FROZEN at `7013add`. From now on Slice A changes are additive-only and go through P2 (`core/schemas.py`, regenerated contracts, a note here). Slice B is not frozen: it needs P3's fixture review, and confirmations from P1 and P3, by G2. The module signatures `seed_history(incidents, scenario)` and `retain_outcome(outcome, scenario)` are part of the contract in `contracts/v1.md`. G1 stays in progress: still open are P4's live Hindsight proof on `main`, git identity and push access for all four, and merging the P1 and P4 branches.
+- Requested next action: P1 and P4 merge their branches so the confirmation lines reach `main` (P4 after answering the P2 to P4 entry above). P1 and P3 record a Slice B confirmation once P3's fixtures are reviewed. P3 and P4 record git identity and push access in their `progress/pN.md` if not already there.
+- Reply: Pending.
+

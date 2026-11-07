@@ -18,7 +18,7 @@ This file holds the shared status and the phase gate tracker, and P2 maintains i
 - Current phase: Phase 1 pending; implementation NOT STARTED. No phase gate has passed.
 - Repository baseline: `AGENTS.md`, `.gitignore`, and four planning/handoff documents; `reference/` ignored. No initial commit existed when this baseline was inspected.
 - Available application commands: None yet. Commands in the implementation plan are targets.
-- Contract version: Proposed v1 in two slices (Slice A due at G1, Slice B by G2); both are on `main` but NOT frozen. Reviewers P1, P3, P4 must record their result; see the Contract Review Checkpoint below.
+- Contract version: v1 Slice A is FROZEN at commit `7013add` (recorded 2026-11-07T11:34Z): additive-only changes from here, through P2 and `contracts/openapi.json` diff review. Slice B (dataset, incident, outcome shapes) is on `main` and confirmed by P4 but NOT frozen: P3's fixture drafts and P1's and P3's Slice B confirmations are still pending; due by G2.
 - Latest integrated commit / PR: PR #1 (P1 frontend shell and investigation view; includes P3's scenario drafts) merged as `487e0c0`; P2 backend and contracts up to `2dde205`.
 - Verified features: None; no application code exists.
 - Verification: Documentation reviewed; application build, tests, and live Hindsight checks NOT RUN.
@@ -34,7 +34,7 @@ Exit checklists live in `implementation_plan.md`; this table records their verif
 
 | Gate | Phase / target finish | Status | Reviewed commit | Evidence / reviewers / UTC time |
 | --- | --- | --- | --- | --- |
-| G1 | Foundation and contract freeze / 0:45 | IN PROGRESS | None | 2026-11-07T11:10Z: P2 `scripts/check.sh` passes on `main` with the frontend merged (backend lint and 53 tests (including P3's fixture tests), contract drift check, frontend lint, test, build, generated-types drift). Backend `/api/health` verified. Open: P1 recheck and P4 confirmation (Slice A freeze), P4 live Hindsight retain/recall proof, all four git identities and push access confirmed. |
+| G1 | Foundation and contract freeze / 0:45 | IN PROGRESS | None | 2026-11-07T11:10Z: P2 `scripts/check.sh` passes on `main` with the frontend merged (backend lint and 53 tests (including P3's fixture tests), contract drift check, frontend lint, test, build, generated-types drift). Backend `/api/health` verified. 2026-11-07T11:34Z: Slice A FROZEN at `7013add`. Open: P4's live Hindsight retain/recall proof (reported in `progress/p4.md` on the unmerged `feat/p4-memory`; not yet on `main` or independently checked), all four git identities and push access confirmed (P1's is recorded), and merging the P1 and P4 branches. |
 | G2 | Independently working modules / 2:00 | NOT STARTED | None | None |
 | G3 | First integrated investigation / 3:30 | NOT STARTED | None | None |
 | G4 | Persistent learning loop / 5:00 | NOT STARTED | None | None |
@@ -72,13 +72,13 @@ Slice A (and Slice B) are on `main` but **not frozen**. If you are P1, P3, or P4
 
 | Reviewer | Slice A | Slice B | Reviewed commit | Recorded in / notes |
 | --- | --- | --- | --- | --- |
-| P1 | CHANGES REQUESTED (fixed, awaiting P1 recheck) | PENDING | `2dde205` | `progress/p1.md`. P1 found that `investigation-response.json` cited `DEAL-0188`, `DEAL-0191` and `CANCEL-0071` without matching `analysis.evidence` entries. P2 added the records, and a new test (`test_example_evidence_is_self_consistent`) now enforces it. |
-| P3 | CONFIRMED | PENDING (fixture drafts under review) | `2dde205` | `progress/p3.md`. P3 also noted that the example marked `cancel_30d` as `watch` for a 0.07 gap; the rule gives `no_signal`. P2 fixed it, and `test_example_metric_statuses_follow_the_decision_rule` now enforces it. P3's drafts (`risk`, `outage`, `sparse` at `c992776`) all pass the P2 loader. |
-| P4 | Reported approved to the lead; NOT recorded | PENDING | None | P4 must add the `Contract review: Slice A CONFIRMED` line (with reviewed commit) to `progress/p4.md`; a verbal approval does not count until it is recorded. |
+| P1 | CONFIRMED | PENDING | `3dad33d` | `progress/p1.md` on branch `feat/p1-contract-recheck` (`4673eab`, UTC 2026-11-07T11:28Z), not yet merged to `main`. P1's earlier request (missing evidence records) was fixed in `7013add` and is now enforced by tests. |
+| P3 | CONFIRMED | PENDING (fixture drafts under review) | `2dde205` | `progress/p3.md` on `main`. P3's two example corrections (missing evidence records, `cancel_30d` status) were fixed in `7013add` and are enforced by tests. P3's drafts (`risk`, `outage`, `sparse` at `c992776`) all pass the P2 loader. |
+| P4 | CONFIRMED | CONFIRMED (shapes; before P3's fixtures) | `7013add` | `progress/p4.md` on branch `feat/p4-memory` (`831e6d9`, UTC 2026-11-07T11:20Z), not yet merged to `main`. |
 
-**Slice A is NOT frozen yet.** Open items: P1 rechecks the corrected example (`git pull` on `main`, then update the line in `progress/p1.md`), and P4 records their confirmation in `progress/p4.md`. When both are done, P2 records the frozen commit here.
+**Slice A is FROZEN at `7013add`** (recorded 2026-11-07T11:34Z UTC). Basis: P1, P3 and P4 each recorded `Contract review: Slice A CONFIRMED`; `backend/app/core/schemas.py`, `contracts/openapi.json` and `contracts/schemas/` are unchanged since `2dde205` (checked with `git diff`), so the three reviews cover the same contract. The P1 and P4 lines are recorded on their unmerged branches (`feat/p1-contract-recheck`, `feat/p4-memory`); the confirmations stand, but they reach `main` only when those branches merge. Changes to Slice A are now additive-only: edit `core/schemas.py`, regenerate, and tell every consumer in `conversation.md`. Module signatures (`seed_history` and `retain_outcome` gained a required `scenario` argument at `571f089`) are documented in `contracts/v1.md` and tracked in `conversation.md`.
 
-Slice A is due before the G1 check-in; Slice B before G2. A slice is recorded as frozen only when every reviewer has a CONFIRMED line. If someone has not replied by the check-in, ask them directly; do not treat silence as confirmation, and record the slice as `UNCONFIRMED` rather than frozen.
+Slice B is due before G2. A slice is recorded as frozen only when every reviewer has a CONFIRMED line; silence is not confirmation.
 
 ## Per-Person Handoffs
 
