@@ -325,6 +325,15 @@ def test_undated_result_dropped_by_adapter(tmp_path: Path) -> None:
     parsed = adapter._parse_cloud_result(future_item, as_of)
     assert parsed is None
 
+    # Untraceable internal Cloud observation with bare UUID is dropped
+    uuid_item = {
+        "id": "845c3be4-e36b-4e4b-972f-5ea86ba6d3e6",
+        "text": "Internal Cloud synthesized observation",
+        "timestamp": "2026-01-15T00:00:00Z",
+    }
+    parsed = adapter._parse_cloud_result(uuid_item, as_of)
+    assert parsed is None
+
 
 def test_cross_restart_persistence(tmp_path: Path) -> None:
     store = tmp_path / "banks.json"
