@@ -363,3 +363,31 @@ def test_reset_demo_bank(tmp_path: Path) -> None:
     # Resetting a demo bank succeeds
     reset_res = service.reset_demo_bank("tiny")
     assert reset_res.ok is True
+
+
+def test_recalled_empty_when_memory_status_unavailable(tmp_path: Path) -> None:
+    """When memory is unavailable (no key and no simulation), recalled list is strictly empty."""
+    store = tmp_path / "banks.json"
+    os.environ.pop("HINDSIGHT_SIMULATE", None)
+    adapter = HindsightAdapter(api_key="", store_path=store)
+    service.set_adapter(adapter)
+    as_of = datetime(2026, 3, 1, 0, 0, 0, tzinfo=UTC)
+    analysis = _sample_analysis(as_of)
+    ctx = ExplainContext(
+        run_id="run-unavail",
+        scenario="tiny",
+        policy_id="pol-acq-bonus",
+        as_of=as_of,
+        memory_mode=MemoryMode.LIVE,
+        incident_id="inc-1",
+    )
+    exp = service.explain(analysis, ctx)
+    assert exp.memory_status == MemoryStatus.UNAVAILABLE
+    assert exp.recalled == []
+
+
+def test_store_path_resolves_to_repo_root() -> None:
+    from app.memory.hindsight_adapter import LOCAL_STORE_PATH, REPO_ROOT
+
+    assert LOCAL_STORE_PATH.is_absolute()
+    assert str(LOCAL_STORE_PATH) == str(REPO_ROOT / ".local" / "hindsight_banks.json")

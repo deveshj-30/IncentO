@@ -28,7 +28,8 @@ log = logging.getLogger(__name__)
 DEFAULT_BASE_URL = "https://api.hindsight.vectorize.io"
 DEMO_BANK_PREFIX = "incento-demo-"
 ALLOWED_PREFIXES = (DEMO_BANK_PREFIX, "incento-")
-LOCAL_STORE_PATH = Path(".local/hindsight_banks.json")
+REPO_ROOT = Path(__file__).resolve().parents[3]
+LOCAL_STORE_PATH = REPO_ROOT / ".local" / "hindsight_banks.json"
 
 
 @dataclass
@@ -51,8 +52,12 @@ class HindsightAdapter:
         timeout_seconds: float = 15.0,
         store_path: Path | None = None,
     ) -> None:
-        self.base_url = (base_url or os.environ.get("HINDSIGHT_BASE_URL") or DEFAULT_BASE_URL).rstrip("/")
-        self.api_key = api_key or os.environ.get("HINDSIGHT_API_KEY") or ""
+        self.base_url = (
+            base_url if base_url is not None else (os.environ.get("HINDSIGHT_BASE_URL") or DEFAULT_BASE_URL)
+        ).rstrip("/")
+        self.api_key = (
+            api_key if api_key is not None else (os.environ.get("HINDSIGHT_API_KEY") or "")
+        )
         self.timeout = timeout_seconds
         self.store_path = store_path or LOCAL_STORE_PATH
         self._local_banks: dict[str, dict[str, StoredMemory]] = {}
@@ -98,7 +103,9 @@ class HindsightAdapter:
 
     @property
     def is_live(self) -> bool:
-        """True if an external Hindsight API key is configured."""
+        """True if an external Hindsight API key is configured and simulation is not forced."""
+        if self.simulation_enabled:
+            return False
         return bool(self.api_key and self.api_key.strip())
 
     @property
@@ -325,15 +332,21 @@ class HindsightAdapter:
         )
 
     def recall(
-        self, bank_name: str, query: str, as_of: datetime, limit: int = 5
+        self, bank_name: str, query: str, as_of: datetime | str, limit: int = 5
     ) -> list[RecalledMemory]:
         """Recall relevant memories, strictly enforcing event_time <= as_of."""
         self._validate_bank_name(bank_name)
+        if isinstance(as_of, str):
+            as_of_dt = datetime.fromisoformat(as_of)
+            if as_of_dt.tzinfo is None:
+                as_of_dt = as_of_dt.replace(tzinfo=UTC)
+        else:
+            as_of_dt = as_of
 
         if self.is_live:
             try:
                 headers = {"Authorization": f"Bearer {self.api_key}"}
-                payload = {"query": query, "query_timestamp": as_of.isoformat()}
+                payload = {"query": query, "query_timestamp": as_of_dt.isoformat()}
                 with httpx.Client(timeout=self.timeout) as client:
                     resp = client.post(
                         f"{self.base_url}/v1/default/banks/{bank_name}/memories/recall",
@@ -344,7 +357,7 @@ class HindsightAdapter:
                         data = resp.json().get("results", [])
                         cloud_recalled: list[RecalledMemory] = []
                         for item in data:
-                            parsed = self._parse_cloud_result(item, as_of)
+                            parsed = self._parse_cloud_result(item, as_of_dt)
                             if parsed:
                                 cloud_recalled.append(parsed)
                         if cloud_recalled:
@@ -360,7 +373,7 @@ class HindsightAdapter:
                 dt = datetime.fromisoformat(m.event_time)
                 if dt.tzinfo is None:
                     dt = dt.replace(tzinfo=UTC)
-                if dt <= as_of:
+                if dt <= as_of_dt:
                     type_map = {
                         "fact": RecalledMemoryType.FACT,
                         "hypothesis": RecalledMemoryType.HYPOTHESIS,
@@ -388,12 +401,19 @@ class HindsightAdapter:
         bank_name: str,
         query: str,
         response_schema: dict[str, Any],
-        as_of: datetime,
+        as_of: datetime | str,
     ) -> tuple[dict[str, Any] | None, list[RecalledMemory]]:
         """Call Hindsight Cloud Reflect with response_schema."""
         self._validate_bank_name(bank_name)
         if not self.is_live:
             return None, []
+
+        if isinstance(as_of, str):
+            as_of_dt = datetime.fromisoformat(as_of)
+            if as_of_dt.tzinfo is None:
+                as_of_dt = as_of_dt.replace(tzinfo=UTC)
+        else:
+            as_of_dt = as_of
 
         try:
             headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
@@ -417,7 +437,7 @@ class HindsightAdapter:
                         recalled = []
                         based_on = body.get("based_on", {})
                         for mem in based_on.get("memories", []):
-                            parsed = self._parse_cloud_result(mem, as_of)
+                            parsed = self._parse_cloud_result(mem, as_of_dt)
                             if parsed:
                                 recalled.append(parsed)
                         return st_out, recalled

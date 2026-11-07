@@ -81,10 +81,13 @@ def build_template_explanation(
             recs = [
                 Recommendation(
                     action_type=ActionType.PILOT_GUARDRAIL,
-                    action="Pilot a discount approval step on month-end deals for one quarter.",
+                    action=(
+                        "Pilot a discount approval step on month-end deals for one quarter "
+                        "rather than abrupt bonus cancellation."
+                    ),
                     rationale=(
                         "Discount and early complaint gaps are flagged; past incident history indicates "
-                        "abrupt policy cancellation causes seller churn."
+                        "abrupt policy cancellation causes seller churn and pipeline disruption."
                     ),
                     evidence_ids=top_evidence,
                     success_metric="Month-end complaint gap under 10 points within two quarters",
@@ -95,8 +98,8 @@ def build_template_explanation(
         else:
             recs = [
                 Recommendation(
-                    action_type=ActionType.PILOT_GUARDRAIL,
-                    action="Pilot a discount approval step on month-end deals for one quarter.",
+                    action_type=ActionType.REVERT_CHANGE,
+                    action="Revert or suspend the month-end acquisition bonus policy.",
                     rationale="Discount and early complaint gaps are flagged above threshold.",
                     evidence_ids=top_evidence,
                     success_metric="Month-end complaint gap under 10 points within two quarters",

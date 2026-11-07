@@ -58,12 +58,11 @@ REFLECT_RESPONSE_SCHEMA: dict[str, Any] = {
                     "action_type": {
                         "type": "string",
                         "enum": [
-                            "retrain_reps",
-                            "commission_clawback",
-                            "adjust_quota",
-                            "adjust_approval",
-                            "modify_terms",
-                            "monitor",
+                            "adjust_policy",
+                            "pilot_guardrail",
+                            "revert_change",
+                            "collect_more_data",
+                            "no_action",
                         ],
                     },
                     "action": {"type": "string"},
@@ -142,9 +141,9 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
         parsed_recs = []
         for r in structured_out.get("recommendations", []):
             try:
-                action_type = ActionType(r.get("action_type", "monitor"))
+                action_type = ActionType(r.get("action_type", "pilot_guardrail"))
             except ValueError:
-                action_type = ActionType.MONITOR
+                action_type = ActionType.PILOT_GUARDRAIL
             parsed_recs.append(
                 Recommendation(
                     action_type=action_type,
@@ -191,6 +190,7 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
         memory_status = MemoryStatus.FIXTURE
     else:
         memory_status = MemoryStatus.UNAVAILABLE
+        recalled_memories = []
 
     return Explanation(
         summary=resolve_tokens(summary_tmpl, token_dict),

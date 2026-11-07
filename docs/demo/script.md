@@ -9,19 +9,19 @@
 
 ## Act 1: The Cold Investigation (0:15 - 0:30)
 1. Navigate to **Overview**.
-2. Select Policy: `Acquisition Bonus v1` on the `incentive-risk` scenario.
+2. Select Policy: `POL-RISK-001` on the `risk` scenario.
 3. Click **"Investigate with Memory: OFF"**.
 4. Show the result:
-   * Point to the metrics: *"Discount gap is flagged at +13%, and 30-day customer complaints are flagged at +12%."*
-   * Point to the recommendation: *"Without memory, the agent offers a generic template recommendation with zero context."*
+   * Point to the metrics: *"Discount gap is flagged at +14.6%, and 30-day customer complaints are flagged at +12.3%."*
+   * Point to the recommendation: *"Without memory, the recommendation is a blunt `revert_change` policy suspension."*
 
 ---
 
 ## Act 2: Turning on Hindsight Memory (0:30 - 0:45)
 1. Switch to **"Investigate with Memory: LIVE"**.
 2. Point to the **Recalled Memories** panel:
-   * *"Notice what just happened. Hindsight recalled a past incident from Q3 2025 where the company abruptly cancelled the bonus, causing 40% sales rep attrition."*
-   * Point to the new recommendation: *"Instead of an abrupt cancellation, Hindsight recommends a **staged discount approval pilot** with a clear guardrail, directly citing the past lessons."*
+   * *"Notice what just happened. Hindsight recalled a past incident (`HIST-RISK-RESULT`) where abruptly suspending the acquisition bonus caused seller departures and pipeline disruption without fixing onboarding."*
+   * Point to the shifted recommendation: *"Instead of an abrupt cancellation, Hindsight shifts advice to `pilot_guardrail` (discount approval threshold pilot) with clear guardrails, citing past seller attrition."*
 
 ---
 
