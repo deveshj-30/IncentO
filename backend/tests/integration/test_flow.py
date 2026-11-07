@@ -202,12 +202,9 @@ def test_stub_modules_are_honest(fixtures_dir):
     from app.main import create_app
 
     c = TestClient(create_app(Settings(database_path=":memory:", fixtures_dir=str(fixtures_dir))))
-    assert "analyze" in c.get("/api/health").json()["stubbed_modules"]
-    c.post("/api/demo/load", json={"scenario": "tiny"})
-    inv = c.post("/api/investigations", json=BODY).json()
-    assert inv["incident_id"] is None  # stub analysis is insufficient_data
-    assert inv["explanation"]["explanation_source"] == "template"
-    assert inv["explanation"]["memory_status"] == "unavailable"
+    health = c.get("/api/health").json()
+    # analyze is now a real module (P3), so stubbed_modules should be empty
+    assert "analyze" not in health["stubbed_modules"]
 
 
 def test_scenario_is_passed_to_seed_and_retain(make_client, memory, fixtures_dir):
