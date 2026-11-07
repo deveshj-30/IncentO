@@ -18,12 +18,12 @@ Two recordings are made with `docs/demo/record_demo.mjs` (captions only, no audi
 | 0:50–1:15 | **Investigation**, evidence trail, then explanation | "Every claim cites a source record. Customer text is labeled untrusted and shown as plain text. The wording says associated, not caused. With seeded history the advice is a guardrail pilot, citing the remembered result HIST-RISK-RESULT." |
 | 1:15–1:35 | **Compare memory**, click **Run with memory off** | "Step two: the same evidence with memory off. The calculated numbers match. Without memory the advice is to revert the policy. With memory it is to pilot a guardrail. The rejected hypothesis is recalled but never cited." |
 | 1:35–1:50 | **Incident timeline**, type **Decision**, note, **Save outcome** | "Step three: record what management decided. It is saved and retained in Hindsight, with a retry button if retention ever fails." |
-| 1:50–2:10 | Overview, As of `2026-11-08`, Memory Live, **Load and investigate**, then **Compare memory** | "Now investigate again at a later date. The decision we just saved, dated today, appears in the recalled history from Hindsight. The loop is closed." |
+| 1:50–2:10 | Overview, set **As of** to the UTC day after the saved decision, Memory Live, **Load and investigate**, then **Compare memory** | "Now investigate again at a later date. The decision we just saved appears in the recalled history from Hindsight. The loop is closed." |
 | 2:10–2:15 | Title card or last frame | "IncentO: calculated evidence, remembered outcomes, no causal claims. Powered by Hindsight." |
 
 ## Notes for the presenter
 
-- **As-of date:** the outcome form stamps the decision with the current time, so the later investigation must use an `As of` date after today. A live run dated before a saved outcome is rejected with `as_of_before_memory`; that is intended.
+- **As-of date:** the outcome form stamps the decision with the current UTC time. Set the later investigation's `As of` date to the next UTC day; the recorder does this automatically. A live run dated before a saved outcome is rejected with `as_of_before_memory`; that is intended.
 - **Indexing delay:** after **Save outcome** wait about 15 seconds before the later investigation. Cloud indexes a new record shortly after it is retained; the earlier run may show nothing new.
 - **Explanation source:** the screen says `Explanation: template` on purpose. Reflect's own text is rejected by the no-causation rule, so the labeled template is shown with real recalled history. Say so if asked.
 - **What changes with memory:** the recommended action (`revert_change` to `pilot_guardrail`) and the cited record. The numbers never change.
