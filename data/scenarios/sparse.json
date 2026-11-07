@@ -1,0 +1,6032 @@
+{
+  "meta": {
+    "scenario": "sparse",
+    "synthetic": true,
+    "generator_version": "1",
+    "text_version": "structure-placeholder-1"
+  },
+  "policies": [
+    {
+      "policy_id": "POL-SPARSE-001",
+      "version": "v1",
+      "name": "Sparse acquisition incentive",
+      "effective_at": "2026-04-01T00:00:00Z",
+      "segment": "mid-market",
+      "channel": "direct",
+      "description": "Synthetic acquisition incentive for comparison exercises."
+    }
+  ],
+  "customers": [
+    {
+      "customer_id": "CUST-SPARSE-0001",
+      "display_name": "Aster Ledger 0001",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0002",
+      "display_name": "Blue Mango Systems 0002",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0003",
+      "display_name": "Cedar Harbor 0003",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0004",
+      "display_name": "Dawnfield Labs 0004",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0005",
+      "display_name": "Eastbank Works 0005",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0006",
+      "display_name": "Fable Commerce 0006",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0007",
+      "display_name": "Grove Atlas 0007",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0008",
+      "display_name": "Harborline Studio 0008",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0009",
+      "display_name": "Indigo Circuit 0009",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0010",
+      "display_name": "Juniper Thread 0010",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0011",
+      "display_name": "Kitebridge Tools 0011",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0012",
+      "display_name": "Lotus Vale 0012",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0013",
+      "display_name": "Aster Ledger 0013",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0014",
+      "display_name": "Blue Mango Systems 0014",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0015",
+      "display_name": "Cedar Harbor 0015",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0016",
+      "display_name": "Dawnfield Labs 0016",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0017",
+      "display_name": "Eastbank Works 0017",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0018",
+      "display_name": "Fable Commerce 0018",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0019",
+      "display_name": "Grove Atlas 0019",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0020",
+      "display_name": "Harborline Studio 0020",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0021",
+      "display_name": "Indigo Circuit 0021",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0022",
+      "display_name": "Juniper Thread 0022",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0023",
+      "display_name": "Kitebridge Tools 0023",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0024",
+      "display_name": "Lotus Vale 0024",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0025",
+      "display_name": "Aster Ledger 0025",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0026",
+      "display_name": "Blue Mango Systems 0026",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0027",
+      "display_name": "Cedar Harbor 0027",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0028",
+      "display_name": "Dawnfield Labs 0028",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0029",
+      "display_name": "Eastbank Works 0029",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0030",
+      "display_name": "Fable Commerce 0030",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0031",
+      "display_name": "Grove Atlas 0031",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0032",
+      "display_name": "Harborline Studio 0032",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0033",
+      "display_name": "Indigo Circuit 0033",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0034",
+      "display_name": "Juniper Thread 0034",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0035",
+      "display_name": "Kitebridge Tools 0035",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0036",
+      "display_name": "Lotus Vale 0036",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0037",
+      "display_name": "Aster Ledger 0037",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0038",
+      "display_name": "Blue Mango Systems 0038",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0039",
+      "display_name": "Cedar Harbor 0039",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0040",
+      "display_name": "Dawnfield Labs 0040",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0041",
+      "display_name": "Eastbank Works 0041",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0042",
+      "display_name": "Fable Commerce 0042",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0043",
+      "display_name": "Grove Atlas 0043",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0044",
+      "display_name": "Harborline Studio 0044",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0045",
+      "display_name": "Indigo Circuit 0045",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0046",
+      "display_name": "Juniper Thread 0046",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0047",
+      "display_name": "Kitebridge Tools 0047",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0048",
+      "display_name": "Lotus Vale 0048",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0049",
+      "display_name": "Aster Ledger 0049",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0050",
+      "display_name": "Blue Mango Systems 0050",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0051",
+      "display_name": "Cedar Harbor 0051",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0052",
+      "display_name": "Dawnfield Labs 0052",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0053",
+      "display_name": "Eastbank Works 0053",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0054",
+      "display_name": "Fable Commerce 0054",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0055",
+      "display_name": "Grove Atlas 0055",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0056",
+      "display_name": "Harborline Studio 0056",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0057",
+      "display_name": "Indigo Circuit 0057",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0058",
+      "display_name": "Juniper Thread 0058",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0059",
+      "display_name": "Kitebridge Tools 0059",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0060",
+      "display_name": "Lotus Vale 0060",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0061",
+      "display_name": "Aster Ledger 0061",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0062",
+      "display_name": "Blue Mango Systems 0062",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0063",
+      "display_name": "Cedar Harbor 0063",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0064",
+      "display_name": "Dawnfield Labs 0064",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0065",
+      "display_name": "Eastbank Works 0065",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0066",
+      "display_name": "Fable Commerce 0066",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0067",
+      "display_name": "Grove Atlas 0067",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0068",
+      "display_name": "Harborline Studio 0068",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0069",
+      "display_name": "Indigo Circuit 0069",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0070",
+      "display_name": "Juniper Thread 0070",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0071",
+      "display_name": "Kitebridge Tools 0071",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0072",
+      "display_name": "Lotus Vale 0072",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0073",
+      "display_name": "Aster Ledger 0073",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0074",
+      "display_name": "Blue Mango Systems 0074",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0075",
+      "display_name": "Cedar Harbor 0075",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0076",
+      "display_name": "Dawnfield Labs 0076",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0077",
+      "display_name": "Eastbank Works 0077",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0078",
+      "display_name": "Fable Commerce 0078",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0079",
+      "display_name": "Grove Atlas 0079",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0080",
+      "display_name": "Harborline Studio 0080",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0081",
+      "display_name": "Indigo Circuit 0081",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0082",
+      "display_name": "Juniper Thread 0082",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0083",
+      "display_name": "Kitebridge Tools 0083",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0084",
+      "display_name": "Lotus Vale 0084",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0085",
+      "display_name": "Aster Ledger 0085",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0086",
+      "display_name": "Blue Mango Systems 0086",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0087",
+      "display_name": "Cedar Harbor 0087",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0088",
+      "display_name": "Dawnfield Labs 0088",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0089",
+      "display_name": "Eastbank Works 0089",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0090",
+      "display_name": "Fable Commerce 0090",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0091",
+      "display_name": "Grove Atlas 0091",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0092",
+      "display_name": "Harborline Studio 0092",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0093",
+      "display_name": "Indigo Circuit 0093",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0094",
+      "display_name": "Juniper Thread 0094",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0095",
+      "display_name": "Kitebridge Tools 0095",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0096",
+      "display_name": "Lotus Vale 0096",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0097",
+      "display_name": "Aster Ledger 0097",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0098",
+      "display_name": "Blue Mango Systems 0098",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0099",
+      "display_name": "Cedar Harbor 0099",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0100",
+      "display_name": "Dawnfield Labs 0100",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0101",
+      "display_name": "Eastbank Works 0101",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0102",
+      "display_name": "Fable Commerce 0102",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0103",
+      "display_name": "Grove Atlas 0103",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0104",
+      "display_name": "Harborline Studio 0104",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0105",
+      "display_name": "Indigo Circuit 0105",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0106",
+      "display_name": "Juniper Thread 0106",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0107",
+      "display_name": "Kitebridge Tools 0107",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0108",
+      "display_name": "Lotus Vale 0108",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0109",
+      "display_name": "Aster Ledger 0109",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0110",
+      "display_name": "Blue Mango Systems 0110",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0111",
+      "display_name": "Cedar Harbor 0111",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0112",
+      "display_name": "Dawnfield Labs 0112",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0113",
+      "display_name": "Eastbank Works 0113",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0114",
+      "display_name": "Fable Commerce 0114",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0115",
+      "display_name": "Grove Atlas 0115",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0116",
+      "display_name": "Harborline Studio 0116",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0117",
+      "display_name": "Indigo Circuit 0117",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0118",
+      "display_name": "Juniper Thread 0118",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0119",
+      "display_name": "Kitebridge Tools 0119",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0120",
+      "display_name": "Lotus Vale 0120",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0121",
+      "display_name": "Aster Ledger 0121",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0122",
+      "display_name": "Blue Mango Systems 0122",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0123",
+      "display_name": "Cedar Harbor 0123",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0124",
+      "display_name": "Dawnfield Labs 0124",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0125",
+      "display_name": "Eastbank Works 0125",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0126",
+      "display_name": "Fable Commerce 0126",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0127",
+      "display_name": "Grove Atlas 0127",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0128",
+      "display_name": "Harborline Studio 0128",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0129",
+      "display_name": "Indigo Circuit 0129",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0130",
+      "display_name": "Juniper Thread 0130",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0131",
+      "display_name": "Kitebridge Tools 0131",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0132",
+      "display_name": "Lotus Vale 0132",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0133",
+      "display_name": "Aster Ledger 0133",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0134",
+      "display_name": "Blue Mango Systems 0134",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0135",
+      "display_name": "Cedar Harbor 0135",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0136",
+      "display_name": "Dawnfield Labs 0136",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0137",
+      "display_name": "Eastbank Works 0137",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0138",
+      "display_name": "Fable Commerce 0138",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0139",
+      "display_name": "Grove Atlas 0139",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0140",
+      "display_name": "Harborline Studio 0140",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0141",
+      "display_name": "Indigo Circuit 0141",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0142",
+      "display_name": "Juniper Thread 0142",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0143",
+      "display_name": "Kitebridge Tools 0143",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0144",
+      "display_name": "Lotus Vale 0144",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0145",
+      "display_name": "Aster Ledger 0145",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0146",
+      "display_name": "Blue Mango Systems 0146",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0147",
+      "display_name": "Cedar Harbor 0147",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0148",
+      "display_name": "Dawnfield Labs 0148",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0149",
+      "display_name": "Eastbank Works 0149",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0150",
+      "display_name": "Fable Commerce 0150",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0151",
+      "display_name": "Grove Atlas 0151",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0152",
+      "display_name": "Harborline Studio 0152",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0153",
+      "display_name": "Indigo Circuit 0153",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0154",
+      "display_name": "Juniper Thread 0154",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0155",
+      "display_name": "Kitebridge Tools 0155",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0156",
+      "display_name": "Lotus Vale 0156",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0157",
+      "display_name": "Aster Ledger 0157",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0158",
+      "display_name": "Blue Mango Systems 0158",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0159",
+      "display_name": "Cedar Harbor 0159",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0160",
+      "display_name": "Dawnfield Labs 0160",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0161",
+      "display_name": "Eastbank Works 0161",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0162",
+      "display_name": "Fable Commerce 0162",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0163",
+      "display_name": "Grove Atlas 0163",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0164",
+      "display_name": "Harborline Studio 0164",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0165",
+      "display_name": "Indigo Circuit 0165",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0166",
+      "display_name": "Juniper Thread 0166",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0167",
+      "display_name": "Kitebridge Tools 0167",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0168",
+      "display_name": "Lotus Vale 0168",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0169",
+      "display_name": "Aster Ledger 0169",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0170",
+      "display_name": "Blue Mango Systems 0170",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0171",
+      "display_name": "Cedar Harbor 0171",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0172",
+      "display_name": "Dawnfield Labs 0172",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0173",
+      "display_name": "Eastbank Works 0173",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0174",
+      "display_name": "Fable Commerce 0174",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0175",
+      "display_name": "Grove Atlas 0175",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0176",
+      "display_name": "Harborline Studio 0176",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0177",
+      "display_name": "Indigo Circuit 0177",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0178",
+      "display_name": "Juniper Thread 0178",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0179",
+      "display_name": "Kitebridge Tools 0179",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0180",
+      "display_name": "Lotus Vale 0180",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0181",
+      "display_name": "Aster Ledger 0181",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0182",
+      "display_name": "Blue Mango Systems 0182",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0183",
+      "display_name": "Cedar Harbor 0183",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0184",
+      "display_name": "Dawnfield Labs 0184",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0185",
+      "display_name": "Eastbank Works 0185",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0186",
+      "display_name": "Fable Commerce 0186",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0187",
+      "display_name": "Grove Atlas 0187",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0188",
+      "display_name": "Harborline Studio 0188",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0189",
+      "display_name": "Indigo Circuit 0189",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0190",
+      "display_name": "Juniper Thread 0190",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0191",
+      "display_name": "Kitebridge Tools 0191",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0192",
+      "display_name": "Lotus Vale 0192",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0193",
+      "display_name": "Aster Ledger 0193",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0194",
+      "display_name": "Blue Mango Systems 0194",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0195",
+      "display_name": "Cedar Harbor 0195",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0196",
+      "display_name": "Dawnfield Labs 0196",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0197",
+      "display_name": "Eastbank Works 0197",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0198",
+      "display_name": "Fable Commerce 0198",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0199",
+      "display_name": "Grove Atlas 0199",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0200",
+      "display_name": "Harborline Studio 0200",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0201",
+      "display_name": "Indigo Circuit 0201",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0202",
+      "display_name": "Juniper Thread 0202",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0203",
+      "display_name": "Kitebridge Tools 0203",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0204",
+      "display_name": "Lotus Vale 0204",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0205",
+      "display_name": "Aster Ledger 0205",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0206",
+      "display_name": "Blue Mango Systems 0206",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0207",
+      "display_name": "Cedar Harbor 0207",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0208",
+      "display_name": "Dawnfield Labs 0208",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0209",
+      "display_name": "Eastbank Works 0209",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0210",
+      "display_name": "Fable Commerce 0210",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0211",
+      "display_name": "Grove Atlas 0211",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0212",
+      "display_name": "Harborline Studio 0212",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0213",
+      "display_name": "Indigo Circuit 0213",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0214",
+      "display_name": "Juniper Thread 0214",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0215",
+      "display_name": "Kitebridge Tools 0215",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0216",
+      "display_name": "Lotus Vale 0216",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0217",
+      "display_name": "Aster Ledger 0217",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0218",
+      "display_name": "Blue Mango Systems 0218",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0219",
+      "display_name": "Cedar Harbor 0219",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0220",
+      "display_name": "Dawnfield Labs 0220",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0221",
+      "display_name": "Eastbank Works 0221",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0222",
+      "display_name": "Fable Commerce 0222",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0223",
+      "display_name": "Grove Atlas 0223",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0224",
+      "display_name": "Harborline Studio 0224",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0225",
+      "display_name": "Indigo Circuit 0225",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0226",
+      "display_name": "Juniper Thread 0226",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0227",
+      "display_name": "Kitebridge Tools 0227",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0228",
+      "display_name": "Lotus Vale 0228",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0229",
+      "display_name": "Aster Ledger 0229",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0230",
+      "display_name": "Blue Mango Systems 0230",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0231",
+      "display_name": "Cedar Harbor 0231",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0232",
+      "display_name": "Dawnfield Labs 0232",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0233",
+      "display_name": "Eastbank Works 0233",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0234",
+      "display_name": "Fable Commerce 0234",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0235",
+      "display_name": "Grove Atlas 0235",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0236",
+      "display_name": "Harborline Studio 0236",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0237",
+      "display_name": "Indigo Circuit 0237",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0238",
+      "display_name": "Juniper Thread 0238",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0239",
+      "display_name": "Kitebridge Tools 0239",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0240",
+      "display_name": "Lotus Vale 0240",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0241",
+      "display_name": "Aster Ledger 0241",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0242",
+      "display_name": "Blue Mango Systems 0242",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0243",
+      "display_name": "Cedar Harbor 0243",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0244",
+      "display_name": "Dawnfield Labs 0244",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0245",
+      "display_name": "Eastbank Works 0245",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0246",
+      "display_name": "Fable Commerce 0246",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0247",
+      "display_name": "Grove Atlas 0247",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0248",
+      "display_name": "Harborline Studio 0248",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0249",
+      "display_name": "Indigo Circuit 0249",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0250",
+      "display_name": "Juniper Thread 0250",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0251",
+      "display_name": "Kitebridge Tools 0251",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0252",
+      "display_name": "Lotus Vale 0252",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0253",
+      "display_name": "Aster Ledger 0253",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0254",
+      "display_name": "Blue Mango Systems 0254",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0255",
+      "display_name": "Cedar Harbor 0255",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0256",
+      "display_name": "Dawnfield Labs 0256",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0257",
+      "display_name": "Eastbank Works 0257",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0258",
+      "display_name": "Fable Commerce 0258",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0259",
+      "display_name": "Grove Atlas 0259",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0260",
+      "display_name": "Harborline Studio 0260",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0261",
+      "display_name": "Indigo Circuit 0261",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0262",
+      "display_name": "Juniper Thread 0262",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0263",
+      "display_name": "Kitebridge Tools 0263",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0264",
+      "display_name": "Lotus Vale 0264",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0265",
+      "display_name": "Aster Ledger 0265",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0266",
+      "display_name": "Blue Mango Systems 0266",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0267",
+      "display_name": "Cedar Harbor 0267",
+      "industry": "retail",
+      "region": "Singapore"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0268",
+      "display_name": "Dawnfield Labs 0268",
+      "industry": "professional services",
+      "region": "London"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0269",
+      "display_name": "Eastbank Works 0269",
+      "industry": "software",
+      "region": "Bengaluru"
+    },
+    {
+      "customer_id": "CUST-SPARSE-0270",
+      "display_name": "Fable Commerce 0270",
+      "industry": "logistics",
+      "region": "Hyderabad"
+    }
+  ],
+  "deals": [
+    {
+      "deal_id": "DEAL-SPARSE-0001",
+      "customer_id": "CUST-SPARSE-0001",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-27T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1450000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0002",
+      "customer_id": "CUST-SPARSE-0002",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-28T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1040000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0003",
+      "customer_id": "CUST-SPARSE-0003",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-29T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1730000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0004",
+      "customer_id": "CUST-SPARSE-0004",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-30T12:00:00Z",
+      "revenue": {
+        "amount_minor": 740000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0005",
+      "customer_id": "CUST-SPARSE-0005",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-24T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1800000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0006",
+      "customer_id": "CUST-SPARSE-0006",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-25T12:00:00Z",
+      "revenue": {
+        "amount_minor": 630000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0007",
+      "customer_id": "CUST-SPARSE-0007",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-26T12:00:00Z",
+      "revenue": {
+        "amount_minor": 770000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0008",
+      "customer_id": "CUST-SPARSE-0008",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-27T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1450000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0009",
+      "customer_id": "CUST-SPARSE-0009",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-31T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1480000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0010",
+      "customer_id": "CUST-SPARSE-0010",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-27T12:00:00Z",
+      "revenue": {
+        "amount_minor": 520000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0011",
+      "customer_id": "CUST-SPARSE-0011",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-30T12:00:00Z",
+      "revenue": {
+        "amount_minor": 790000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0012",
+      "customer_id": "CUST-SPARSE-0012",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-31T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1170000,
+        "currency": "USD"
+      },
+      "discount": 0.12
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0013",
+      "customer_id": "CUST-SPARSE-0013",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-01T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1510000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0014",
+      "customer_id": "CUST-SPARSE-0014",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1510000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0015",
+      "customer_id": "CUST-SPARSE-0015",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1770000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0016",
+      "customer_id": "CUST-SPARSE-0016",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1270000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0017",
+      "customer_id": "CUST-SPARSE-0017",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-07T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1160000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0018",
+      "customer_id": "CUST-SPARSE-0018",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-08T12:00:00Z",
+      "revenue": {
+        "amount_minor": 620000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0019",
+      "customer_id": "CUST-SPARSE-0019",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 990000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0020",
+      "customer_id": "CUST-SPARSE-0020",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1650000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0021",
+      "customer_id": "CUST-SPARSE-0021",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1230000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0022",
+      "customer_id": "CUST-SPARSE-0022",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-14T12:00:00Z",
+      "revenue": {
+        "amount_minor": 920000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0023",
+      "customer_id": "CUST-SPARSE-0023",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-15T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1700000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0024",
+      "customer_id": "CUST-SPARSE-0024",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1260000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0025",
+      "customer_id": "CUST-SPARSE-0025",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1770000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0026",
+      "customer_id": "CUST-SPARSE-0026",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1800000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0027",
+      "customer_id": "CUST-SPARSE-0027",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-21T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1750000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0028",
+      "customer_id": "CUST-SPARSE-0028",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-22T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1050000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0029",
+      "customer_id": "CUST-SPARSE-0029",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 750000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0030",
+      "customer_id": "CUST-SPARSE-0030",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-26T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1040000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0031",
+      "customer_id": "CUST-SPARSE-0031",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-01T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1050000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0032",
+      "customer_id": "CUST-SPARSE-0032",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1330000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0033",
+      "customer_id": "CUST-SPARSE-0033",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 710000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0034",
+      "customer_id": "CUST-SPARSE-0034",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1390000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0035",
+      "customer_id": "CUST-SPARSE-0035",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-07T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1590000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0036",
+      "customer_id": "CUST-SPARSE-0036",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-08T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1430000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0037",
+      "customer_id": "CUST-SPARSE-0037",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1010000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0038",
+      "customer_id": "CUST-SPARSE-0038",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1770000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0039",
+      "customer_id": "CUST-SPARSE-0039",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 480000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0040",
+      "customer_id": "CUST-SPARSE-0040",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-14T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1600000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0041",
+      "customer_id": "CUST-SPARSE-0041",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-15T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1510000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0042",
+      "customer_id": "CUST-SPARSE-0042",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1370000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0043",
+      "customer_id": "CUST-SPARSE-0043",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1790000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0044",
+      "customer_id": "CUST-SPARSE-0044",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 950000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0045",
+      "customer_id": "CUST-SPARSE-0045",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-21T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1170000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0046",
+      "customer_id": "CUST-SPARSE-0046",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-22T12:00:00Z",
+      "revenue": {
+        "amount_minor": 730000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0047",
+      "customer_id": "CUST-SPARSE-0047",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1350000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0048",
+      "customer_id": "CUST-SPARSE-0048",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-26T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1210000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0049",
+      "customer_id": "CUST-SPARSE-0049",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-01T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1670000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0050",
+      "customer_id": "CUST-SPARSE-0050",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1130000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0051",
+      "customer_id": "CUST-SPARSE-0051",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 830000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0052",
+      "customer_id": "CUST-SPARSE-0052",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-01-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1190000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0053",
+      "customer_id": "CUST-SPARSE-0053",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 810000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0054",
+      "customer_id": "CUST-SPARSE-0054",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1230000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0055",
+      "customer_id": "CUST-SPARSE-0055",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 740000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0056",
+      "customer_id": "CUST-SPARSE-0056",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1170000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0057",
+      "customer_id": "CUST-SPARSE-0057",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-18T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1180000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0058",
+      "customer_id": "CUST-SPARSE-0058",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1040000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0059",
+      "customer_id": "CUST-SPARSE-0059",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1780000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0060",
+      "customer_id": "CUST-SPARSE-0060",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 960000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0061",
+      "customer_id": "CUST-SPARSE-0061",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 940000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0062",
+      "customer_id": "CUST-SPARSE-0062",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 870000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0063",
+      "customer_id": "CUST-SPARSE-0063",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-04T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1360000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0064",
+      "customer_id": "CUST-SPARSE-0064",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 650000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0065",
+      "customer_id": "CUST-SPARSE-0065",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 460000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0066",
+      "customer_id": "CUST-SPARSE-0066",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 750000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0067",
+      "customer_id": "CUST-SPARSE-0067",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 990000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0068",
+      "customer_id": "CUST-SPARSE-0068",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-11T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1150000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0069",
+      "customer_id": "CUST-SPARSE-0069",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1530000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0070",
+      "customer_id": "CUST-SPARSE-0070",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 770000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0071",
+      "customer_id": "CUST-SPARSE-0071",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 750000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0072",
+      "customer_id": "CUST-SPARSE-0072",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 640000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0073",
+      "customer_id": "CUST-SPARSE-0073",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-18T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1020000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0074",
+      "customer_id": "CUST-SPARSE-0074",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1080000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0075",
+      "customer_id": "CUST-SPARSE-0075",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 830000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0076",
+      "customer_id": "CUST-SPARSE-0076",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 700000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0077",
+      "customer_id": "CUST-SPARSE-0077",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 870000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0078",
+      "customer_id": "CUST-SPARSE-0078",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 800000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0079",
+      "customer_id": "CUST-SPARSE-0079",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-04T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1180000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0080",
+      "customer_id": "CUST-SPARSE-0080",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 990000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0081",
+      "customer_id": "CUST-SPARSE-0081",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1730000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0082",
+      "customer_id": "CUST-SPARSE-0082",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1780000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0083",
+      "customer_id": "CUST-SPARSE-0083",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 590000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0084",
+      "customer_id": "CUST-SPARSE-0084",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-11T12:00:00Z",
+      "revenue": {
+        "amount_minor": 540000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0085",
+      "customer_id": "CUST-SPARSE-0085",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 500000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0086",
+      "customer_id": "CUST-SPARSE-0086",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1660000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0087",
+      "customer_id": "CUST-SPARSE-0087",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1450000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0088",
+      "customer_id": "CUST-SPARSE-0088",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 780000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0089",
+      "customer_id": "CUST-SPARSE-0089",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-18T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1080000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0090",
+      "customer_id": "CUST-SPARSE-0090",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1130000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0091",
+      "customer_id": "CUST-SPARSE-0091",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1490000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0092",
+      "customer_id": "CUST-SPARSE-0092",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-02-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1640000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0093",
+      "customer_id": "CUST-SPARSE-0093",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1630000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0094",
+      "customer_id": "CUST-SPARSE-0094",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1600000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0095",
+      "customer_id": "CUST-SPARSE-0095",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 540000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0096",
+      "customer_id": "CUST-SPARSE-0096",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-11T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1030000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0097",
+      "customer_id": "CUST-SPARSE-0097",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 640000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0098",
+      "customer_id": "CUST-SPARSE-0098",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1120000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0099",
+      "customer_id": "CUST-SPARSE-0099",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 760000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0100",
+      "customer_id": "CUST-SPARSE-0100",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1570000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0101",
+      "customer_id": "CUST-SPARSE-0101",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-18T12:00:00Z",
+      "revenue": {
+        "amount_minor": 760000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0102",
+      "customer_id": "CUST-SPARSE-0102",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 560000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0103",
+      "customer_id": "CUST-SPARSE-0103",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 920000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0104",
+      "customer_id": "CUST-SPARSE-0104",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1550000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0105",
+      "customer_id": "CUST-SPARSE-0105",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-24T12:00:00Z",
+      "revenue": {
+        "amount_minor": 950000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0106",
+      "customer_id": "CUST-SPARSE-0106",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-25T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1620000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0107",
+      "customer_id": "CUST-SPARSE-0107",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-26T12:00:00Z",
+      "revenue": {
+        "amount_minor": 770000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0108",
+      "customer_id": "CUST-SPARSE-0108",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1580000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0109",
+      "customer_id": "CUST-SPARSE-0109",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 720000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0110",
+      "customer_id": "CUST-SPARSE-0110",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-04T12:00:00Z",
+      "revenue": {
+        "amount_minor": 720000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0111",
+      "customer_id": "CUST-SPARSE-0111",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 820000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0112",
+      "customer_id": "CUST-SPARSE-0112",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1180000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0113",
+      "customer_id": "CUST-SPARSE-0113",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1150000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0114",
+      "customer_id": "CUST-SPARSE-0114",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1710000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0115",
+      "customer_id": "CUST-SPARSE-0115",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-11T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1320000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0116",
+      "customer_id": "CUST-SPARSE-0116",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 830000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0117",
+      "customer_id": "CUST-SPARSE-0117",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1740000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0118",
+      "customer_id": "CUST-SPARSE-0118",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1420000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0119",
+      "customer_id": "CUST-SPARSE-0119",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1190000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0120",
+      "customer_id": "CUST-SPARSE-0120",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-18T12:00:00Z",
+      "revenue": {
+        "amount_minor": 810000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0121",
+      "customer_id": "CUST-SPARSE-0121",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1260000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0122",
+      "customer_id": "CUST-SPARSE-0122",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1750000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0123",
+      "customer_id": "CUST-SPARSE-0123",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1550000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0124",
+      "customer_id": "CUST-SPARSE-0124",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-24T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1260000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0125",
+      "customer_id": "CUST-SPARSE-0125",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-25T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1720000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0126",
+      "customer_id": "CUST-SPARSE-0126",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-26T12:00:00Z",
+      "revenue": {
+        "amount_minor": 740000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0127",
+      "customer_id": "CUST-SPARSE-0127",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 680000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0128",
+      "customer_id": "CUST-SPARSE-0128",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 740000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0129",
+      "customer_id": "CUST-SPARSE-0129",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-04T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1140000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0130",
+      "customer_id": "CUST-SPARSE-0130",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1790000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0131",
+      "customer_id": "CUST-SPARSE-0131",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 830000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0132",
+      "customer_id": "CUST-SPARSE-0132",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-03-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1630000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0133",
+      "customer_id": "CUST-SPARSE-0133",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-27T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1200000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0134",
+      "customer_id": "CUST-SPARSE-0134",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-28T12:00:00Z",
+      "revenue": {
+        "amount_minor": 650000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0135",
+      "customer_id": "CUST-SPARSE-0135",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-29T12:00:00Z",
+      "revenue": {
+        "amount_minor": 530000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0136",
+      "customer_id": "CUST-SPARSE-0136",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-27T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1180000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0137",
+      "customer_id": "CUST-SPARSE-0137",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-28T12:00:00Z",
+      "revenue": {
+        "amount_minor": 500000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0138",
+      "customer_id": "CUST-SPARSE-0138",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-29T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1250000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0139",
+      "customer_id": "CUST-SPARSE-0139",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-26T12:00:00Z",
+      "revenue": {
+        "amount_minor": 780000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0140",
+      "customer_id": "CUST-SPARSE-0140",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-29T12:00:00Z",
+      "revenue": {
+        "amount_minor": 880000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0141",
+      "customer_id": "CUST-SPARSE-0141",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-30T12:00:00Z",
+      "revenue": {
+        "amount_minor": 910000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0142",
+      "customer_id": "CUST-SPARSE-0142",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-31T12:00:00Z",
+      "revenue": {
+        "amount_minor": 460000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0143",
+      "customer_id": "CUST-SPARSE-0143",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-27T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1030000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0144",
+      "customer_id": "CUST-SPARSE-0144",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-28T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1080000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0145",
+      "customer_id": "CUST-SPARSE-0145",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-27T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1180000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0146",
+      "customer_id": "CUST-SPARSE-0146",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-28T12:00:00Z",
+      "revenue": {
+        "amount_minor": 950000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0147",
+      "customer_id": "CUST-SPARSE-0147",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-31T12:00:00Z",
+      "revenue": {
+        "amount_minor": 650000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0148",
+      "customer_id": "CUST-SPARSE-0148",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-28T12:00:00Z",
+      "revenue": {
+        "amount_minor": 970000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0149",
+      "customer_id": "CUST-SPARSE-0149",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-29T12:00:00Z",
+      "revenue": {
+        "amount_minor": 880000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0150",
+      "customer_id": "CUST-SPARSE-0150",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-30T12:00:00Z",
+      "revenue": {
+        "amount_minor": 640000,
+        "currency": "USD"
+      },
+      "discount": 0.25
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0151",
+      "customer_id": "CUST-SPARSE-0151",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-01T12:00:00Z",
+      "revenue": {
+        "amount_minor": 890000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0152",
+      "customer_id": "CUST-SPARSE-0152",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1210000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0153",
+      "customer_id": "CUST-SPARSE-0153",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 690000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0154",
+      "customer_id": "CUST-SPARSE-0154",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1790000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0155",
+      "customer_id": "CUST-SPARSE-0155",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-07T12:00:00Z",
+      "revenue": {
+        "amount_minor": 980000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0156",
+      "customer_id": "CUST-SPARSE-0156",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-08T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1280000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0157",
+      "customer_id": "CUST-SPARSE-0157",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1490000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0158",
+      "customer_id": "CUST-SPARSE-0158",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1770000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0159",
+      "customer_id": "CUST-SPARSE-0159",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 510000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0160",
+      "customer_id": "CUST-SPARSE-0160",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-14T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1270000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0161",
+      "customer_id": "CUST-SPARSE-0161",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-15T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1330000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0162",
+      "customer_id": "CUST-SPARSE-0162",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 650000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0163",
+      "customer_id": "CUST-SPARSE-0163",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 980000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0164",
+      "customer_id": "CUST-SPARSE-0164",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 460000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0165",
+      "customer_id": "CUST-SPARSE-0165",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-21T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1050000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0166",
+      "customer_id": "CUST-SPARSE-0166",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-22T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1050000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0167",
+      "customer_id": "CUST-SPARSE-0167",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1180000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0168",
+      "customer_id": "CUST-SPARSE-0168",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-24T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1110000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0169",
+      "customer_id": "CUST-SPARSE-0169",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-01T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1060000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0170",
+      "customer_id": "CUST-SPARSE-0170",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-04-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 610000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0171",
+      "customer_id": "CUST-SPARSE-0171",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1240000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0172",
+      "customer_id": "CUST-SPARSE-0172",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1200000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0173",
+      "customer_id": "CUST-SPARSE-0173",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-07T12:00:00Z",
+      "revenue": {
+        "amount_minor": 590000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0174",
+      "customer_id": "CUST-SPARSE-0174",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-08T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1440000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0175",
+      "customer_id": "CUST-SPARSE-0175",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-11T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1310000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0176",
+      "customer_id": "CUST-SPARSE-0176",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 620000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0177",
+      "customer_id": "CUST-SPARSE-0177",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 940000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0178",
+      "customer_id": "CUST-SPARSE-0178",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-14T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1550000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0179",
+      "customer_id": "CUST-SPARSE-0179",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-15T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1600000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0180",
+      "customer_id": "CUST-SPARSE-0180",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-18T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1800000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0181",
+      "customer_id": "CUST-SPARSE-0181",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 980000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0182",
+      "customer_id": "CUST-SPARSE-0182",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1070000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0183",
+      "customer_id": "CUST-SPARSE-0183",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-21T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1590000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0184",
+      "customer_id": "CUST-SPARSE-0184",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-22T12:00:00Z",
+      "revenue": {
+        "amount_minor": 760000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0185",
+      "customer_id": "CUST-SPARSE-0185",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-25T12:00:00Z",
+      "revenue": {
+        "amount_minor": 580000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0186",
+      "customer_id": "CUST-SPARSE-0186",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-26T12:00:00Z",
+      "revenue": {
+        "amount_minor": 510000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0187",
+      "customer_id": "CUST-SPARSE-0187",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-01T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1270000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0188",
+      "customer_id": "CUST-SPARSE-0188",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-04T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1510000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0189",
+      "customer_id": "CUST-SPARSE-0189",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1030000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0190",
+      "customer_id": "CUST-SPARSE-0190",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-05-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1450000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0191",
+      "customer_id": "CUST-SPARSE-0191",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1700000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0192",
+      "customer_id": "CUST-SPARSE-0192",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-04T12:00:00Z",
+      "revenue": {
+        "amount_minor": 510000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0193",
+      "customer_id": "CUST-SPARSE-0193",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 490000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0194",
+      "customer_id": "CUST-SPARSE-0194",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-08T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1570000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0195",
+      "customer_id": "CUST-SPARSE-0195",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 570000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0196",
+      "customer_id": "CUST-SPARSE-0196",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1300000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0197",
+      "customer_id": "CUST-SPARSE-0197",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-11T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1440000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0198",
+      "customer_id": "CUST-SPARSE-0198",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1610000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0199",
+      "customer_id": "CUST-SPARSE-0199",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-15T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1210000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0200",
+      "customer_id": "CUST-SPARSE-0200",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1690000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0201",
+      "customer_id": "CUST-SPARSE-0201",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1520000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0202",
+      "customer_id": "CUST-SPARSE-0202",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-18T12:00:00Z",
+      "revenue": {
+        "amount_minor": 680000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0203",
+      "customer_id": "CUST-SPARSE-0203",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1260000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0204",
+      "customer_id": "CUST-SPARSE-0204",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-22T12:00:00Z",
+      "revenue": {
+        "amount_minor": 760000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0205",
+      "customer_id": "CUST-SPARSE-0205",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 740000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0206",
+      "customer_id": "CUST-SPARSE-0206",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-24T12:00:00Z",
+      "revenue": {
+        "amount_minor": 920000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0207",
+      "customer_id": "CUST-SPARSE-0207",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-25T12:00:00Z",
+      "revenue": {
+        "amount_minor": 600000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0208",
+      "customer_id": "CUST-SPARSE-0208",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-01T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1590000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0209",
+      "customer_id": "CUST-SPARSE-0209",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1200000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0210",
+      "customer_id": "CUST-SPARSE-0210",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-06-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 950000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0211",
+      "customer_id": "CUST-SPARSE-0211",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1000000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0212",
+      "customer_id": "CUST-SPARSE-0212",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 960000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0213",
+      "customer_id": "CUST-SPARSE-0213",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1700000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0214",
+      "customer_id": "CUST-SPARSE-0214",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-14T12:00:00Z",
+      "revenue": {
+        "amount_minor": 450000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0215",
+      "customer_id": "CUST-SPARSE-0215",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-15T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1660000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0216",
+      "customer_id": "CUST-SPARSE-0216",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 670000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0217",
+      "customer_id": "CUST-SPARSE-0217",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1420000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0218",
+      "customer_id": "CUST-SPARSE-0218",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1030000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0219",
+      "customer_id": "CUST-SPARSE-0219",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-21T12:00:00Z",
+      "revenue": {
+        "amount_minor": 720000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0220",
+      "customer_id": "CUST-SPARSE-0220",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-22T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1720000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0221",
+      "customer_id": "CUST-SPARSE-0221",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 710000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0222",
+      "customer_id": "CUST-SPARSE-0222",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-24T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1480000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0223",
+      "customer_id": "CUST-SPARSE-0223",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-01T12:00:00Z",
+      "revenue": {
+        "amount_minor": 720000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0224",
+      "customer_id": "CUST-SPARSE-0224",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1690000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0225",
+      "customer_id": "CUST-SPARSE-0225",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 840000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0226",
+      "customer_id": "CUST-SPARSE-0226",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1160000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0227",
+      "customer_id": "CUST-SPARSE-0227",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-07T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1130000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0228",
+      "customer_id": "CUST-SPARSE-0228",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-08T12:00:00Z",
+      "revenue": {
+        "amount_minor": 680000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0229",
+      "customer_id": "CUST-SPARSE-0229",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1230000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0230",
+      "customer_id": "CUST-SPARSE-0230",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-07-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1090000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0231",
+      "customer_id": "CUST-SPARSE-0231",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1360000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0232",
+      "customer_id": "CUST-SPARSE-0232",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-14T12:00:00Z",
+      "revenue": {
+        "amount_minor": 890000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0233",
+      "customer_id": "CUST-SPARSE-0233",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1390000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0234",
+      "customer_id": "CUST-SPARSE-0234",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-18T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1690000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0235",
+      "customer_id": "CUST-SPARSE-0235",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-19T12:00:00Z",
+      "revenue": {
+        "amount_minor": 500000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0236",
+      "customer_id": "CUST-SPARSE-0236",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-20T12:00:00Z",
+      "revenue": {
+        "amount_minor": 510000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0237",
+      "customer_id": "CUST-SPARSE-0237",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-21T12:00:00Z",
+      "revenue": {
+        "amount_minor": 860000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0238",
+      "customer_id": "CUST-SPARSE-0238",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-24T12:00:00Z",
+      "revenue": {
+        "amount_minor": 580000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0239",
+      "customer_id": "CUST-SPARSE-0239",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-25T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1760000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0240",
+      "customer_id": "CUST-SPARSE-0240",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-26T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1170000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0241",
+      "customer_id": "CUST-SPARSE-0241",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1130000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0242",
+      "customer_id": "CUST-SPARSE-0242",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-04T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1750000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0243",
+      "customer_id": "CUST-SPARSE-0243",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-05T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1550000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0244",
+      "customer_id": "CUST-SPARSE-0244",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-06T12:00:00Z",
+      "revenue": {
+        "amount_minor": 900000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0245",
+      "customer_id": "CUST-SPARSE-0245",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-07T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1480000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0246",
+      "customer_id": "CUST-SPARSE-0246",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1250000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0247",
+      "customer_id": "CUST-SPARSE-0247",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-11T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1460000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0248",
+      "customer_id": "CUST-SPARSE-0248",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-12T12:00:00Z",
+      "revenue": {
+        "amount_minor": 920000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0249",
+      "customer_id": "CUST-SPARSE-0249",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-13T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1060000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0250",
+      "customer_id": "CUST-SPARSE-0250",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-08-14T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1600000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0251",
+      "customer_id": "CUST-SPARSE-0251",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-08T12:00:00Z",
+      "revenue": {
+        "amount_minor": 730000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0252",
+      "customer_id": "CUST-SPARSE-0252",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-09T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1190000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0253",
+      "customer_id": "CUST-SPARSE-0253",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-10T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1130000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0254",
+      "customer_id": "CUST-SPARSE-0254",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-11T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1440000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0255",
+      "customer_id": "CUST-SPARSE-0255",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-14T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1070000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0256",
+      "customer_id": "CUST-SPARSE-0256",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-15T12:00:00Z",
+      "revenue": {
+        "amount_minor": 460000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0257",
+      "customer_id": "CUST-SPARSE-0257",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-16T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1170000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0258",
+      "customer_id": "CUST-SPARSE-0258",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-17T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1670000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0259",
+      "customer_id": "CUST-SPARSE-0259",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-18T12:00:00Z",
+      "revenue": {
+        "amount_minor": 750000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0260",
+      "customer_id": "CUST-SPARSE-0260",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-21T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1410000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0261",
+      "customer_id": "CUST-SPARSE-0261",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-22T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1000000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0262",
+      "customer_id": "CUST-SPARSE-0262",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-23T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1720000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0263",
+      "customer_id": "CUST-SPARSE-0263",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-24T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1060000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0264",
+      "customer_id": "CUST-SPARSE-0264",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-25T12:00:00Z",
+      "revenue": {
+        "amount_minor": 770000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0265",
+      "customer_id": "CUST-SPARSE-0265",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-01T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1410000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0266",
+      "customer_id": "CUST-SPARSE-0266",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-02T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1770000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0267",
+      "customer_id": "CUST-SPARSE-0267",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-03T12:00:00Z",
+      "revenue": {
+        "amount_minor": 880000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0268",
+      "customer_id": "CUST-SPARSE-0268",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-04T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1230000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0269",
+      "customer_id": "CUST-SPARSE-0269",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-07T12:00:00Z",
+      "revenue": {
+        "amount_minor": 1770000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    },
+    {
+      "deal_id": "DEAL-SPARSE-0270",
+      "customer_id": "CUST-SPARSE-0270",
+      "policy_id": "POL-SPARSE-001",
+      "policy_version": "v1",
+      "segment": "mid-market",
+      "channel": "direct",
+      "closed_at": "2026-09-08T12:00:00Z",
+      "revenue": {
+        "amount_minor": 720000,
+        "currency": "USD"
+      },
+      "discount": 0.1
+    }
+  ],
+  "tickets": [
+    {
+      "ticket_id": "TICKET-SPARSE-0006",
+      "customer_id": "CUST-SPARSE-0006",
+      "deal_id": "DEAL-SPARSE-0006",
+      "created_at": "2026-03-06T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0012",
+      "customer_id": "CUST-SPARSE-0012",
+      "deal_id": "DEAL-SPARSE-0012",
+      "created_at": "2026-04-15T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0019",
+      "customer_id": "CUST-SPARSE-0019",
+      "deal_id": "DEAL-SPARSE-0019",
+      "created_at": "2026-01-19T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0026",
+      "customer_id": "CUST-SPARSE-0026",
+      "deal_id": "DEAL-SPARSE-0026",
+      "created_at": "2026-02-06T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0032",
+      "customer_id": "CUST-SPARSE-0032",
+      "deal_id": "DEAL-SPARSE-0032",
+      "created_at": "2026-01-25T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0039",
+      "customer_id": "CUST-SPARSE-0039",
+      "deal_id": "DEAL-SPARSE-0039",
+      "created_at": "2026-01-20T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0046",
+      "customer_id": "CUST-SPARSE-0046",
+      "deal_id": "DEAL-SPARSE-0046",
+      "created_at": "2026-02-05T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0052",
+      "customer_id": "CUST-SPARSE-0052",
+      "deal_id": "DEAL-SPARSE-0052",
+      "created_at": "2026-01-26T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0059",
+      "customer_id": "CUST-SPARSE-0059",
+      "deal_id": "DEAL-SPARSE-0059",
+      "created_at": "2026-02-24T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0066",
+      "customer_id": "CUST-SPARSE-0066",
+      "deal_id": "DEAL-SPARSE-0066",
+      "created_at": "2026-02-20T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0072",
+      "customer_id": "CUST-SPARSE-0072",
+      "deal_id": "DEAL-SPARSE-0072",
+      "created_at": "2026-03-06T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0079",
+      "customer_id": "CUST-SPARSE-0079",
+      "deal_id": "DEAL-SPARSE-0079",
+      "created_at": "2026-02-28T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0086",
+      "customer_id": "CUST-SPARSE-0086",
+      "deal_id": "DEAL-SPARSE-0086",
+      "created_at": "2026-02-21T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0092",
+      "customer_id": "CUST-SPARSE-0092",
+      "deal_id": "DEAL-SPARSE-0092",
+      "created_at": "2026-03-09T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0099",
+      "customer_id": "CUST-SPARSE-0099",
+      "deal_id": "DEAL-SPARSE-0099",
+      "created_at": "2026-04-06T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0106",
+      "customer_id": "CUST-SPARSE-0106",
+      "deal_id": "DEAL-SPARSE-0106",
+      "created_at": "2026-03-30T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0112",
+      "customer_id": "CUST-SPARSE-0112",
+      "deal_id": "DEAL-SPARSE-0112",
+      "created_at": "2026-03-17T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0119",
+      "customer_id": "CUST-SPARSE-0119",
+      "deal_id": "DEAL-SPARSE-0119",
+      "created_at": "2026-04-04T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0126",
+      "customer_id": "CUST-SPARSE-0126",
+      "deal_id": "DEAL-SPARSE-0126",
+      "created_at": "2026-04-20T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0132",
+      "customer_id": "CUST-SPARSE-0132",
+      "deal_id": "DEAL-SPARSE-0132",
+      "created_at": "2026-03-17T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0135",
+      "customer_id": "CUST-SPARSE-0135",
+      "deal_id": "DEAL-SPARSE-0135",
+      "created_at": "2026-05-05T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0138",
+      "customer_id": "CUST-SPARSE-0138",
+      "deal_id": "DEAL-SPARSE-0138",
+      "created_at": "2026-06-07T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0141",
+      "customer_id": "CUST-SPARSE-0141",
+      "deal_id": "DEAL-SPARSE-0141",
+      "created_at": "2026-07-12T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0144",
+      "customer_id": "CUST-SPARSE-0144",
+      "deal_id": "DEAL-SPARSE-0144",
+      "created_at": "2026-08-12T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0147",
+      "customer_id": "CUST-SPARSE-0147",
+      "deal_id": "DEAL-SPARSE-0147",
+      "created_at": "2026-09-18T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0150",
+      "customer_id": "CUST-SPARSE-0150",
+      "deal_id": "DEAL-SPARSE-0150",
+      "created_at": "2026-10-21T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0157",
+      "customer_id": "CUST-SPARSE-0157",
+      "deal_id": "DEAL-SPARSE-0157",
+      "created_at": "2026-04-19T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0164",
+      "customer_id": "CUST-SPARSE-0164",
+      "deal_id": "DEAL-SPARSE-0164",
+      "created_at": "2026-05-07T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0170",
+      "customer_id": "CUST-SPARSE-0170",
+      "deal_id": "DEAL-SPARSE-0170",
+      "created_at": "2026-04-25T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0177",
+      "customer_id": "CUST-SPARSE-0177",
+      "deal_id": "DEAL-SPARSE-0177",
+      "created_at": "2026-05-20T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0184",
+      "customer_id": "CUST-SPARSE-0184",
+      "deal_id": "DEAL-SPARSE-0184",
+      "created_at": "2026-06-05T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0190",
+      "customer_id": "CUST-SPARSE-0190",
+      "deal_id": "DEAL-SPARSE-0190",
+      "created_at": "2026-05-26T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0197",
+      "customer_id": "CUST-SPARSE-0197",
+      "deal_id": "DEAL-SPARSE-0197",
+      "created_at": "2026-06-15T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0204",
+      "customer_id": "CUST-SPARSE-0204",
+      "deal_id": "DEAL-SPARSE-0204",
+      "created_at": "2026-07-03T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0210",
+      "customer_id": "CUST-SPARSE-0210",
+      "deal_id": "DEAL-SPARSE-0210",
+      "created_at": "2026-06-20T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0217",
+      "customer_id": "CUST-SPARSE-0217",
+      "deal_id": "DEAL-SPARSE-0217",
+      "created_at": "2026-08-10T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0224",
+      "customer_id": "CUST-SPARSE-0224",
+      "deal_id": "DEAL-SPARSE-0224",
+      "created_at": "2026-07-10T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0230",
+      "customer_id": "CUST-SPARSE-0230",
+      "deal_id": "DEAL-SPARSE-0230",
+      "created_at": "2026-07-24T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0237",
+      "customer_id": "CUST-SPARSE-0237",
+      "deal_id": "DEAL-SPARSE-0237",
+      "created_at": "2026-09-11T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0244",
+      "customer_id": "CUST-SPARSE-0244",
+      "deal_id": "DEAL-SPARSE-0244",
+      "created_at": "2026-08-11T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0250",
+      "customer_id": "CUST-SPARSE-0250",
+      "deal_id": "DEAL-SPARSE-0250",
+      "created_at": "2026-08-25T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0257",
+      "customer_id": "CUST-SPARSE-0257",
+      "deal_id": "DEAL-SPARSE-0257",
+      "created_at": "2026-10-04T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0264",
+      "customer_id": "CUST-SPARSE-0264",
+      "deal_id": "DEAL-SPARSE-0264",
+      "created_at": "2026-10-20T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    },
+    {
+      "ticket_id": "TICKET-SPARSE-0270",
+      "customer_id": "CUST-SPARSE-0270",
+      "deal_id": "DEAL-SPARSE-0270",
+      "created_at": "2026-09-16T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer reported an onboarding concern."
+    }
+  ],
+  "cancellations": [
+    {
+      "cancellation_id": "CANCEL-SPARSE-0012",
+      "customer_id": "CUST-SPARSE-0012",
+      "deal_id": "DEAL-SPARSE-0012",
+      "cancelled_at": "2026-04-22T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0022",
+      "customer_id": "CUST-SPARSE-0022",
+      "deal_id": "DEAL-SPARSE-0022",
+      "cancelled_at": "2026-02-03T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0032",
+      "customer_id": "CUST-SPARSE-0032",
+      "deal_id": "DEAL-SPARSE-0032",
+      "cancelled_at": "2026-01-22T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0042",
+      "customer_id": "CUST-SPARSE-0042",
+      "deal_id": "DEAL-SPARSE-0042",
+      "cancelled_at": "2026-02-05T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0052",
+      "customer_id": "CUST-SPARSE-0052",
+      "deal_id": "DEAL-SPARSE-0052",
+      "cancelled_at": "2026-01-26T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0062",
+      "customer_id": "CUST-SPARSE-0062",
+      "deal_id": "DEAL-SPARSE-0062",
+      "cancelled_at": "2026-02-23T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0072",
+      "customer_id": "CUST-SPARSE-0072",
+      "deal_id": "DEAL-SPARSE-0072",
+      "cancelled_at": "2026-03-09T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0082",
+      "customer_id": "CUST-SPARSE-0082",
+      "deal_id": "DEAL-SPARSE-0082",
+      "cancelled_at": "2026-03-01T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0092",
+      "customer_id": "CUST-SPARSE-0092",
+      "deal_id": "DEAL-SPARSE-0092",
+      "cancelled_at": "2026-03-15T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0102",
+      "customer_id": "CUST-SPARSE-0102",
+      "deal_id": "DEAL-SPARSE-0102",
+      "cancelled_at": "2026-04-08T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0112",
+      "customer_id": "CUST-SPARSE-0112",
+      "deal_id": "DEAL-SPARSE-0112",
+      "cancelled_at": "2026-03-26T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0122",
+      "customer_id": "CUST-SPARSE-0122",
+      "deal_id": "DEAL-SPARSE-0122",
+      "cancelled_at": "2026-04-09T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0132",
+      "customer_id": "CUST-SPARSE-0132",
+      "deal_id": "DEAL-SPARSE-0132",
+      "cancelled_at": "2026-03-29T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0137",
+      "customer_id": "CUST-SPARSE-0137",
+      "deal_id": "DEAL-SPARSE-0137",
+      "cancelled_at": "2026-06-22T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0141",
+      "customer_id": "CUST-SPARSE-0141",
+      "deal_id": "DEAL-SPARSE-0141",
+      "cancelled_at": "2026-07-29T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0146",
+      "customer_id": "CUST-SPARSE-0146",
+      "deal_id": "DEAL-SPARSE-0146",
+      "cancelled_at": "2026-09-21T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0150",
+      "customer_id": "CUST-SPARSE-0150",
+      "deal_id": "DEAL-SPARSE-0150",
+      "cancelled_at": "2026-10-28T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0160",
+      "customer_id": "CUST-SPARSE-0160",
+      "deal_id": "DEAL-SPARSE-0160",
+      "cancelled_at": "2026-05-04T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0170",
+      "customer_id": "CUST-SPARSE-0170",
+      "deal_id": "DEAL-SPARSE-0170",
+      "cancelled_at": "2026-04-22T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0180",
+      "customer_id": "CUST-SPARSE-0180",
+      "deal_id": "DEAL-SPARSE-0180",
+      "cancelled_at": "2026-06-07T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0190",
+      "customer_id": "CUST-SPARSE-0190",
+      "deal_id": "DEAL-SPARSE-0190",
+      "cancelled_at": "2026-05-26T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0200",
+      "customer_id": "CUST-SPARSE-0200",
+      "deal_id": "DEAL-SPARSE-0200",
+      "cancelled_at": "2026-07-06T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0210",
+      "customer_id": "CUST-SPARSE-0210",
+      "deal_id": "DEAL-SPARSE-0210",
+      "cancelled_at": "2026-06-23T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0220",
+      "customer_id": "CUST-SPARSE-0220",
+      "deal_id": "DEAL-SPARSE-0220",
+      "cancelled_at": "2026-08-11T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0230",
+      "customer_id": "CUST-SPARSE-0230",
+      "deal_id": "DEAL-SPARSE-0230",
+      "cancelled_at": "2026-07-30T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0240",
+      "customer_id": "CUST-SPARSE-0240",
+      "deal_id": "DEAL-SPARSE-0240",
+      "cancelled_at": "2026-09-15T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0250",
+      "customer_id": "CUST-SPARSE-0250",
+      "deal_id": "DEAL-SPARSE-0250",
+      "cancelled_at": "2026-09-03T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0260",
+      "customer_id": "CUST-SPARSE-0260",
+      "deal_id": "DEAL-SPARSE-0260",
+      "cancelled_at": "2026-10-11T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    },
+    {
+      "cancellation_id": "CANCEL-SPARSE-0270",
+      "customer_id": "CUST-SPARSE-0270",
+      "deal_id": "DEAL-SPARSE-0270",
+      "cancelled_at": "2026-09-28T12:00:00Z",
+      "theme": "onboarding_difficulty",
+      "excerpt": "Synthetic customer ended the subscription."
+    }
+  ],
+  "history": [
+    {
+      "incident_id": "INC-SPARSE-PRIOR",
+      "title": "Prior acquisition review",
+      "occurred_at": "2025-12-15T12:00:00Z",
+      "records": [
+        {
+          "record_id": "HIST-SPARSE-FACT",
+          "memory_type": "fact",
+          "event_time": "2025-12-15T12:00:00Z",
+          "summary": "A prior review checked customer onboarding after an incentive change."
+        },
+        {
+          "record_id": "HIST-SPARSE-REJECTED",
+          "memory_type": "rejected_hypothesis",
+          "event_time": "2025-12-16T12:00:00Z",
+          "summary": "A previous incentive explanation was rejected without matched cohort evidence."
+        }
+      ]
+    }
+  ]
+}
