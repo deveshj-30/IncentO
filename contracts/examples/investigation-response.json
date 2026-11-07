@@ -50,7 +50,7 @@
       },
       {
         "name": "cancel_30d",
-        "status": "watch",
+        "status": "no_signal",
         "month_end_value": 0.12,
         "other_value": 0.05,
         "gap": 0.07,
@@ -59,7 +59,7 @@
         "month_end_n": 84,
         "other_n": 402,
         "window_days": 30,
-        "reasons": ["gap_below_threshold"],
+        "reasons": [],
         "evidence_ids": ["CANCEL-0071"]
       }
     ],
@@ -68,8 +68,11 @@
       {"id": "alt-seasonal-demand", "label": "Quarter-end buying patterns could explain month-end clustering", "evidence_ids": []}
     ],
     "evidence": [
+      {"id": "DEAL-0188", "source_type": "deal", "timestamp": "2026-05-29T14:00:00Z", "theme": null, "customer_id": "cust-0231", "deal_id": "DEAL-0188", "excerpt": null},
+      {"id": "DEAL-0191", "source_type": "deal", "timestamp": "2026-05-30T11:30:00Z", "theme": null, "customer_id": "cust-0244", "deal_id": "DEAL-0191", "excerpt": null},
       {"id": "TICKET-0412", "source_type": "ticket", "timestamp": "2026-06-12T08:30:00Z", "theme": "onboarding_difficulty", "customer_id": "cust-0231", "deal_id": "DEAL-0188", "excerpt": "We could not complete setup; the sales call promised this was included."},
-      {"id": "TICKET-0437", "source_type": "ticket", "timestamp": "2026-06-18T10:05:00Z", "theme": "pricing_dispute", "customer_id": "cust-0244", "deal_id": "DEAL-0191", "excerpt": "The discount we were given does not match our invoice."}
+      {"id": "TICKET-0437", "source_type": "ticket", "timestamp": "2026-06-18T10:05:00Z", "theme": "pricing_dispute", "customer_id": "cust-0244", "deal_id": "DEAL-0191", "excerpt": "The discount we were given does not match our invoice."},
+      {"id": "CANCEL-0071", "source_type": "cancellation", "timestamp": "2026-06-25T09:15:00Z", "theme": "pricing_dispute", "customer_id": "cust-0244", "deal_id": "DEAL-0191", "excerpt": "We are ending the subscription after the invoice dispute."}
     ],
     "insufficient_reasons": []
   },
@@ -77,7 +80,7 @@
     "summary": "Month-end deals show a discount gap of {{m:discount.gap}} and a 30-day complaint gap of {{m:complaint_30d.gap}}, above the {{t:gap_threshold}} threshold.",
     "hypothesis": "The acquisition bonus may be associated with heavier discounting and poorer-fit deals at month end; this does not show cause.",
     "supporting_points": ["Discount gap {{m:discount.gap}} with interval {{m:discount.gap_lower}} to {{m:discount.gap_upper}}."],
-    "conflicting_points": ["Cancellations are only a watch item: gap {{m:cancel_30d.gap}}."],
+    "conflicting_points": ["Cancellations show no signal: the gap {{m:cancel_30d.gap}} is below {{t:gap_threshold}}."],
     "alternatives": ["Seasonal buying patterns could produce month-end clustering."],
     "recommendations": [
       {

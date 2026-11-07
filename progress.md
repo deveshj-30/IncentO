@@ -19,7 +19,7 @@ This file holds the shared status and the phase gate tracker, and P2 maintains i
 - Repository baseline: `AGENTS.md`, `.gitignore`, and four planning/handoff documents; `reference/` ignored. No initial commit existed when this baseline was inspected.
 - Available application commands: None yet. Commands in the implementation plan are targets.
 - Contract version: Proposed v1 in two slices (Slice A due at G1, Slice B by G2); both are on `main` but NOT frozen. Reviewers P1, P3, P4 must record their result; see the Contract Review Checkpoint below.
-- Latest integrated commit / PR: None.
+- Latest integrated commit / PR: PR #1 (P1 frontend shell and investigation view; includes P3's scenario drafts) merged as `487e0c0`; P2 backend and contracts up to `2dde205`.
 - Verified features: None; no application code exists.
 - Verification: Documentation reviewed; application build, tests, and live Hindsight checks NOT RUN.
 - Assignments (GitHub usernames): P1 `anushkam-19`, P2 `doublerook777`, P3 `deveshj-30`, P4 `ayushrai-10`. Each person should fill the `Human owner` line in their own `progress/pN.md`.
@@ -34,7 +34,7 @@ Exit checklists live in `implementation_plan.md`; this table records their verif
 
 | Gate | Phase / target finish | Status | Reviewed commit | Evidence / reviewers / UTC time |
 | --- | --- | --- | --- | --- |
-| G1 | Foundation and contract freeze / 0:45 | NOT STARTED | None | None |
+| G1 | Foundation and contract freeze / 0:45 | IN PROGRESS | None | 2026-11-07T11:10Z: P2 `scripts/check.sh` passes on `main` with the frontend merged (backend lint and 53 tests (including P3's fixture tests), contract drift check, frontend lint, test, build, generated-types drift). Backend `/api/health` verified. Open: P1 recheck and P4 confirmation (Slice A freeze), P4 live Hindsight retain/recall proof, all four git identities and push access confirmed. |
 | G2 | Independently working modules / 2:00 | NOT STARTED | None | None |
 | G3 | First integrated investigation / 3:30 | NOT STARTED | None | None |
 | G4 | Persistent learning loop / 5:00 | NOT STARTED | None | None |
@@ -72,9 +72,11 @@ Slice A (and Slice B) are on `main` but **not frozen**. If you are P1, P3, or P4
 
 | Reviewer | Slice A | Slice B | Reviewed commit | Recorded in / notes |
 | --- | --- | --- | --- | --- |
-| P1 | PENDING | PENDING | None | `progress/p1.md` |
-| P3 | PENDING | PENDING | None | `progress/p3.md` |
-| P4 | PENDING | PENDING | None | `progress/p4.md` |
+| P1 | CHANGES REQUESTED (fixed, awaiting P1 recheck) | PENDING | `2dde205` | `progress/p1.md`. P1 found that `investigation-response.json` cited `DEAL-0188`, `DEAL-0191` and `CANCEL-0071` without matching `analysis.evidence` entries. P2 added the records, and a new test (`test_example_evidence_is_self_consistent`) now enforces it. |
+| P3 | CONFIRMED | PENDING (fixture drafts under review) | `2dde205` | `progress/p3.md`. P3 also noted that the example marked `cancel_30d` as `watch` for a 0.07 gap; the rule gives `no_signal`. P2 fixed it, and `test_example_metric_statuses_follow_the_decision_rule` now enforces it. P3's drafts (`risk`, `outage`, `sparse` at `c992776`) all pass the P2 loader. |
+| P4 | Reported approved to the lead; NOT recorded | PENDING | None | P4 must add the `Contract review: Slice A CONFIRMED` line (with reviewed commit) to `progress/p4.md`; a verbal approval does not count until it is recorded. |
+
+**Slice A is NOT frozen yet.** Open items: P1 rechecks the corrected example (`git pull` on `main`, then update the line in `progress/p1.md`), and P4 records their confirmation in `progress/p4.md`. When both are done, P2 records the frozen commit here.
 
 Slice A is due before the G1 check-in; Slice B before G2. A slice is recorded as frozen only when every reviewer has a CONFIRMED line. If someone has not replied by the check-in, ask them directly; do not treat silence as confirmation, and record the slice as `UNCONFIRMED` rather than frozen.
 
