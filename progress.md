@@ -18,7 +18,7 @@ This file holds the shared status and the phase gate tracker, and P2 maintains i
 - Current phase: Phase 1 pending; implementation NOT STARTED. No phase gate has passed.
 - Repository baseline: `AGENTS.md`, `.gitignore`, and four planning/handoff documents; `reference/` ignored. No initial commit existed when this baseline was inspected.
 - Available application commands: None yet. Commands in the implementation plan are targets.
-- Contract version: v1 Slice A is FROZEN at commit `7013add` (recorded 2026-11-07T11:34Z): additive-only changes from here, through P2 and `contracts/openapi.json` diff review. Slice B (dataset, incident, outcome shapes) is on `main` and confirmed by P1 and P4 but NOT frozen: P3's Slice B line is still pending; due by G2. Schemas and generated contracts are unchanged since `7013add`.
+- Contract version: v1 Slice A is FROZEN at commit `7013add` (recorded 2026-11-07T11:34Z): additive-only changes from here, through P2 and `contracts/openapi.json` diff review. Slice B (dataset, incident, outcome shapes) is FROZEN at `9d9658a` (recorded 2026-11-07T13:12Z; P1, P3 and P4 confirmed). Schemas and generated contracts are unchanged since `7013add`.
 - Latest integrated commit / PR: `0bd1544` on `main`. Merged PRs: #1 (P1 frontend shell, P3 scenario drafts, `487e0c0`), #2 (P4 memory module, `cdaab0d`), #3 (P1 Slice A confirmation, `221bdec`), #4 (P4 bank directives, `283b805`), P3 deterministic analysis (`817baab`), #6 (P1 Slice B UI, `0bd1544`). The real analysis and memory modules are bound (`stubbed_modules` is empty); Hindsight is not reachable from P2's machine (no key), so P2 ran the memory path in the adapter's simulation mode only.
 - Verified features: None; no application code exists.
 - Verification: Documentation reviewed; application build, tests, and live Hindsight checks NOT RUN.
@@ -73,12 +73,12 @@ Slice A (and Slice B) are on `main` but **not frozen**. If you are P1, P3, or P4
 | Reviewer | Slice A | Slice B | Reviewed commit | Recorded in / notes |
 | --- | --- | --- | --- | --- |
 | P1 | CONFIRMED | CONFIRMED | A: `3dad33d`; B: `8c43b84` | `progress/p1.md` on `main` (PR #3 `221bdec`, PR #6 `0bd1544`). |
-| P3 | CONFIRMED | PENDING (no Slice B line recorded) | A: `2dde205` | `progress/p3.md` on `main`. P3's fixtures (`risk`, `outage`, `sparse`) load, and P3's `analyze` runs on them through P2's API. P3 must add `Contract review: Slice B CONFIRMED` with a reviewed commit. |
+| P3 | CONFIRMED | CONFIRMED | A: `2dde205`; B: `9d9658a` | `progress/p3.md` on `main` (recorded 2026-11-07T13:04Z, merged at `144086c`). P3's fixtures (`risk`, `outage`, `sparse`) load, and P3's `analyze` runs on them through P2's API. |
 | P4 | CONFIRMED | CONFIRMED (shapes; before P3's fixtures) | `7013add` | `progress/p4.md`, now on `main` (PR #2, `cdaab0d`). |
 
 **Slice A is FROZEN at `7013add`** (recorded 2026-11-07T11:34Z UTC). Basis: P1, P3 and P4 each recorded `Contract review: Slice A CONFIRMED`; `backend/app/core/schemas.py`, `contracts/openapi.json` and `contracts/schemas/` are unchanged since `2dde205` (checked with `git diff`), so the three reviews cover the same contract. The P1 and P4 lines are recorded on their unmerged branches (`feat/p1-contract-recheck`, `feat/p4-memory`); the confirmations stand, but they reach `main` only when those branches merge. Changes to Slice A are now additive-only: edit `core/schemas.py`, regenerate, and tell every consumer in `conversation.md`. Module signatures (`seed_history` and `retain_outcome` gained a required `scenario` argument at `571f089`) are documented in `contracts/v1.md` and tracked in `conversation.md`.
 
-Slice B is due before G2. A slice is recorded as frozen only when every reviewer has a CONFIRMED line; silence is not confirmation.
+**Slice B is FROZEN at `9d9658a`** (recorded 2026-11-07T13:12Z UTC). Basis: P1 (`8c43b84`), P3 (`9d9658a`) and P4 (`7013add`) each recorded `Contract review: Slice B CONFIRMED`; `backend/app/core/schemas.py`, `contracts/openapi.json` and `contracts/schemas/` are unchanged since `7013add` (checked with `git diff 7013add HEAD`, empty), so the three reviews cover the same contract. Changes to Slice B are additive-only through P2, with notice in `conversation.md`. A slice is recorded as frozen only when every reviewer has a CONFIRMED line; silence is not confirmation.
 
 ## Per-Person Handoffs
 

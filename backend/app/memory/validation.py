@@ -130,15 +130,19 @@ def validate_structured_output(
     token_dict: dict[str, str],
     valid_evidence_ids: set[str],
     valid_recalled_ids: set[str],
+    rejected_memory_ids: set[str] | None = None,
 ) -> tuple[bool, str | None]:
     """Validate Reflect structured output against contract rules:
     - summary, hypothesis, supporting_points, conflicting_points, alternatives, rec action & rationale
       must pass validate_explanation_text.
     - recommendations must have valid action_type enum, evidence_ids subset of valid_evidence_ids,
       and history_influence subset of valid_recalled_ids.
+    - history_influence must NEVER cite any rejected hypothesis.
     """
     if not isinstance(data, dict):
         return False, "not_a_dict"
+
+    rejected_set = rejected_memory_ids or set()
 
     for field in ("summary", "hypothesis"):
         val = data.get(field, "")
@@ -182,5 +186,9 @@ def validate_structured_output(
         hids = rec.get("history_influence", [])
         if not set(hids).issubset(valid_recalled_ids):
             return False, "unknown_history_citation"
+
+        # Never allow citing a rejected hypothesis as history influence
+        if set(hids) & rejected_set:
+            return False, "rejected_hypothesis_cited_as_influence"
 
     return True, None

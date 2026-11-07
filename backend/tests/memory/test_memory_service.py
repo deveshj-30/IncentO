@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from app.core.schemas import (
+    ActionType,
     AnalysisResult,
     CohortCounts,
     Evidence,
@@ -324,6 +325,15 @@ def test_undated_result_dropped_by_adapter(tmp_path: Path) -> None:
     parsed = adapter._parse_cloud_result(future_item, as_of)
     assert parsed is None
 
+    # Untraceable internal Cloud observation with bare UUID is dropped
+    uuid_item = {
+        "id": "845c3be4-e36b-4e4b-972f-5ea86ba6d3e6",
+        "text": "Internal Cloud synthesized observation",
+        "timestamp": "2026-01-15T00:00:00Z",
+    }
+    parsed = adapter._parse_cloud_result(uuid_item, as_of)
+    assert parsed is None
+
 
 def test_cross_restart_persistence(tmp_path: Path) -> None:
     store = tmp_path / "banks.json"
@@ -391,6 +401,65 @@ def test_store_path_resolves_to_repo_root() -> None:
 
     assert LOCAL_STORE_PATH.is_absolute()
     assert str(LOCAL_STORE_PATH) == str(REPO_ROOT / ".local" / "hindsight_banks.json")
+
+
+def test_rejected_hypothesis_never_influences_recommendation(tmp_path: Path) -> None:
+    """A recalled rejected hypothesis or fact never flips advice or appears in history_influence."""
+    store = tmp_path / "banks.json"
+    os.environ["HINDSIGHT_SIMULATE"] = "1"
+    try:
+        adapter = HindsightAdapter(api_key="", store_path=store)
+        service.set_adapter(adapter)
+        as_of = datetime(2026, 3, 1, 0, 0, 0, tzinfo=UTC)
+
+        # Seed only a rejected hypothesis and a generic fact
+        incident_time = datetime(2025, 10, 15, 0, 0, 0, tzinfo=UTC)
+        service.seed_history(
+            [
+                HistoricalIncident(
+                    incident_id="inc-hist-rejected",
+                    title="Prior Review",
+                    occurred_at=incident_time,
+                    records=[
+                        HistoryRecord(
+                            record_id="HIST-RISK-FACT",
+                            memory_type=RecalledMemoryType.FACT,
+                            event_time=incident_time,
+                            summary="A prior review checked customer onboarding.",
+                        ),
+                        HistoryRecord(
+                            record_id="HIST-RISK-REJECTED",
+                            memory_type=RecalledMemoryType.REJECTED_HYPOTHESIS,
+                            event_time=incident_time,
+                            summary="A previous incentive explanation was rejected.",
+                        ),
+                    ],
+                )
+            ],
+            scenario="tiny",
+        )
+
+        analysis = _sample_analysis(as_of)
+        ctx = ExplainContext(
+            run_id="run-rej-check",
+            scenario="tiny",
+            policy_id="pol-acq-bonus",
+            as_of=as_of,
+            memory_mode=MemoryMode.LIVE,
+            incident_id="inc-1",
+        )
+        exp = service.explain(analysis, ctx)
+        # Recalled list contains the items
+        recalled_ids = [m.id for m in exp.recalled]
+        assert "HIST-RISK-REJECTED" in recalled_ids
+
+        # But recommendation is NOT flipped to pilot_guardrail and history_influence is empty!
+        for rec in exp.recommendations:
+            assert rec.action_type == ActionType.REVERT_CHANGE
+            assert "HIST-RISK-REJECTED" not in rec.history_influence
+            assert rec.history_influence == []
+    finally:
+        os.environ.pop("HINDSIGHT_SIMULATE", None)
 
 
 def test_validate_structured_output_rules() -> None:

@@ -91,6 +91,18 @@ class ScenarioDraftTests(TestCase):
                         )
                     )
 
+                if spec.name == "risk":
+                    incident = batch["history"][0]
+                    records = {record["record_id"]: record for record in incident["records"]}
+                    self.assertEqual(records["HIST-RISK-DECISION"]["memory_type"], "decision")
+                    self.assertEqual(records["HIST-RISK-RESULT"]["memory_type"], "measured_result")
+                    self.assertLess(
+                        records["HIST-RISK-DECISION"]["event_time"],
+                        records["HIST-RISK-RESULT"]["event_time"],
+                    )
+                    self.assertLess(incident["occurred_at"], records["HIST-RISK-DECISION"]["event_time"])
+                    self.assertLess(records["HIST-RISK-RESULT"]["event_time"], MODULE.EFFECTIVE_AT)
+
     @staticmethod
     def _is_month_end(timestamp: str) -> bool:
         value = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))

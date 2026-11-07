@@ -3,6 +3,7 @@
 import json
 import logging
 import os
+import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
@@ -304,15 +305,34 @@ class HindsightAdapter:
         }
         mem_type = type_map.get((type_str or "").lower(), RecalledMemoryType.FACT)
 
-        # 3. Parse memory ID
+        # 3. Parse memory ID: require traceable record ID from metadata, tags, or document_id
         mem_id = meta.get("record_id") or meta.get("outcome_id")
         if not mem_id:
             for t in tags:
                 if t.startswith("id:"):
                     mem_id = t[3:]
                     break
+                elif t.startswith("outcome:"):
+                    mem_id = t[8:]
+                    break
         if not mem_id:
-            mem_id = item.get("document_id") or item.get("id") or "mem-unknown"
+            doc_id = item.get("document_id")
+            if doc_id and (doc_id.startswith("doc-seed-") or doc_id.startswith("doc-outcome-")):
+                mem_id = doc_id.replace("doc-seed-", "").replace("doc-outcome-", "")
+        if not mem_id:
+            raw_id = item.get("id")
+            if raw_id:
+                try:
+                    uuid.UUID(str(raw_id))
+                    is_uuid = True
+                except (ValueError, AttributeError):
+                    is_uuid = False
+                if not is_uuid:
+                    mem_id = str(raw_id)
+
+        if not mem_id:
+            # Drop untraceable Cloud observations that cannot be traced to a retained record
+            return None
 
         # 4. Parse incident ID
         inc_id = meta.get("incident_id")
