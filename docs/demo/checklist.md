@@ -29,6 +29,6 @@ Use this checklist before recording the submission video and before the live jud
   - Clearly show the split comparison: **Memory OFF vs. Memory LIVE**.
   - Show the persistence payoff: save an outcome and recall it in the subsequent step.
 - [ ] **Content Deliverables (Hackathon Content Guide)**:
-  - Technical article published (explaining how Hindsight memory powers IncentiveTrap).
+  - Technical article published (explaining how Hindsight memory powers IncentO).
   - Social media post (X / LinkedIn) with live demo clips.
   - Clean GitHub repo with no secrets in code or commits.

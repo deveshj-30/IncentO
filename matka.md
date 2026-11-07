@@ -1,4 +1,4 @@
-# IncentiveTrap, Explained Simply
+# IncentO, Explained Simply
 
 ## The Problem
 
@@ -26,9 +26,9 @@ flowchart TD
     class C,D,E concern;
 ```
 
-## What IncentiveTrap Does
+## What IncentO Does
 
-IncentiveTrap is an early-warning assistant for the people managing sales and business performance. It looks for cases where a reward may be encouraging behavior that hurts the company's broader goals.
+IncentO is an early-warning assistant for the people managing sales and business performance. It looks for cases where a reward may be encouraging behavior that hurts the company's broader goals.
 
 It helps answer:
 
@@ -49,7 +49,7 @@ flowchart TD
     C["Support: complaints and onboarding problems"] --> I
     F["Finance and customer success: revenue and cancellations"] --> I
     M["Memory: past incidents and their outcomes"] --> I
-    I["IncentiveTrap: compare similar customers and connect evidence"] --> W
+    I["IncentO: compare similar customers and connect evidence"] --> W
     W["Investigation: what changed, possible explanations, and next steps"] --> H
     H["Manager: review the evidence and decide"]
     classDef evidence fill:#f1f5f9,stroke:#64748b,color:#0f172a;
@@ -64,7 +64,7 @@ flowchart TD
 
 Suppose a company starts rewarding the number of new customers acquired. In our fictional demo, more deals close near the end of the month. Those customers receive bigger discounts, and several report that promised features are missing.
 
-IncentiveTrap links the deals and complaints, calculates how common the pattern is, and shows the original evidence.
+IncentO links the deals and complaints, calculates how common the pattern is, and shows the original evidence.
 
 It might say: "These customers are reporting more problems. The commission policy could be one explanation. Review the sales promises and compare similar customers before changing the policy."
 
@@ -111,4 +111,4 @@ The system provides evidence and suggestions. People decide what to investigate 
 
 Sales leaders, Revenue Operations teams, and Finance teams can use it to spot potential problems earlier and avoid repeating decisions that did not work.
 
-**The pitch:** IncentiveTrap helps companies notice when their rewards may be encouraging the wrong results, and remembers what happened last time so they can make better decisions.
+**The pitch:** IncentO helps companies notice when their rewards may be encouraging the wrong results, and remembers what happened last time so they can make better decisions.

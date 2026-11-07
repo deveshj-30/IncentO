@@ -254,7 +254,7 @@ export default function App() {
       <header>
         <div>
           <span className="eyebrow">REVENUE OPERATIONS · DEMO</span>
-          <h1>IncentiveTrap</h1>
+          <h1>IncentO</h1>
         </div>
         <span className="badge">
           {investigation.synthetic ? "Synthetic data" : "Data status unknown"}

@@ -1,4 +1,4 @@
-# IncentiveTrap Coding Assistant Guide
+# IncentO Coding Assistant Guide
 
 ## Read First
 

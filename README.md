@@ -1,4 +1,4 @@
-# IncentiveTrap
+# IncentO
 
 Hackathon MVP that investigates whether an acquisition-based sales commission may be producing poor-fit SaaS deals. Synthetic data, replay demo, no causal claims. Read `AGENTS.md`, `agent_help.md`, and `implementation_plan.md` first; `progress.md` holds current status.
 
