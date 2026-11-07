@@ -100,7 +100,7 @@ def _close_days(year: int, month: int, month_end: bool) -> list[int]:
     return [day for day in days if datetime(year, month, day).weekday() < 5]
 
 
-def build_scenario(spec: Scenario) -> dict:
+def build_scenario(spec: Scenario, *, apply_text: bool = True) -> dict:
     """Return one schema-shaped batch with deliberately exact group outcomes."""
 
     rng = random.Random(spec.seed)
@@ -270,7 +270,11 @@ def build_scenario(spec: Scenario) -> dict:
                     )
                     dataset["tickets"].append(
                         {
-                            "ticket_id": f"TICKET-{tag}-{sequence:04d}",
+                            "ticket_id": (
+                                "TICKET-INJECT-001"
+                                if spec.name == "risk" and sequence == 504
+                                else f"TICKET-{tag}-{sequence:04d}"
+                            ),
                             "customer_id": customer_id,
                             "deal_id": deal_id,
                             "created_at": _stamp(ticket_at),
@@ -297,6 +301,26 @@ def build_scenario(spec: Scenario) -> dict:
                         }
                     )
 
+    if apply_text:
+        text_path = ROOT / "text" / f"{spec.name}.json"
+        text_data = json.loads(text_path.read_text(encoding="utf-8"))
+        fields = (
+            ("customers", "customer_id", "display_name"),
+            ("tickets", "ticket_id", "excerpt"),
+            ("cancellations", "cancellation_id", "excerpt"),
+            ("history", "incident_id", "title"),
+        )
+        for collection, id_field, target_field in fields:
+            expected = {record[id_field] for record in dataset[collection]}
+            actual = set(text_data[collection])
+            if expected != actual:
+                raise ValueError(
+                    f"{spec.name} {collection} text IDs differ: "
+                    f"missing={sorted(expected - actual)[:3]}, extra={sorted(actual - expected)[:3]}"
+                )
+            for record in dataset[collection]:
+                record[target_field] = text_data[collection][record[id_field]]
+        dataset["meta"]["text_version"] = text_data["version"]
     return dataset
 
 
