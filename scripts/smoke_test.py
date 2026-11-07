@@ -27,8 +27,8 @@ def check(ok: bool, label: str, detail: str = "") -> bool:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--base-url", default="http://localhost:8000")
-    ap.add_argument("--scenario", default="incentive-risk")
-    ap.add_argument("--as-of", default="2026-06-30T23:59:59Z")
+    ap.add_argument("--scenario", default="risk")
+    ap.add_argument("--as-of", default="2026-11-01T00:00:00Z")
     args = ap.parse_args()
     run_tag = uuid.uuid4().hex[:8]
     c = httpx.Client(base_url=args.base_url, timeout=30)
