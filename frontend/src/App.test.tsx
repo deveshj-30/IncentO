@@ -9,5 +9,8 @@ describe('frontend shell', () => {
     expect(html).toContain('Acquisition bonus')
     expect(html).toContain('19 points')
     expect(html).toContain('Incident timeline')
+    expect(html).toContain('value="risk"')
+    expect(html).toContain('value="POL-RISK-001"')
+    expect(html).toContain('value="2026-11-01"')
   })
 })
