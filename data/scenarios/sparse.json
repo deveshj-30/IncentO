@@ -3,7 +3,7 @@
     "scenario": "sparse",
     "synthetic": true,
     "generator_version": "1",
-    "text_version": "structure-placeholder-1"
+    "text_version": "fictional-surface-v1"
   },
   "policies": [
     {
@@ -19,1621 +19,1621 @@
   "customers": [
     {
       "customer_id": "CUST-SPARSE-0001",
-      "display_name": "Aster Ledger 0001",
+      "display_name": "Aster Ledger North 0001",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0002",
-      "display_name": "Blue Mango Systems 0002",
+      "display_name": "Blue Mango Systems North 0002",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0003",
-      "display_name": "Cedar Harbor 0003",
+      "display_name": "Cedar Harbor North 0003",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0004",
-      "display_name": "Dawnfield Labs 0004",
+      "display_name": "Dawnfield Labs North 0004",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0005",
-      "display_name": "Eastbank Works 0005",
+      "display_name": "Eastbank Works North 0005",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0006",
-      "display_name": "Fable Commerce 0006",
+      "display_name": "Fable Commerce North 0006",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0007",
-      "display_name": "Grove Atlas 0007",
+      "display_name": "Grove Atlas North 0007",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0008",
-      "display_name": "Harborline Studio 0008",
+      "display_name": "Harborline Studio North 0008",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0009",
-      "display_name": "Indigo Circuit 0009",
+      "display_name": "Indigo Circuit North 0009",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0010",
-      "display_name": "Juniper Thread 0010",
+      "display_name": "Juniper Thread North 0010",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0011",
-      "display_name": "Kitebridge Tools 0011",
+      "display_name": "Kitebridge Tools North 0011",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0012",
-      "display_name": "Lotus Vale 0012",
+      "display_name": "Lotus Vale North 0012",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0013",
-      "display_name": "Aster Ledger 0013",
+      "display_name": "Aster Ledger South 0013",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0014",
-      "display_name": "Blue Mango Systems 0014",
+      "display_name": "Blue Mango Systems South 0014",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0015",
-      "display_name": "Cedar Harbor 0015",
+      "display_name": "Cedar Harbor South 0015",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0016",
-      "display_name": "Dawnfield Labs 0016",
+      "display_name": "Dawnfield Labs South 0016",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0017",
-      "display_name": "Eastbank Works 0017",
+      "display_name": "Eastbank Works South 0017",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0018",
-      "display_name": "Fable Commerce 0018",
+      "display_name": "Fable Commerce South 0018",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0019",
-      "display_name": "Grove Atlas 0019",
+      "display_name": "Grove Atlas South 0019",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0020",
-      "display_name": "Harborline Studio 0020",
+      "display_name": "Harborline Studio South 0020",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0021",
-      "display_name": "Indigo Circuit 0021",
+      "display_name": "Indigo Circuit South 0021",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0022",
-      "display_name": "Juniper Thread 0022",
+      "display_name": "Juniper Thread South 0022",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0023",
-      "display_name": "Kitebridge Tools 0023",
+      "display_name": "Kitebridge Tools South 0023",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0024",
-      "display_name": "Lotus Vale 0024",
+      "display_name": "Lotus Vale South 0024",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0025",
-      "display_name": "Aster Ledger 0025",
+      "display_name": "Aster Ledger East 0025",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0026",
-      "display_name": "Blue Mango Systems 0026",
+      "display_name": "Blue Mango Systems East 0026",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0027",
-      "display_name": "Cedar Harbor 0027",
+      "display_name": "Cedar Harbor East 0027",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0028",
-      "display_name": "Dawnfield Labs 0028",
+      "display_name": "Dawnfield Labs East 0028",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0029",
-      "display_name": "Eastbank Works 0029",
+      "display_name": "Eastbank Works East 0029",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0030",
-      "display_name": "Fable Commerce 0030",
+      "display_name": "Fable Commerce East 0030",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0031",
-      "display_name": "Grove Atlas 0031",
+      "display_name": "Grove Atlas East 0031",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0032",
-      "display_name": "Harborline Studio 0032",
+      "display_name": "Harborline Studio East 0032",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0033",
-      "display_name": "Indigo Circuit 0033",
+      "display_name": "Indigo Circuit East 0033",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0034",
-      "display_name": "Juniper Thread 0034",
+      "display_name": "Juniper Thread East 0034",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0035",
-      "display_name": "Kitebridge Tools 0035",
+      "display_name": "Kitebridge Tools East 0035",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0036",
-      "display_name": "Lotus Vale 0036",
+      "display_name": "Lotus Vale East 0036",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0037",
-      "display_name": "Aster Ledger 0037",
+      "display_name": "Aster Ledger West 0037",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0038",
-      "display_name": "Blue Mango Systems 0038",
+      "display_name": "Blue Mango Systems West 0038",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0039",
-      "display_name": "Cedar Harbor 0039",
+      "display_name": "Cedar Harbor West 0039",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0040",
-      "display_name": "Dawnfield Labs 0040",
+      "display_name": "Dawnfield Labs West 0040",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0041",
-      "display_name": "Eastbank Works 0041",
+      "display_name": "Eastbank Works West 0041",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0042",
-      "display_name": "Fable Commerce 0042",
+      "display_name": "Fable Commerce West 0042",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0043",
-      "display_name": "Grove Atlas 0043",
+      "display_name": "Grove Atlas West 0043",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0044",
-      "display_name": "Harborline Studio 0044",
+      "display_name": "Harborline Studio West 0044",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0045",
-      "display_name": "Indigo Circuit 0045",
+      "display_name": "Indigo Circuit West 0045",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0046",
-      "display_name": "Juniper Thread 0046",
+      "display_name": "Juniper Thread West 0046",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0047",
-      "display_name": "Kitebridge Tools 0047",
+      "display_name": "Kitebridge Tools West 0047",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0048",
-      "display_name": "Lotus Vale 0048",
+      "display_name": "Lotus Vale West 0048",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0049",
-      "display_name": "Aster Ledger 0049",
+      "display_name": "Aster Ledger Central 0049",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0050",
-      "display_name": "Blue Mango Systems 0050",
+      "display_name": "Blue Mango Systems Central 0050",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0051",
-      "display_name": "Cedar Harbor 0051",
+      "display_name": "Cedar Harbor Central 0051",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0052",
-      "display_name": "Dawnfield Labs 0052",
+      "display_name": "Dawnfield Labs Central 0052",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0053",
-      "display_name": "Eastbank Works 0053",
+      "display_name": "Eastbank Works Central 0053",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0054",
-      "display_name": "Fable Commerce 0054",
+      "display_name": "Fable Commerce Central 0054",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0055",
-      "display_name": "Grove Atlas 0055",
+      "display_name": "Grove Atlas Central 0055",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0056",
-      "display_name": "Harborline Studio 0056",
+      "display_name": "Harborline Studio Central 0056",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0057",
-      "display_name": "Indigo Circuit 0057",
+      "display_name": "Indigo Circuit Central 0057",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0058",
-      "display_name": "Juniper Thread 0058",
+      "display_name": "Juniper Thread Central 0058",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0059",
-      "display_name": "Kitebridge Tools 0059",
+      "display_name": "Kitebridge Tools Central 0059",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0060",
-      "display_name": "Lotus Vale 0060",
+      "display_name": "Lotus Vale Central 0060",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0061",
-      "display_name": "Aster Ledger 0061",
+      "display_name": "Aster Ledger Field 0061",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0062",
-      "display_name": "Blue Mango Systems 0062",
+      "display_name": "Blue Mango Systems Field 0062",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0063",
-      "display_name": "Cedar Harbor 0063",
+      "display_name": "Cedar Harbor Field 0063",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0064",
-      "display_name": "Dawnfield Labs 0064",
+      "display_name": "Dawnfield Labs Field 0064",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0065",
-      "display_name": "Eastbank Works 0065",
+      "display_name": "Eastbank Works Field 0065",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0066",
-      "display_name": "Fable Commerce 0066",
+      "display_name": "Fable Commerce Field 0066",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0067",
-      "display_name": "Grove Atlas 0067",
+      "display_name": "Grove Atlas Field 0067",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0068",
-      "display_name": "Harborline Studio 0068",
+      "display_name": "Harborline Studio Field 0068",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0069",
-      "display_name": "Indigo Circuit 0069",
+      "display_name": "Indigo Circuit Field 0069",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0070",
-      "display_name": "Juniper Thread 0070",
+      "display_name": "Juniper Thread Field 0070",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0071",
-      "display_name": "Kitebridge Tools 0071",
+      "display_name": "Kitebridge Tools Field 0071",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0072",
-      "display_name": "Lotus Vale 0072",
+      "display_name": "Lotus Vale Field 0072",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0073",
-      "display_name": "Aster Ledger 0073",
+      "display_name": "Aster Ledger Studio 0073",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0074",
-      "display_name": "Blue Mango Systems 0074",
+      "display_name": "Blue Mango Systems Studio 0074",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0075",
-      "display_name": "Cedar Harbor 0075",
+      "display_name": "Cedar Harbor Studio 0075",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0076",
-      "display_name": "Dawnfield Labs 0076",
+      "display_name": "Dawnfield Labs Studio 0076",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0077",
-      "display_name": "Eastbank Works 0077",
+      "display_name": "Eastbank Works Studio 0077",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0078",
-      "display_name": "Fable Commerce 0078",
+      "display_name": "Fable Commerce Studio 0078",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0079",
-      "display_name": "Grove Atlas 0079",
+      "display_name": "Grove Atlas Studio 0079",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0080",
-      "display_name": "Harborline Studio 0080",
+      "display_name": "Harborline Studio Studio 0080",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0081",
-      "display_name": "Indigo Circuit 0081",
+      "display_name": "Indigo Circuit Studio 0081",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0082",
-      "display_name": "Juniper Thread 0082",
+      "display_name": "Juniper Thread Studio 0082",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0083",
-      "display_name": "Kitebridge Tools 0083",
+      "display_name": "Kitebridge Tools Studio 0083",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0084",
-      "display_name": "Lotus Vale 0084",
+      "display_name": "Lotus Vale Studio 0084",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0085",
-      "display_name": "Aster Ledger 0085",
+      "display_name": "Aster Ledger Supply 0085",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0086",
-      "display_name": "Blue Mango Systems 0086",
+      "display_name": "Blue Mango Systems Supply 0086",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0087",
-      "display_name": "Cedar Harbor 0087",
+      "display_name": "Cedar Harbor Supply 0087",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0088",
-      "display_name": "Dawnfield Labs 0088",
+      "display_name": "Dawnfield Labs Supply 0088",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0089",
-      "display_name": "Eastbank Works 0089",
+      "display_name": "Eastbank Works Supply 0089",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0090",
-      "display_name": "Fable Commerce 0090",
+      "display_name": "Fable Commerce Supply 0090",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0091",
-      "display_name": "Grove Atlas 0091",
+      "display_name": "Grove Atlas Supply 0091",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0092",
-      "display_name": "Harborline Studio 0092",
+      "display_name": "Harborline Studio Supply 0092",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0093",
-      "display_name": "Indigo Circuit 0093",
+      "display_name": "Indigo Circuit Supply 0093",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0094",
-      "display_name": "Juniper Thread 0094",
+      "display_name": "Juniper Thread Supply 0094",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0095",
-      "display_name": "Kitebridge Tools 0095",
+      "display_name": "Kitebridge Tools Supply 0095",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0096",
-      "display_name": "Lotus Vale 0096",
+      "display_name": "Lotus Vale Supply 0096",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0097",
-      "display_name": "Aster Ledger 0097",
+      "display_name": "Aster Ledger North 0097",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0098",
-      "display_name": "Blue Mango Systems 0098",
+      "display_name": "Blue Mango Systems North 0098",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0099",
-      "display_name": "Cedar Harbor 0099",
+      "display_name": "Cedar Harbor North 0099",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0100",
-      "display_name": "Dawnfield Labs 0100",
+      "display_name": "Dawnfield Labs North 0100",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0101",
-      "display_name": "Eastbank Works 0101",
+      "display_name": "Eastbank Works North 0101",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0102",
-      "display_name": "Fable Commerce 0102",
+      "display_name": "Fable Commerce North 0102",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0103",
-      "display_name": "Grove Atlas 0103",
+      "display_name": "Grove Atlas North 0103",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0104",
-      "display_name": "Harborline Studio 0104",
+      "display_name": "Harborline Studio North 0104",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0105",
-      "display_name": "Indigo Circuit 0105",
+      "display_name": "Indigo Circuit North 0105",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0106",
-      "display_name": "Juniper Thread 0106",
+      "display_name": "Juniper Thread North 0106",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0107",
-      "display_name": "Kitebridge Tools 0107",
+      "display_name": "Kitebridge Tools North 0107",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0108",
-      "display_name": "Lotus Vale 0108",
+      "display_name": "Lotus Vale North 0108",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0109",
-      "display_name": "Aster Ledger 0109",
+      "display_name": "Aster Ledger South 0109",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0110",
-      "display_name": "Blue Mango Systems 0110",
+      "display_name": "Blue Mango Systems South 0110",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0111",
-      "display_name": "Cedar Harbor 0111",
+      "display_name": "Cedar Harbor South 0111",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0112",
-      "display_name": "Dawnfield Labs 0112",
+      "display_name": "Dawnfield Labs South 0112",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0113",
-      "display_name": "Eastbank Works 0113",
+      "display_name": "Eastbank Works South 0113",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0114",
-      "display_name": "Fable Commerce 0114",
+      "display_name": "Fable Commerce South 0114",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0115",
-      "display_name": "Grove Atlas 0115",
+      "display_name": "Grove Atlas South 0115",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0116",
-      "display_name": "Harborline Studio 0116",
+      "display_name": "Harborline Studio South 0116",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0117",
-      "display_name": "Indigo Circuit 0117",
+      "display_name": "Indigo Circuit South 0117",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0118",
-      "display_name": "Juniper Thread 0118",
+      "display_name": "Juniper Thread South 0118",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0119",
-      "display_name": "Kitebridge Tools 0119",
+      "display_name": "Kitebridge Tools South 0119",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0120",
-      "display_name": "Lotus Vale 0120",
+      "display_name": "Lotus Vale South 0120",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0121",
-      "display_name": "Aster Ledger 0121",
+      "display_name": "Aster Ledger East 0121",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0122",
-      "display_name": "Blue Mango Systems 0122",
+      "display_name": "Blue Mango Systems East 0122",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0123",
-      "display_name": "Cedar Harbor 0123",
+      "display_name": "Cedar Harbor East 0123",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0124",
-      "display_name": "Dawnfield Labs 0124",
+      "display_name": "Dawnfield Labs East 0124",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0125",
-      "display_name": "Eastbank Works 0125",
+      "display_name": "Eastbank Works East 0125",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0126",
-      "display_name": "Fable Commerce 0126",
+      "display_name": "Fable Commerce East 0126",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0127",
-      "display_name": "Grove Atlas 0127",
+      "display_name": "Grove Atlas East 0127",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0128",
-      "display_name": "Harborline Studio 0128",
+      "display_name": "Harborline Studio East 0128",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0129",
-      "display_name": "Indigo Circuit 0129",
+      "display_name": "Indigo Circuit East 0129",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0130",
-      "display_name": "Juniper Thread 0130",
+      "display_name": "Juniper Thread East 0130",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0131",
-      "display_name": "Kitebridge Tools 0131",
+      "display_name": "Kitebridge Tools East 0131",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0132",
-      "display_name": "Lotus Vale 0132",
+      "display_name": "Lotus Vale East 0132",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0133",
-      "display_name": "Aster Ledger 0133",
+      "display_name": "Aster Ledger West 0133",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0134",
-      "display_name": "Blue Mango Systems 0134",
+      "display_name": "Blue Mango Systems West 0134",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0135",
-      "display_name": "Cedar Harbor 0135",
+      "display_name": "Cedar Harbor West 0135",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0136",
-      "display_name": "Dawnfield Labs 0136",
+      "display_name": "Dawnfield Labs West 0136",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0137",
-      "display_name": "Eastbank Works 0137",
+      "display_name": "Eastbank Works West 0137",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0138",
-      "display_name": "Fable Commerce 0138",
+      "display_name": "Fable Commerce West 0138",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0139",
-      "display_name": "Grove Atlas 0139",
+      "display_name": "Grove Atlas West 0139",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0140",
-      "display_name": "Harborline Studio 0140",
+      "display_name": "Harborline Studio West 0140",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0141",
-      "display_name": "Indigo Circuit 0141",
+      "display_name": "Indigo Circuit West 0141",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0142",
-      "display_name": "Juniper Thread 0142",
+      "display_name": "Juniper Thread West 0142",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0143",
-      "display_name": "Kitebridge Tools 0143",
+      "display_name": "Kitebridge Tools West 0143",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0144",
-      "display_name": "Lotus Vale 0144",
+      "display_name": "Lotus Vale West 0144",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0145",
-      "display_name": "Aster Ledger 0145",
+      "display_name": "Aster Ledger Central 0145",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0146",
-      "display_name": "Blue Mango Systems 0146",
+      "display_name": "Blue Mango Systems Central 0146",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0147",
-      "display_name": "Cedar Harbor 0147",
+      "display_name": "Cedar Harbor Central 0147",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0148",
-      "display_name": "Dawnfield Labs 0148",
+      "display_name": "Dawnfield Labs Central 0148",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0149",
-      "display_name": "Eastbank Works 0149",
+      "display_name": "Eastbank Works Central 0149",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0150",
-      "display_name": "Fable Commerce 0150",
+      "display_name": "Fable Commerce Central 0150",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0151",
-      "display_name": "Grove Atlas 0151",
+      "display_name": "Grove Atlas Central 0151",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0152",
-      "display_name": "Harborline Studio 0152",
+      "display_name": "Harborline Studio Central 0152",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0153",
-      "display_name": "Indigo Circuit 0153",
+      "display_name": "Indigo Circuit Central 0153",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0154",
-      "display_name": "Juniper Thread 0154",
+      "display_name": "Juniper Thread Central 0154",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0155",
-      "display_name": "Kitebridge Tools 0155",
+      "display_name": "Kitebridge Tools Central 0155",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0156",
-      "display_name": "Lotus Vale 0156",
+      "display_name": "Lotus Vale Central 0156",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0157",
-      "display_name": "Aster Ledger 0157",
+      "display_name": "Aster Ledger Field 0157",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0158",
-      "display_name": "Blue Mango Systems 0158",
+      "display_name": "Blue Mango Systems Field 0158",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0159",
-      "display_name": "Cedar Harbor 0159",
+      "display_name": "Cedar Harbor Field 0159",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0160",
-      "display_name": "Dawnfield Labs 0160",
+      "display_name": "Dawnfield Labs Field 0160",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0161",
-      "display_name": "Eastbank Works 0161",
+      "display_name": "Eastbank Works Field 0161",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0162",
-      "display_name": "Fable Commerce 0162",
+      "display_name": "Fable Commerce Field 0162",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0163",
-      "display_name": "Grove Atlas 0163",
+      "display_name": "Grove Atlas Field 0163",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0164",
-      "display_name": "Harborline Studio 0164",
+      "display_name": "Harborline Studio Field 0164",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0165",
-      "display_name": "Indigo Circuit 0165",
+      "display_name": "Indigo Circuit Field 0165",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0166",
-      "display_name": "Juniper Thread 0166",
+      "display_name": "Juniper Thread Field 0166",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0167",
-      "display_name": "Kitebridge Tools 0167",
+      "display_name": "Kitebridge Tools Field 0167",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0168",
-      "display_name": "Lotus Vale 0168",
+      "display_name": "Lotus Vale Field 0168",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0169",
-      "display_name": "Aster Ledger 0169",
+      "display_name": "Aster Ledger Studio 0169",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0170",
-      "display_name": "Blue Mango Systems 0170",
+      "display_name": "Blue Mango Systems Studio 0170",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0171",
-      "display_name": "Cedar Harbor 0171",
+      "display_name": "Cedar Harbor Studio 0171",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0172",
-      "display_name": "Dawnfield Labs 0172",
+      "display_name": "Dawnfield Labs Studio 0172",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0173",
-      "display_name": "Eastbank Works 0173",
+      "display_name": "Eastbank Works Studio 0173",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0174",
-      "display_name": "Fable Commerce 0174",
+      "display_name": "Fable Commerce Studio 0174",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0175",
-      "display_name": "Grove Atlas 0175",
+      "display_name": "Grove Atlas Studio 0175",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0176",
-      "display_name": "Harborline Studio 0176",
+      "display_name": "Harborline Studio Studio 0176",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0177",
-      "display_name": "Indigo Circuit 0177",
+      "display_name": "Indigo Circuit Studio 0177",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0178",
-      "display_name": "Juniper Thread 0178",
+      "display_name": "Juniper Thread Studio 0178",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0179",
-      "display_name": "Kitebridge Tools 0179",
+      "display_name": "Kitebridge Tools Studio 0179",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0180",
-      "display_name": "Lotus Vale 0180",
+      "display_name": "Lotus Vale Studio 0180",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0181",
-      "display_name": "Aster Ledger 0181",
+      "display_name": "Aster Ledger Supply 0181",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0182",
-      "display_name": "Blue Mango Systems 0182",
+      "display_name": "Blue Mango Systems Supply 0182",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0183",
-      "display_name": "Cedar Harbor 0183",
+      "display_name": "Cedar Harbor Supply 0183",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0184",
-      "display_name": "Dawnfield Labs 0184",
+      "display_name": "Dawnfield Labs Supply 0184",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0185",
-      "display_name": "Eastbank Works 0185",
+      "display_name": "Eastbank Works Supply 0185",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0186",
-      "display_name": "Fable Commerce 0186",
+      "display_name": "Fable Commerce Supply 0186",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0187",
-      "display_name": "Grove Atlas 0187",
+      "display_name": "Grove Atlas Supply 0187",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0188",
-      "display_name": "Harborline Studio 0188",
+      "display_name": "Harborline Studio Supply 0188",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0189",
-      "display_name": "Indigo Circuit 0189",
+      "display_name": "Indigo Circuit Supply 0189",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0190",
-      "display_name": "Juniper Thread 0190",
+      "display_name": "Juniper Thread Supply 0190",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0191",
-      "display_name": "Kitebridge Tools 0191",
+      "display_name": "Kitebridge Tools Supply 0191",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0192",
-      "display_name": "Lotus Vale 0192",
+      "display_name": "Lotus Vale Supply 0192",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0193",
-      "display_name": "Aster Ledger 0193",
+      "display_name": "Aster Ledger North 0193",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0194",
-      "display_name": "Blue Mango Systems 0194",
+      "display_name": "Blue Mango Systems North 0194",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0195",
-      "display_name": "Cedar Harbor 0195",
+      "display_name": "Cedar Harbor North 0195",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0196",
-      "display_name": "Dawnfield Labs 0196",
+      "display_name": "Dawnfield Labs North 0196",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0197",
-      "display_name": "Eastbank Works 0197",
+      "display_name": "Eastbank Works North 0197",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0198",
-      "display_name": "Fable Commerce 0198",
+      "display_name": "Fable Commerce North 0198",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0199",
-      "display_name": "Grove Atlas 0199",
+      "display_name": "Grove Atlas North 0199",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0200",
-      "display_name": "Harborline Studio 0200",
+      "display_name": "Harborline Studio North 0200",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0201",
-      "display_name": "Indigo Circuit 0201",
+      "display_name": "Indigo Circuit North 0201",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0202",
-      "display_name": "Juniper Thread 0202",
+      "display_name": "Juniper Thread North 0202",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0203",
-      "display_name": "Kitebridge Tools 0203",
+      "display_name": "Kitebridge Tools North 0203",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0204",
-      "display_name": "Lotus Vale 0204",
+      "display_name": "Lotus Vale North 0204",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0205",
-      "display_name": "Aster Ledger 0205",
+      "display_name": "Aster Ledger South 0205",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0206",
-      "display_name": "Blue Mango Systems 0206",
+      "display_name": "Blue Mango Systems South 0206",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0207",
-      "display_name": "Cedar Harbor 0207",
+      "display_name": "Cedar Harbor South 0207",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0208",
-      "display_name": "Dawnfield Labs 0208",
+      "display_name": "Dawnfield Labs South 0208",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0209",
-      "display_name": "Eastbank Works 0209",
+      "display_name": "Eastbank Works South 0209",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0210",
-      "display_name": "Fable Commerce 0210",
+      "display_name": "Fable Commerce South 0210",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0211",
-      "display_name": "Grove Atlas 0211",
+      "display_name": "Grove Atlas South 0211",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0212",
-      "display_name": "Harborline Studio 0212",
+      "display_name": "Harborline Studio South 0212",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0213",
-      "display_name": "Indigo Circuit 0213",
+      "display_name": "Indigo Circuit South 0213",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0214",
-      "display_name": "Juniper Thread 0214",
+      "display_name": "Juniper Thread South 0214",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0215",
-      "display_name": "Kitebridge Tools 0215",
+      "display_name": "Kitebridge Tools South 0215",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0216",
-      "display_name": "Lotus Vale 0216",
+      "display_name": "Lotus Vale South 0216",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0217",
-      "display_name": "Aster Ledger 0217",
+      "display_name": "Aster Ledger East 0217",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0218",
-      "display_name": "Blue Mango Systems 0218",
+      "display_name": "Blue Mango Systems East 0218",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0219",
-      "display_name": "Cedar Harbor 0219",
+      "display_name": "Cedar Harbor East 0219",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0220",
-      "display_name": "Dawnfield Labs 0220",
+      "display_name": "Dawnfield Labs East 0220",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0221",
-      "display_name": "Eastbank Works 0221",
+      "display_name": "Eastbank Works East 0221",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0222",
-      "display_name": "Fable Commerce 0222",
+      "display_name": "Fable Commerce East 0222",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0223",
-      "display_name": "Grove Atlas 0223",
+      "display_name": "Grove Atlas East 0223",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0224",
-      "display_name": "Harborline Studio 0224",
+      "display_name": "Harborline Studio East 0224",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0225",
-      "display_name": "Indigo Circuit 0225",
+      "display_name": "Indigo Circuit East 0225",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0226",
-      "display_name": "Juniper Thread 0226",
+      "display_name": "Juniper Thread East 0226",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0227",
-      "display_name": "Kitebridge Tools 0227",
+      "display_name": "Kitebridge Tools East 0227",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0228",
-      "display_name": "Lotus Vale 0228",
+      "display_name": "Lotus Vale East 0228",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0229",
-      "display_name": "Aster Ledger 0229",
+      "display_name": "Aster Ledger West 0229",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0230",
-      "display_name": "Blue Mango Systems 0230",
+      "display_name": "Blue Mango Systems West 0230",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0231",
-      "display_name": "Cedar Harbor 0231",
+      "display_name": "Cedar Harbor West 0231",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0232",
-      "display_name": "Dawnfield Labs 0232",
+      "display_name": "Dawnfield Labs West 0232",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0233",
-      "display_name": "Eastbank Works 0233",
+      "display_name": "Eastbank Works West 0233",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0234",
-      "display_name": "Fable Commerce 0234",
+      "display_name": "Fable Commerce West 0234",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0235",
-      "display_name": "Grove Atlas 0235",
+      "display_name": "Grove Atlas West 0235",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0236",
-      "display_name": "Harborline Studio 0236",
+      "display_name": "Harborline Studio West 0236",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0237",
-      "display_name": "Indigo Circuit 0237",
+      "display_name": "Indigo Circuit West 0237",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0238",
-      "display_name": "Juniper Thread 0238",
+      "display_name": "Juniper Thread West 0238",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0239",
-      "display_name": "Kitebridge Tools 0239",
+      "display_name": "Kitebridge Tools West 0239",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0240",
-      "display_name": "Lotus Vale 0240",
+      "display_name": "Lotus Vale West 0240",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0241",
-      "display_name": "Aster Ledger 0241",
+      "display_name": "Aster Ledger Central 0241",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0242",
-      "display_name": "Blue Mango Systems 0242",
+      "display_name": "Blue Mango Systems Central 0242",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0243",
-      "display_name": "Cedar Harbor 0243",
+      "display_name": "Cedar Harbor Central 0243",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0244",
-      "display_name": "Dawnfield Labs 0244",
+      "display_name": "Dawnfield Labs Central 0244",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0245",
-      "display_name": "Eastbank Works 0245",
+      "display_name": "Eastbank Works Central 0245",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0246",
-      "display_name": "Fable Commerce 0246",
+      "display_name": "Fable Commerce Central 0246",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0247",
-      "display_name": "Grove Atlas 0247",
+      "display_name": "Grove Atlas Central 0247",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0248",
-      "display_name": "Harborline Studio 0248",
+      "display_name": "Harborline Studio Central 0248",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0249",
-      "display_name": "Indigo Circuit 0249",
+      "display_name": "Indigo Circuit Central 0249",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0250",
-      "display_name": "Juniper Thread 0250",
+      "display_name": "Juniper Thread Central 0250",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0251",
-      "display_name": "Kitebridge Tools 0251",
+      "display_name": "Kitebridge Tools Central 0251",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0252",
-      "display_name": "Lotus Vale 0252",
+      "display_name": "Lotus Vale Central 0252",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0253",
-      "display_name": "Aster Ledger 0253",
+      "display_name": "Aster Ledger Field 0253",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0254",
-      "display_name": "Blue Mango Systems 0254",
+      "display_name": "Blue Mango Systems Field 0254",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0255",
-      "display_name": "Cedar Harbor 0255",
+      "display_name": "Cedar Harbor Field 0255",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0256",
-      "display_name": "Dawnfield Labs 0256",
+      "display_name": "Dawnfield Labs Field 0256",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0257",
-      "display_name": "Eastbank Works 0257",
+      "display_name": "Eastbank Works Field 0257",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0258",
-      "display_name": "Fable Commerce 0258",
+      "display_name": "Fable Commerce Field 0258",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0259",
-      "display_name": "Grove Atlas 0259",
+      "display_name": "Grove Atlas Field 0259",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0260",
-      "display_name": "Harborline Studio 0260",
+      "display_name": "Harborline Studio Field 0260",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0261",
-      "display_name": "Indigo Circuit 0261",
+      "display_name": "Indigo Circuit Field 0261",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0262",
-      "display_name": "Juniper Thread 0262",
+      "display_name": "Juniper Thread Field 0262",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0263",
-      "display_name": "Kitebridge Tools 0263",
+      "display_name": "Kitebridge Tools Field 0263",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0264",
-      "display_name": "Lotus Vale 0264",
+      "display_name": "Lotus Vale Field 0264",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0265",
-      "display_name": "Aster Ledger 0265",
+      "display_name": "Aster Ledger Studio 0265",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0266",
-      "display_name": "Blue Mango Systems 0266",
+      "display_name": "Blue Mango Systems Studio 0266",
       "industry": "logistics",
       "region": "Hyderabad"
     },
     {
       "customer_id": "CUST-SPARSE-0267",
-      "display_name": "Cedar Harbor 0267",
+      "display_name": "Cedar Harbor Studio 0267",
       "industry": "retail",
       "region": "Singapore"
     },
     {
       "customer_id": "CUST-SPARSE-0268",
-      "display_name": "Dawnfield Labs 0268",
+      "display_name": "Dawnfield Labs Studio 0268",
       "industry": "professional services",
       "region": "London"
     },
     {
       "customer_id": "CUST-SPARSE-0269",
-      "display_name": "Eastbank Works 0269",
+      "display_name": "Eastbank Works Studio 0269",
       "industry": "software",
       "region": "Bengaluru"
     },
     {
       "customer_id": "CUST-SPARSE-0270",
-      "display_name": "Fable Commerce 0270",
+      "display_name": "Fable Commerce Studio 0270",
       "industry": "logistics",
       "region": "Hyderabad"
     }
@@ -5427,7 +5427,7 @@
       "deal_id": "DEAL-SPARSE-0006",
       "created_at": "2026-03-06T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our team could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0012",
@@ -5435,7 +5435,7 @@
       "deal_id": "DEAL-SPARSE-0012",
       "created_at": "2026-04-15T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The operations desk could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0019",
@@ -5443,7 +5443,7 @@
       "deal_id": "DEAL-SPARSE-0019",
       "created_at": "2026-01-19T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our account lead could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0026",
@@ -5451,7 +5451,7 @@
       "deal_id": "DEAL-SPARSE-0026",
       "created_at": "2026-02-06T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The new workspace owner could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0032",
@@ -5459,7 +5459,7 @@
       "deal_id": "DEAL-SPARSE-0032",
       "created_at": "2026-01-25T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The launch group could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0039",
@@ -5467,7 +5467,7 @@
       "deal_id": "DEAL-SPARSE-0039",
       "created_at": "2026-01-20T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our support lead could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0046",
@@ -5475,7 +5475,7 @@
       "deal_id": "DEAL-SPARSE-0046",
       "created_at": "2026-02-05T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The regional manager could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0052",
@@ -5483,7 +5483,7 @@
       "deal_id": "DEAL-SPARSE-0052",
       "created_at": "2026-01-26T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our billing team could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0059",
@@ -5491,7 +5491,7 @@
       "deal_id": "DEAL-SPARSE-0059",
       "created_at": "2026-02-24T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The onboarding group could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0066",
@@ -5499,7 +5499,7 @@
       "deal_id": "DEAL-SPARSE-0066",
       "created_at": "2026-02-20T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our project coordinator could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0072",
@@ -5507,7 +5507,7 @@
       "deal_id": "DEAL-SPARSE-0072",
       "created_at": "2026-03-06T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The service desk could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0079",
@@ -5515,7 +5515,7 @@
       "deal_id": "DEAL-SPARSE-0079",
       "created_at": "2026-02-28T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The rollout team could not finish the setup checklist. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0086",
@@ -5523,7 +5523,7 @@
       "deal_id": "DEAL-SPARSE-0086",
       "created_at": "2026-02-21T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our team is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0092",
@@ -5531,7 +5531,7 @@
       "deal_id": "DEAL-SPARSE-0092",
       "created_at": "2026-03-09T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The operations desk is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0099",
@@ -5539,7 +5539,7 @@
       "deal_id": "DEAL-SPARSE-0099",
       "created_at": "2026-04-06T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our account lead is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0106",
@@ -5547,7 +5547,7 @@
       "deal_id": "DEAL-SPARSE-0106",
       "created_at": "2026-03-30T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The new workspace owner is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0112",
@@ -5555,7 +5555,7 @@
       "deal_id": "DEAL-SPARSE-0112",
       "created_at": "2026-03-17T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The launch group is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0119",
@@ -5563,7 +5563,7 @@
       "deal_id": "DEAL-SPARSE-0119",
       "created_at": "2026-04-04T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our support lead is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0126",
@@ -5571,7 +5571,7 @@
       "deal_id": "DEAL-SPARSE-0126",
       "created_at": "2026-04-20T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The regional manager is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0132",
@@ -5579,7 +5579,7 @@
       "deal_id": "DEAL-SPARSE-0132",
       "created_at": "2026-03-17T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our billing team is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0135",
@@ -5587,7 +5587,7 @@
       "deal_id": "DEAL-SPARSE-0135",
       "created_at": "2026-05-05T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The onboarding group is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0138",
@@ -5595,7 +5595,7 @@
       "deal_id": "DEAL-SPARSE-0138",
       "created_at": "2026-06-07T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our project coordinator is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0141",
@@ -5603,7 +5603,7 @@
       "deal_id": "DEAL-SPARSE-0141",
       "created_at": "2026-07-12T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The service desk is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0144",
@@ -5611,7 +5611,7 @@
       "deal_id": "DEAL-SPARSE-0144",
       "created_at": "2026-08-12T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The rollout team is still waiting for access roles. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0147",
@@ -5619,7 +5619,7 @@
       "deal_id": "DEAL-SPARSE-0147",
       "created_at": "2026-09-18T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our team found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0150",
@@ -5627,7 +5627,7 @@
       "deal_id": "DEAL-SPARSE-0150",
       "created_at": "2026-10-21T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The operations desk found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0157",
@@ -5635,7 +5635,7 @@
       "deal_id": "DEAL-SPARSE-0157",
       "created_at": "2026-04-19T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our account lead found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0164",
@@ -5643,7 +5643,7 @@
       "deal_id": "DEAL-SPARSE-0164",
       "created_at": "2026-05-07T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The new workspace owner found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0170",
@@ -5651,7 +5651,7 @@
       "deal_id": "DEAL-SPARSE-0170",
       "created_at": "2026-04-25T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The launch group found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0177",
@@ -5659,7 +5659,7 @@
       "deal_id": "DEAL-SPARSE-0177",
       "created_at": "2026-05-20T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our support lead found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0184",
@@ -5667,7 +5667,7 @@
       "deal_id": "DEAL-SPARSE-0184",
       "created_at": "2026-06-05T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The regional manager found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0190",
@@ -5675,7 +5675,7 @@
       "deal_id": "DEAL-SPARSE-0190",
       "created_at": "2026-05-26T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our billing team found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0197",
@@ -5683,7 +5683,7 @@
       "deal_id": "DEAL-SPARSE-0197",
       "created_at": "2026-06-15T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The onboarding group found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0204",
@@ -5691,7 +5691,7 @@
       "deal_id": "DEAL-SPARSE-0204",
       "created_at": "2026-07-03T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our project coordinator found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0210",
@@ -5699,7 +5699,7 @@
       "deal_id": "DEAL-SPARSE-0210",
       "created_at": "2026-06-20T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The service desk found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0217",
@@ -5707,7 +5707,7 @@
       "deal_id": "DEAL-SPARSE-0217",
       "created_at": "2026-08-10T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The rollout team found the import guide unclear. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0224",
@@ -5715,7 +5715,7 @@
       "deal_id": "DEAL-SPARSE-0224",
       "created_at": "2026-07-10T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our team could not match the promised rollout steps. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0230",
@@ -5723,7 +5723,7 @@
       "deal_id": "DEAL-SPARSE-0230",
       "created_at": "2026-07-24T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The operations desk could not match the promised rollout steps. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0237",
@@ -5731,7 +5731,7 @@
       "deal_id": "DEAL-SPARSE-0237",
       "created_at": "2026-09-11T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our account lead could not match the promised rollout steps. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0244",
@@ -5739,7 +5739,7 @@
       "deal_id": "DEAL-SPARSE-0244",
       "created_at": "2026-08-11T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The new workspace owner could not match the promised rollout steps. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0250",
@@ -5747,7 +5747,7 @@
       "deal_id": "DEAL-SPARSE-0250",
       "created_at": "2026-08-25T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The launch group could not match the promised rollout steps. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0257",
@@ -5755,7 +5755,7 @@
       "deal_id": "DEAL-SPARSE-0257",
       "created_at": "2026-10-04T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our support lead could not match the promised rollout steps. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0264",
@@ -5763,7 +5763,7 @@
       "deal_id": "DEAL-SPARSE-0264",
       "created_at": "2026-10-20T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "The regional manager could not match the promised rollout steps. Please send a practical next step."
     },
     {
       "ticket_id": "TICKET-SPARSE-0270",
@@ -5771,7 +5771,7 @@
       "deal_id": "DEAL-SPARSE-0270",
       "created_at": "2026-09-16T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer reported an onboarding concern."
+      "excerpt": "Our billing team could not match the promised rollout steps. Please send a practical next step."
     }
   ],
   "cancellations": [
@@ -5781,7 +5781,7 @@
       "deal_id": "DEAL-SPARSE-0012",
       "cancelled_at": "2026-04-22T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We are closing the subscription because our team could not finish the setup checklist. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0022",
@@ -5789,7 +5789,7 @@
       "deal_id": "DEAL-SPARSE-0022",
       "cancelled_at": "2026-02-03T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We decided not to renew because our team could not finish the setup checklist. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0032",
@@ -5797,7 +5797,7 @@
       "deal_id": "DEAL-SPARSE-0032",
       "cancelled_at": "2026-01-22T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "Our team cancelled after our team could not finish the setup checklist. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0042",
@@ -5805,7 +5805,7 @@
       "deal_id": "DEAL-SPARSE-0042",
       "cancelled_at": "2026-02-05T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "The account was cancelled when our team could not finish the setup checklist. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0052",
@@ -5813,7 +5813,7 @@
       "deal_id": "DEAL-SPARSE-0052",
       "cancelled_at": "2026-01-26T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We ended the trial because our team could not finish the setup checklist. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0062",
@@ -5821,7 +5821,7 @@
       "deal_id": "DEAL-SPARSE-0062",
       "cancelled_at": "2026-02-23T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We stopped the rollout after our team could not finish the setup checklist. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0072",
@@ -5829,7 +5829,7 @@
       "deal_id": "DEAL-SPARSE-0072",
       "cancelled_at": "2026-03-09T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "The service was cancelled because our team could not finish the setup checklist. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0082",
@@ -5837,7 +5837,7 @@
       "deal_id": "DEAL-SPARSE-0082",
       "cancelled_at": "2026-03-01T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We cannot continue because our team could not finish the setup checklist. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0092",
@@ -5845,7 +5845,7 @@
       "deal_id": "DEAL-SPARSE-0092",
       "cancelled_at": "2026-03-15T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We are closing the subscription because our team is still waiting for access roles. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0102",
@@ -5853,7 +5853,7 @@
       "deal_id": "DEAL-SPARSE-0102",
       "cancelled_at": "2026-04-08T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We decided not to renew because our team is still waiting for access roles. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0112",
@@ -5861,7 +5861,7 @@
       "deal_id": "DEAL-SPARSE-0112",
       "cancelled_at": "2026-03-26T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "Our team cancelled after our team is still waiting for access roles. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0122",
@@ -5869,7 +5869,7 @@
       "deal_id": "DEAL-SPARSE-0122",
       "cancelled_at": "2026-04-09T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "The account was cancelled when our team is still waiting for access roles. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0132",
@@ -5877,7 +5877,7 @@
       "deal_id": "DEAL-SPARSE-0132",
       "cancelled_at": "2026-03-29T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We ended the trial because our team is still waiting for access roles. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0137",
@@ -5885,7 +5885,7 @@
       "deal_id": "DEAL-SPARSE-0137",
       "cancelled_at": "2026-06-22T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We stopped the rollout after our team is still waiting for access roles. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0141",
@@ -5893,7 +5893,7 @@
       "deal_id": "DEAL-SPARSE-0141",
       "cancelled_at": "2026-07-29T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "The service was cancelled because our team is still waiting for access roles. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0146",
@@ -5901,7 +5901,7 @@
       "deal_id": "DEAL-SPARSE-0146",
       "cancelled_at": "2026-09-21T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We cannot continue because our team is still waiting for access roles. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0150",
@@ -5909,7 +5909,7 @@
       "deal_id": "DEAL-SPARSE-0150",
       "cancelled_at": "2026-10-28T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We are closing the subscription because our team found the import guide unclear. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0160",
@@ -5917,7 +5917,7 @@
       "deal_id": "DEAL-SPARSE-0160",
       "cancelled_at": "2026-05-04T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We decided not to renew because our team found the import guide unclear. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0170",
@@ -5925,7 +5925,7 @@
       "deal_id": "DEAL-SPARSE-0170",
       "cancelled_at": "2026-04-22T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "Our team cancelled after our team found the import guide unclear. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0180",
@@ -5933,7 +5933,7 @@
       "deal_id": "DEAL-SPARSE-0180",
       "cancelled_at": "2026-06-07T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "The account was cancelled when our team found the import guide unclear. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0190",
@@ -5941,7 +5941,7 @@
       "deal_id": "DEAL-SPARSE-0190",
       "cancelled_at": "2026-05-26T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We ended the trial because our team found the import guide unclear. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0200",
@@ -5949,7 +5949,7 @@
       "deal_id": "DEAL-SPARSE-0200",
       "cancelled_at": "2026-07-06T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We stopped the rollout after our team found the import guide unclear. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0210",
@@ -5957,7 +5957,7 @@
       "deal_id": "DEAL-SPARSE-0210",
       "cancelled_at": "2026-06-23T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "The service was cancelled because our team found the import guide unclear. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0220",
@@ -5965,7 +5965,7 @@
       "deal_id": "DEAL-SPARSE-0220",
       "cancelled_at": "2026-08-11T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We cannot continue because our team found the import guide unclear. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0230",
@@ -5973,7 +5973,7 @@
       "deal_id": "DEAL-SPARSE-0230",
       "cancelled_at": "2026-07-30T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We are closing the subscription because our team could not match the promised rollout steps. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0240",
@@ -5981,7 +5981,7 @@
       "deal_id": "DEAL-SPARSE-0240",
       "cancelled_at": "2026-09-15T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We decided not to renew because our team could not match the promised rollout steps. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0250",
@@ -5989,7 +5989,7 @@
       "deal_id": "DEAL-SPARSE-0250",
       "cancelled_at": "2026-09-03T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "Our team cancelled after our team could not match the promised rollout steps. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0260",
@@ -5997,7 +5997,7 @@
       "deal_id": "DEAL-SPARSE-0260",
       "cancelled_at": "2026-10-11T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "The account was cancelled when our team could not match the promised rollout steps. The handoff did not meet our rollout needs."
     },
     {
       "cancellation_id": "CANCEL-SPARSE-0270",
@@ -6005,13 +6005,13 @@
       "deal_id": "DEAL-SPARSE-0270",
       "cancelled_at": "2026-09-28T12:00:00Z",
       "theme": "onboarding_difficulty",
-      "excerpt": "Synthetic customer ended the subscription."
+      "excerpt": "We ended the trial because our team could not match the promised rollout steps. The handoff did not meet our rollout needs."
     }
   ],
   "history": [
     {
       "incident_id": "INC-SPARSE-PRIOR",
-      "title": "Prior acquisition review",
+      "title": "Prior acquisition and service review",
       "occurred_at": "2025-12-15T12:00:00Z",
       "records": [
         {

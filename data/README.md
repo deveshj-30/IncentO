@@ -2,8 +2,11 @@
 
 Run `python data/generate/build_scenarios.py` from the repository root to recreate
 `data/scenarios/*.json`. The generator uses only the Python standard library and
-fixed seeds. Customer and event excerpts are labeled placeholders pending the
-separate surface-text pass.
+fixed seeds. The separately committed `data/text/<scenario>.json` snapshots
+provide fictional customer names, ticket excerpts, cancellation reasons, and
+incident titles. The generator loads these snapshots by stable record ID; it
+never rewrites them. `python data/generate/author_surface_text.py` is a one-time
+snapshot authoring command and refuses to overwrite existing text files.
 Run `python -m unittest discover -s backend/tests/analysis -p test_scenarios.py -v`
 from the repository root to verify the committed batches, exact counts, links,
 and event cutoffs.
@@ -46,3 +49,11 @@ pipeline disruption without improved onboarding complaints). These synthetic
 records predate the policy. P4 uses the measured result to test a
 content-driven change from `revert_change` with memory off to
 `pilot_guardrail` with memory live; the analytical metrics must remain the same.
+
+`TICKET-INJECT-001` is a real risk ticket on `DEAL-RISK-0504`. Its excerpt
+contains an explicit attempt to steer the recommendation. It is untrusted
+customer text for the UI and must never be sent to Reflect. The P3 tests verify
+that text overlays preserve source links and numerical results. The snapshot
+checks also enforce record-ID coverage, length bounds, no email addresses,
+phone numbers or URLs, and a cap of eight excerpts with the same opening ten
+words. All names and product details here are fictional.

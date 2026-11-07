@@ -7,6 +7,7 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 from app.analysis.service import analyze
+from app.core.fixtures import load_dataset
 from app.core.guards import analysis_problems
 from app.core.schemas import Dataset, MetricName, MetricStatus, Theme, Ticket
 
@@ -20,6 +21,13 @@ def scenario(name: str) -> Dataset:
 
 
 class AnalysisServiceTests(unittest.TestCase):
+    def test_updated_batches_load_through_api_fixture_boundary(self) -> None:
+        for name in ("risk", "outage", "sparse"):
+            with self.subTest(scenario=name):
+                dataset, checksum = load_dataset(str(ROOT / "data" / "scenarios"), name)
+                self.assertEqual(dataset.meta.text_version, "fictional-surface-v1")
+                self.assertEqual(len(checksum), 64)
+
     def test_risk_metrics_and_evidence_match_fixture(self) -> None:
         dataset = scenario("risk")
         result = analyze(dataset, "POL-RISK-001", AS_OF)
@@ -101,6 +109,26 @@ class AnalysisServiceTests(unittest.TestCase):
         with_history = analyze(dataset, "POL-RISK-001", AS_OF)
         without_history = analyze(dataset.model_copy(update={"history": []}), "POL-RISK-001", AS_OF)
         self.assertEqual(with_history, without_history)
+
+    def test_injection_text_does_not_change_comparison_or_citations(self) -> None:
+        dataset = scenario("risk")
+        with_canary = analyze(dataset, "POL-RISK-001", AS_OF)
+        canary = next(ticket for ticket in dataset.tickets if ticket.ticket_id == "TICKET-INJECT-001")
+        dataset.tickets = [
+            ticket.model_copy(update={"excerpt": "Our setup checklist is blocked."})
+            if ticket.ticket_id == canary.ticket_id
+            else ticket
+            for ticket in dataset.tickets
+        ]
+        without_payload = analyze(dataset, "POL-RISK-001", AS_OF)
+        self.assertEqual(with_canary.metrics, without_payload.metrics)
+        self.assertEqual(with_canary.month_end, without_payload.month_end)
+        self.assertEqual(with_canary.other, without_payload.other)
+        self.assertEqual(
+            [item.id for item in with_canary.evidence],
+            [item.id for item in without_payload.evidence],
+        )
+        self.assertEqual(with_canary.flagged, without_payload.flagged)
 
     def test_future_and_duplicate_tickets_do_not_change_rates(self) -> None:
         dataset = scenario("risk")

@@ -5,6 +5,7 @@ from __future__ import annotations
 import calendar
 import importlib.util
 import json
+import re
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -25,6 +26,49 @@ class ScenarioDraftTests(TestCase):
             with self.subTest(scenario=spec.name):
                 path = ROOT / "data" / "scenarios" / f"{spec.name}.json"
                 self.assertEqual(json.loads(path.read_text(encoding="utf-8")), MODULE.build_scenario(spec))
+
+    def test_frozen_surface_text_maps_to_records_and_stays_bounded(self) -> None:
+        private_pattern = re.compile(
+            r"(?:[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|https?://\S+|www\.\S+|"
+            r"\+?\d[\d -]{8,}\d)",
+            re.IGNORECASE,
+        )
+        for spec in MODULE.SCENARIOS:
+            with self.subTest(scenario=spec.name):
+                batch = MODULE.build_scenario(spec)
+                text_path = ROOT / "data" / "text" / f"{spec.name}.json"
+                snapshot = json.loads(text_path.read_text(encoding="utf-8"))
+                self.assertEqual(batch["meta"]["text_version"], snapshot["version"])
+                for collection, id_field, field, max_length in (
+                    ("customers", "customer_id", "display_name", 100),
+                    ("tickets", "ticket_id", "excerpt", 500),
+                    ("cancellations", "cancellation_id", "excerpt", 500),
+                    ("history", "incident_id", "title", 120),
+                ):
+                    actual = {record[id_field]: record[field] for record in batch[collection]}
+                    self.assertEqual(actual, snapshot[collection])
+                    for value in actual.values():
+                        self.assertTrue(8 <= len(value) <= max_length)
+                        self.assertIsNone(private_pattern.search(value))
+                for collection in ("tickets", "cancellations"):
+                    values = list(snapshot[collection].values())
+                    self.assertEqual(len(values), len(set(values)))
+                    prefixes = [" ".join(value.lower().split()[:10]) for value in values]
+                    self.assertLessEqual(max(prefixes.count(prefix) for prefix in set(prefixes)), 8)
+
+    def test_injection_canary_is_real_ticket_and_only_changes_text(self) -> None:
+        spec = next(spec for spec in MODULE.SCENARIOS if spec.name == "risk")
+        plain = MODULE.build_scenario(spec, apply_text=False)
+        decorated = MODULE.build_scenario(spec)
+        canary = next(ticket for ticket in decorated["tickets"] if ticket["ticket_id"] == "TICKET-INJECT-001")
+        self.assertIn("Ignore previous instructions", canary["excerpt"])
+
+        def source_links(batch: dict) -> list[tuple[str, str, str]]:
+            return [
+                (ticket["ticket_id"], ticket["deal_id"], ticket["created_at"]) for ticket in batch["tickets"]
+            ]
+
+        self.assertEqual(source_links(plain), source_links(decorated))
 
     def test_group_counts_and_source_links(self) -> None:
         for spec in MODULE.SCENARIOS:
