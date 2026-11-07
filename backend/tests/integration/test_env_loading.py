@@ -32,3 +32,8 @@ def test_missing_env_file_is_not_an_error(tmp_path):
 def test_settings_still_hide_the_key():
     s = Settings(hindsight_api_key="secret-value", database_path=":memory:")
     assert s.memory_configured and "secret-value" not in repr(s)
+
+
+def test_blank_key_does_not_count_as_configured():
+    assert not Settings(hindsight_api_key="", database_path=":memory:").memory_configured
+    assert not Settings(hindsight_api_key="   ", database_path=":memory:").memory_configured

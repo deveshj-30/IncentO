@@ -36,7 +36,8 @@ class Settings(BaseSettings):
 
     @property
     def memory_configured(self) -> bool:
-        return self.hindsight_api_key is not None
+        key = self.hindsight_api_key
+        return key is not None and bool(key.get_secret_value().strip())
 
 
 def load_env_into_process(path: Path = ENV_FILE) -> None:
