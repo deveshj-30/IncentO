@@ -319,17 +319,7 @@ export default function App() {
     <div className="app-frame">
       <div className="shell">
         <header className="site-header">
-          <div className="brand-lockup">
-            <span className="brand-mark" aria-hidden="true">
-              I<span>·</span>
-            </span>
-            <div>
-              <h1>IncentO</h1>
-              <span className="brand-subtitle mono">
-                INCENTIVE INTELLIGENCE
-              </span>
-            </div>
-          </div>
+          <h1 className="brand-wordmark">IncentO</h1>
           <div className="header-meta">
             <span className="live-indicator">
               <i aria-hidden="true" /> DEMO WORKSPACE
@@ -386,7 +376,9 @@ export default function App() {
                     Investigate whether an acquisition bonus coincides with
                     heavier month-end discounting and poorer customer outcomes.
                   </p>
-                  <span className="policy-tag mono">ACTIVE POLICY / Acquisition bonus</span>
+                  <span className="policy-tag mono">
+                    ACTIVE POLICY / Acquisition bonus
+                  </span>
                   <div className="hero-annotation mono">
                     <span className="annotation-line" /> MEASURED ASSOCIATION ·
                     NOT CAUSATION
