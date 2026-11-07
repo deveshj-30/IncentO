@@ -1,4 +1,4 @@
-# IncentiveTrap Implementation Plan
+# IncentO Implementation Plan
 
 ## Goal and Current State
 

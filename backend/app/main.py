@@ -15,7 +15,7 @@ def create_app(settings: Settings | None = None, mods: modules.Modules | None = 
         # Real startup only: tests and the contract export pass explicit settings and stay hermetic.
         load_env_into_process()
         settings = get_settings()
-    app = FastAPI(title="IncentiveTrap API", version=API_VERSION)
+    app = FastAPI(title="IncentO API", version=API_VERSION)
     app.state.services = Services(
         settings=settings,
         repo=Repository(connect(settings.resolved_database_path)),

@@ -6,6 +6,7 @@ describe('frontend shell', () => {
   it('renders the fixture overview with a synthetic-data label', () => {
     const html = renderToStaticMarkup(<App />)
     expect(html).toContain('Synthetic data')
+    expect(html).toContain('IncentO')
     expect(html).toContain('Acquisition bonus')
     expect(html).toContain('19 points')
     expect(html).toContain('Incident timeline')

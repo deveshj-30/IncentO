@@ -1,9 +1,9 @@
-# IncentiveTrap — 60-Second Hackathon Live Demo Script
+# IncentO — 60-Second Hackathon Live Demo Script
 
 ## Hook (0:00 - 0:15) — The Problem
 > *"Every SaaS company incentives sales reps with acquisition bonuses. But what happens when reps start heavily discounting month-end deals to hit quota, bringing in bad-fit customers who complain and churn within 60 days?*  
 > *Right now, RevOps managers rely on gut feel or static spreadsheets. But worse, companies repeat the exact same policy mistakes year after year because they lack institutional memory.*  
-> *Meet **IncentiveTrap**—powered by Vectorize Hindsight."*
+> *Meet **IncentO**—powered by Vectorize Hindsight."*
 
 ---
 
@@ -34,4 +34,4 @@
 3. Re-run an investigation at a later `as_of` date:
    * Show that the agent now recalls *this exact decision*, closing the persistent learning loop.
 4. **Closing statement**:
-   > *"IncentiveTrap turns sales commission governance from static spreadsheets into an evolving, self-learning memory system. Powered by Vectorize Hindsight."*
+   > *"IncentO turns sales commission governance from static spreadsheets into an evolving, self-learning memory system. Powered by Vectorize Hindsight."*

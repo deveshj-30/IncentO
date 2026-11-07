@@ -1,4 +1,4 @@
-# IncentiveTrap Progress and Handoff
+# IncentO Progress and Handoff
 
 ## How to Update This File
 

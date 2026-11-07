@@ -1,4 +1,4 @@
-"""Source of truth for the IncentiveTrap v1 contracts (P2 owns this file).
+"""Source of truth for the IncentO v1 contracts (P2 owns this file).
 
 Contracts under ``contracts/`` and the frontend types are generated from these
 models; never hand-edit the generated files. P3 and P4 import these models and
