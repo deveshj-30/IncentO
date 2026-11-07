@@ -119,8 +119,10 @@ def validate_explanation_text(text: str, token_dict: dict[str, str]) -> tuple[bo
         if key not in token_dict:
             return False, f"unknown_token:{key}"
 
-    if _CAUSAL_RE.search(text):
-        return False, "causal_claim"
+    causal = _CAUSAL_RE.search(text)
+    if causal:
+        # Name the word so the retry can tell the model exactly what to remove.
+        return False, f"causal_claim:{causal.group(0).lower()}"
 
     # Strip tokens before checking for numbers
     stripped = _TOKEN_RE.sub("", text)

@@ -36,6 +36,16 @@ log = logging.getLogger(__name__)
 _adapter = HindsightAdapter()
 
 
+def configured_status() -> MemoryStatus:
+    """How memory is configured, without a network call: a key is `live`, simulation is `fixture`."""
+    adapter = get_adapter()
+    if adapter.is_live:
+        return MemoryStatus.LIVE
+    if adapter.simulation_enabled:
+        return MemoryStatus.FIXTURE
+    return MemoryStatus.UNAVAILABLE
+
+
 def get_adapter() -> HindsightAdapter:
     return _adapter
 
@@ -242,6 +252,7 @@ def explain(analysis: AnalysisResult, context: ExplainContext) -> Explanation:
                 "Remove ALL digits (0-9) and percent signs, use tokens like {{m:discount.gap}}, "
                 "and never write "
                 "causal wording (caused, led to, due to, because of); say 'followed' instead. "
+                "Rewrite the whole text, including summary, in that style. "
                 "In evidence_ids use only IDs from the allowed list; leave the list empty rather than guess."
             )
             structured_out_retry, _ = adapter.reflect(

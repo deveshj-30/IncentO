@@ -349,6 +349,25 @@ def test_health_reports_stubs_and_never_live_memory(client):
     assert BODY["scenario"]
 
 
+def _health_with(make_client, probe):
+    client = make_client()
+    client.app.state.services.modules.memory_status = probe
+    return client.get("/api/health").json()["memory_status"]
+
+
+def test_health_reports_configured_memory_status(make_client):
+    assert _health_with(make_client, None) == "unavailable"
+    assert _health_with(make_client, lambda: MemoryStatus.LIVE) == "live"
+    assert _health_with(make_client, lambda: MemoryStatus.FIXTURE) == "fixture"
+
+
+def test_health_survives_a_failing_memory_probe(make_client):
+    def broken():
+        raise RuntimeError("boom")
+
+    assert _health_with(make_client, broken) == "unavailable"
+
+
 # --- a seeded record is shown as the dataset stores it ---
 
 

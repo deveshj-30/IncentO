@@ -24,6 +24,8 @@ class Modules:
     seed_history: Any
     reset_demo_bank: Any
     stubbed: list[str]
+    # Optional: returns the configured MemoryStatus without a network call. Absent means unavailable.
+    memory_status: Any = None
 
 
 def resolve() -> Modules:
@@ -42,4 +44,8 @@ def resolve() -> Modules:
                 fn = getattr(stubs, name)
                 stubbed.append(name)
             chosen[name] = fn
-    return Modules(stubbed=stubbed, **chosen)
+    try:
+        memory_status = getattr(importlib.import_module("app.memory.service"), "configured_status", None)
+    except ModuleNotFoundError:
+        memory_status = None
+    return Modules(stubbed=stubbed, memory_status=memory_status, **chosen)

@@ -618,13 +618,24 @@ def test_normalize_citations_repairs_misplaced_ids_and_drops_invented_ones() -> 
 def test_causal_wording_is_rejected_but_causation_disclaimer_is_not() -> None:
     from app.memory.validation import validate_explanation_text
 
-    for bad in (
-        "Previous abrupt suspensions caused seller departures.",
-        "Discounting may lead to more complaints.",
-        "Churn rose due to the change.",
-        "Pipeline disruption resulted in lost deals.",
+    for bad, word in (
+        ("Previous abrupt suspensions caused seller departures.", "caused"),
+        ("Discounting may lead to more complaints.", "lead to"),
+        ("Churn rose due to the change.", "due to"),
+        ("Pipeline disruption resulted in lost deals.", "resulted in"),
     ):
-        assert validate_explanation_text(bad, {}) == (False, "causal_claim"), bad
+        assert validate_explanation_text(bad, {}) == (False, f"causal_claim:{word}"), bad
     ok = "The gap may be associated with discounting; this does not establish causation."
     assert validate_explanation_text(ok, {}) == (True, None)
     assert validate_explanation_text("Seller departures followed the suspension.", {}) == (True, None)
+
+
+def test_configured_status_follows_key_and_simulation(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.delenv("HINDSIGHT_SIMULATE", raising=False)
+    service.set_adapter(HindsightAdapter(api_key="", store_path=tmp_path / "b.json"))
+    assert service.configured_status() == MemoryStatus.UNAVAILABLE
+    monkeypatch.setenv("HINDSIGHT_SIMULATE", "1")
+    assert service.configured_status() == MemoryStatus.FIXTURE
+    monkeypatch.delenv("HINDSIGHT_SIMULATE")
+    service.set_adapter(HindsightAdapter(api_key="test-key", store_path=tmp_path / "b.json"))
+    assert service.configured_status() == MemoryStatus.LIVE

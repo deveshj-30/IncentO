@@ -60,6 +60,25 @@ describe("frontend flows", () => {
     expect(host.textContent).toContain("Illustrative contract fixture");
   });
 
+  it("labels ticket and cancellation excerpts as untrusted customer text", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw new Error("backend unavailable");
+      }),
+    );
+    await mount();
+    await click("Investigation");
+    expect(host.textContent).toContain("untrusted customer text");
+    const quoted = sample.analysis.evidence.filter(
+      (item) =>
+        item.excerpt &&
+        (item.source_type === "ticket" || item.source_type === "cancellation"),
+    );
+    expect(quoted.length).toBeGreaterThan(0);
+    expect(host.querySelectorAll(".badge.untrusted")).toHaveLength(quoted.length);
+  });
+
   it("loads a real scenario, reopens a saved run, and requests the opposite memory mode", async () => {
     const requests: Array<{ path: string; body?: Record<string, string> }> = [];
     vi.stubGlobal(
