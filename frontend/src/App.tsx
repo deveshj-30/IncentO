@@ -19,6 +19,153 @@ const metricLabel: Record<string, string> = {
   cancel_30d: "30-day cancellations",
 };
 
+function SignalGraphic({
+  analysis,
+  isLive,
+}: {
+  analysis: Investigation["analysis"];
+  isLive: boolean;
+}) {
+  const metrics = analysis.metrics.slice(0, 3);
+  const hasValues =
+    metrics.length === 3 &&
+    metrics.every(
+      (metric) =>
+        metric.month_end_value !== null && metric.other_value !== null,
+    );
+  const max = Math.max(
+    0.4,
+    ...metrics.flatMap((metric) => [
+      metric.month_end_value ?? 0,
+      metric.other_value ?? 0,
+    ]),
+  );
+  const x = (index: number) => 62 + index * 194;
+  const y = (value: number) => 206 - (value / max) * 146;
+  const series = [
+    {
+      key: "month_end_value" as const,
+      className: "series-primary",
+    },
+    {
+      key: "other_value" as const,
+      className: "series-secondary",
+    },
+  ];
+
+  return (
+    <div
+      className="hero-visual"
+      role="img"
+      aria-label={
+        hasValues
+          ? `Outcome profile: ${metrics.map((metric) => `${metricLabel[metric.name] ?? metric.name}, month-end ${Math.round((metric.month_end_value ?? 0) * 100)} percent and other deals ${Math.round((metric.other_value ?? 0) * 100)} percent`).join("; ")}`
+          : "Outcome profile unavailable for this window"
+      }
+    >
+      <div className="visual-mesh" aria-hidden="true" />
+      <div className="visual-header">
+        <span className="mono">SIGNAL PROFILE / 001</span>
+        <span className="visual-pulse">
+          <i /> {isLive ? "API RESULT" : "CONTRACT FIXTURE"}
+        </span>
+      </div>
+      {hasValues ? (
+        <svg className="signal-plot" viewBox="0 0 520 270" aria-hidden="true">
+          {[60, 133, 206].map((line) => (
+            <line
+              key={line}
+              className="plot-gridline"
+              x1="46"
+              x2="462"
+              y1={line}
+              y2={line}
+            />
+          ))}
+          {[0, 1, 2].map((index) => (
+            <line
+              key={index}
+              className="plot-vertical"
+              x1={x(index)}
+              x2={x(index)}
+              y1="55"
+              y2="206"
+            />
+          ))}
+          {series.map((item) => (
+            <g key={item.key} className={item.className}>
+              <polyline
+                points={metrics
+                  .map(
+                    (metric, index) =>
+                      `${x(index)},${y(metric[item.key] ?? 0)}`,
+                  )
+                  .join(" ")}
+              />
+              {metrics.map((metric, index) => (
+                <g key={metric.name}>
+                  <circle
+                    className="plot-halo"
+                    cx={x(index)}
+                    cy={y(metric[item.key] ?? 0)}
+                    r="10"
+                  />
+                  <circle
+                    className="plot-point"
+                    cx={x(index)}
+                    cy={y(metric[item.key] ?? 0)}
+                    r="5"
+                  />
+                  <text
+                    x={x(index)}
+                    y={
+                      y(metric[item.key] ?? 0) +
+                      (item.key === "month_end_value" ? -18 : 23)
+                    }
+                    textAnchor="middle"
+                  >
+                    {Math.round((metric[item.key] ?? 0) * 100)}%
+                  </text>
+                </g>
+              ))}
+            </g>
+          ))}
+          {metrics.map((metric, index) => (
+            <text
+              className="plot-axis-label"
+              key={metric.name}
+              x={x(index)}
+              y="249"
+              textAnchor="middle"
+            >
+              {metric.name === "discount"
+                ? "DISCOUNT"
+                : metric.name === "complaint_30d"
+                  ? "COMPLAINTS"
+                  : "CANCELLATIONS"}
+            </text>
+          ))}
+        </svg>
+      ) : (
+        <div className="plot-empty">
+          No comparable rate data for this window.
+        </div>
+      )}
+      <div className="visual-footer">
+        <span>
+          <i className="legend-dot legend-primary" /> MONTH-END
+        </span>
+        <span>
+          <i className="legend-dot legend-secondary" /> OTHER DEALS
+        </span>
+        <strong>
+          {analysis.flagged ? "SIGNAL DETECTED" : "NO FLAGGED SIGNAL"}
+        </strong>
+      </div>
+    </div>
+  );
+}
+
 function MetricCard({
   metric,
 }: {
@@ -55,6 +202,12 @@ function MetricCard({
                   width: `${Math.min(100, Math.max(0, monthEnd * 100))}%`,
                 }}
               />
+              <span
+                className="bar-pointer pointer-accent"
+                style={{
+                  left: `${Math.min(100, Math.max(0, monthEnd * 100))}%`,
+                }}
+              />
             </div>
             <strong>{Math.round(monthEnd * 100)}%</strong>
           </div>
@@ -64,6 +217,10 @@ function MetricCard({
               <div
                 className="bar-fill bar-muted"
                 style={{ width: `${Math.min(100, Math.max(0, other * 100))}%` }}
+              />
+              <span
+                className="bar-pointer pointer-muted"
+                style={{ left: `${Math.min(100, Math.max(0, other * 100))}%` }}
               />
             </div>
             <strong>{Math.round(other * 100)}%</strong>
@@ -384,31 +541,7 @@ export default function App() {
                     NOT CAUSATION
                   </div>
                 </div>
-                <div className="hero-visual" aria-hidden="true">
-                  <div className="visual-grid" />
-                  <div className="visual-crosshair crosshair-one">+</div>
-                  <div className="visual-crosshair crosshair-two">+</div>
-                  <div className="visual-caption mono">SIGNAL / 001</div>
-                  <div className="visual-bars">
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                  </div>
-                  <div className="visual-rule" />
-                  <div className="visual-number">
-                    {analysis.flagged ? "01" : "00"}
-                    <span> / FLAGGED ANALYSIS</span>
-                  </div>
-                </div>
+                <SignalGraphic analysis={analysis} isLive={live} />
               </div>
               <div className="section-heading">
                 <div>
